@@ -1,6 +1,9 @@
 /**
- * Adds target and rel attributes to all links with the 'external-link' class.
- * This ensures they open in a new tab and follow security best practices.
+ * Sets target and rel attributes to all links with the "external-link" class.
+ * This opens the external links in a new tab, 
+ * ensures the tab cannot access the referrer page, 
+ * doesn't send this page's URL as a referrer, 
+ * and doesn't endorse the linked page for SEO purposes.
  */
 
 function addAttributesToExternalLinks() {
