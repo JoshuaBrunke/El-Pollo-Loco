@@ -1,6 +1,6 @@
 let canvas;
 let ctx;
-let character = new Image();
+let character = new MovableObject();
 
 function init() {
     addAttributesToExternalLinks();
@@ -12,10 +12,14 @@ function loadCanvas() {
     canvas.width = 720;
     canvas.height = 480;
     ctx = canvas.getContext("2d");
-    character.src = "./assets/img/2_character_pepe/2_walk/W-21.png";
+
+console.log("My character is", character);
+
+/*   
+character.src = "./assets/img/2_character_pepe/2_walk/W-21.png";
     character.onload = function() {
         ctx.drawImage(character, 20, 300, 50, 150);
     }
-
+*/
 
 }
