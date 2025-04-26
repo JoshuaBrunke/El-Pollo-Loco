@@ -1,11 +1,7 @@
 let canvas;
 let ctx;
-let character = new Character();
-let enemies = [
-    new Chicken(),
-    new Chicken(),
-    new Chicken(),
-];
+
+let world = new World();
 
 function init() {
     addAttributesToExternalLinks();
@@ -18,7 +14,7 @@ function loadCanvas() {
     canvas.height = 480;
     ctx = canvas.getContext("2d");
 
-console.log("My character is", character);
+console.log("My character is", world.character);
 
 /*   
 character.src = "./assets/img/2_character_pepe/2_walk/W-21.png";
