@@ -12,10 +12,7 @@ class World {
     ];
 
     backgroundObjects = [
-        new BackgroundObject("./assets/img/5_background/layers/air.png", 0),
-        new BackgroundObject("./assets/img/5_background/layers/3_third_layer/2.png", 0, 220),
-        new BackgroundObject("./assets/img/5_background/layers/2_second_layer/1.png", 0),
-        new BackgroundObject("./assets/img/5_background/layers/1_first_layer/1.png", 0),
+        new BackgroundObject("./assets/img/5_background/layers/3_third_layer/2.png", 0),
     ];
 
     canvas;
@@ -33,11 +30,11 @@ class World {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
    
         
-        //Draws the character, background objects, clouds and enemies on the canvas
-        this.addToMap(this.character);
+        //Draws the background objects, clouds, enemies and character on the canvas
         this.addObjectsToMap(this.backgroundObjects);
         this.addObjectsToMap(this.clouds);
         this.addObjectsToMap(this.enemies);
+        this.addToMap(this.character);
 
         //Draw is called in a loop to create an animation effect
         self = this;
