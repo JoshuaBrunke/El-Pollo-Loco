@@ -21,14 +21,22 @@ class Character extends MovableObject{
         this.animate();
     }
 
+
+    /**
+     * Method to animate the character
+     * @description This method is called in a loop to create an animation effect.
+     * It changes the image of the character every 100ms.
+     */
     animate() {
         setInterval(() => {
-            let path = this.imagesWalking[this.currentImage];
+            let i = this.currentImage % this.imagesWalking.length; 
+            // let i = 0 % 6; => 0, Rest 0,
+            // let i = 1 % 6; => 1, Rest 1,
+            //let i = 7 % 6; => 1, Rest 1,
+            //i = 0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5, ...
+            let path = this.imagesWalking[i];
             this.img = this.imageCache[path];
             this.currentImage++;
-            if (this.currentImage >= this.imagesWalking.length) {
-                this.currentImage = 0;
-            }
             this.x += 1;
         }, 1000 / 10); // 1000ms / 10 = 100ms per frame
     }
