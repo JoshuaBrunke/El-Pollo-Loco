@@ -1,5 +1,7 @@
 let canvas;
 let world;
+let keyboard = new Keyboard();
+
 
 function init() {
     addAttributesToExternalLinks();
@@ -15,11 +17,9 @@ function loadCanvas() {
 
 console.log("My character is", world.character);
 
-/*   
-character.src = "./assets/img/2_character_pepe/2_walk/W-21.png";
-    character.onload = function() {
-        ctx.drawImage(character, 20, 300, 50, 150);
-    }
-*/
 
 }
+
+window.addEventListener("keypress", (e) => {
+
+});
