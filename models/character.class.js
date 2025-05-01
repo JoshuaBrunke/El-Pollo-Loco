@@ -37,7 +37,7 @@ class Character extends MovableObject{
             let path = this.imagesWalking[i];
             this.img = this.imageCache[path];
             this.currentImage++;
-            this.x += 1;
+
         }, 1000 / 10); // 1000ms / 10 = 100ms per frame
     }
     /**
