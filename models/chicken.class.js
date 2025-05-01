@@ -6,7 +6,7 @@ class Chicken extends MovableObject {
   imagesWalking = [
     "./assets/img/3_enemies_chicken/chicken_normal/1_walk/1_w.png",
     "./assets/img/3_enemies_chicken/chicken_normal/1_walk/2_w.png",
-    "./assets/img/3_enemies_chicken/chicken_normal/1_walk/3_w.png"
+    "./assets/img/3_enemies_chicken/chicken_normal/1_walk/3_w.png",
   ];
 
   constructor() {
@@ -24,8 +24,7 @@ class Chicken extends MovableObject {
    */
 
   animate() {
-
-      this.moveLeft();
+    this.moveLeft();
 
     setInterval(() => {
       let i = this.currentImage % this.imagesWalking.length;

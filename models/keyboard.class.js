@@ -1,10 +1,9 @@
 class Keyboard {
-    LEFT = false;
-    RIGHT = false;
-    UP = false;
-    DOWN = false;
-    SPACE = false;
-    ENTER = false;
-    ESCAPE = false;
+  LEFT = false;
+  RIGHT = false;
+  UP = false;
+  DOWN = false;
+  SPACE = false;
+  ENTER = false;
+  ESCAPE = false;
 }
-
