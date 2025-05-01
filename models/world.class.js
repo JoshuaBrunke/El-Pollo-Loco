@@ -1,8 +1,7 @@
 class World {
   character = new Character();
-  enemies = level1.enemies;
-  clouds = level1.clouds;
-  backgroundObjects = level1.backgroundObjects;
+  level = level1; // The level variable is used to store the current level of the game
+
 
   canvas;
   ctx;
@@ -29,9 +28,9 @@ class World {
 
 
     //Draws the background objects, clouds, enemies and character on the canvas
-    this.addObjectsToMap(this.backgroundObjects);
-    this.addObjectsToMap(this.clouds);
-    this.addObjectsToMap(this.enemies);
+    this.addObjectsToMap(this.level.backgroundObjects);
+    this.addObjectsToMap(this.level.clouds);
+    this.addObjectsToMap(this.level.enemies);
     this.addToMap(this.character);
 
     this.ctx.translate(-this.camera_x, 0); //
