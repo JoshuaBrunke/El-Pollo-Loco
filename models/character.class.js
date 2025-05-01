@@ -28,10 +28,10 @@ class Character extends MovableObject {
    */
   animate() {
     setInterval(() => {
-      if (this.world.keyboard.RIGHT && this.x < 1350) {
+      if (this.world.keyboard.RIGHT && this.x < 2770) {
         this.x += this.speed;
         this.otherDirection = false;
-      } else if (this.world.keyboard.LEFT && this.x > 0) {
+      } else if (this.world.keyboard.LEFT && this.x > -720) {
         this.x -= this.speed;
         this.otherDirection = true;
       }
@@ -39,7 +39,7 @@ class Character extends MovableObject {
     }, 1000 / 60);
 
     setInterval(() => {
-      if ((this.world.keyboard.RIGHT && this.x < 1350) || (this.world.keyboard.LEFT && this.x > 0)) {
+      if ((this.world.keyboard.RIGHT && this.x < 2770) || (this.world.keyboard.LEFT && this.x > -720)) {
         //Walk animation
         let i = this.currentImage % this.imagesWalking.length;
         let path = this.imagesWalking[i];
