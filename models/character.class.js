@@ -12,7 +12,7 @@ class Character extends MovableObject{
         "./assets/img/2_character_pepe/2_walk/W-25.png",
         "./assets/img/2_character_pepe/2_walk/W-26.png"
     ];
-
+    world;
 
     constructor() {
         super().loadImage("./assets/img/2_character_pepe/2_walk/W-21.png");
@@ -25,20 +25,18 @@ class Character extends MovableObject{
     /**
      * Method to animate the character
      * @description This method is called in a loop to create an animation effect.
-     * It changes the image of the character every 100ms.
+     * It changes the image of the character every 100ms (1000ms / 10 = 100ms per frame).
      */
     animate() {
         setInterval(() => {
-            let i = this.currentImage % this.imagesWalking.length; 
-            // let i = 0 % 6; => 0, Rest 0,
-            // let i = 1 % 6; => 1, Rest 1,
-            //let i = 7 % 6; => 1, Rest 1,
-            //i = 0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5, ...
-            let path = this.imagesWalking[i];
-            this.img = this.imageCache[path];
-            this.currentImage++;
+            if (this.world.keyboard.RIGHT && this.x < 200) {
+                let i = this.currentImage % this.imagesWalking.length; 
+                let path = this.imagesWalking[i];
+                this.img = this.imageCache[path];
+                this.currentImage++;
+            }
 
-        }, 1000 / 10); // 1000ms / 10 = 100ms per frame
+        }, 1000 / 10);
     }
     /**
      * Method to make the character jump
