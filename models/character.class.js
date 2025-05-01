@@ -28,18 +28,18 @@ class Character extends MovableObject {
    */
   animate() {
     setInterval(() => {
-      if (this.world.keyboard.RIGHT && this.x < 1400) {
+      if (this.world.keyboard.RIGHT && this.x < 1350) {
         this.x += this.speed;
         this.otherDirection = false;
       } else if (this.world.keyboard.LEFT && this.x > 0) {
         this.x -= this.speed;
         this.otherDirection = true;
       }
-      this.world.camera_x = -this.x + 100; // Moves the camera to the left by the character's x position
+      this.world.camera_x = -this.x; // Moves the camera to the left by the character's x position
     }, 1000 / 60);
 
     setInterval(() => {
-      if ((this.world.keyboard.RIGHT && this.x < 1400) || (this.world.keyboard.LEFT && this.x > 0)) {
+      if ((this.world.keyboard.RIGHT && this.x < 1350) || (this.world.keyboard.LEFT && this.x > 0)) {
         //Walk animation
         let i = this.currentImage % this.imagesWalking.length;
         let path = this.imagesWalking[i];
