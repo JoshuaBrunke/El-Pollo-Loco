@@ -14,6 +14,7 @@ class World {
   canvas;
   ctx;
   keyboard;
+  camera_x = 0; // The camera_x variable is used to move the camera to the left by the character's x position
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -31,11 +32,16 @@ class World {
     //Clears the canvas before drawing
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
+    this.ctx.translate(this.camera_x, 0); // Moves the canvas to the left by camera_x pixels
+
+
     //Draws the background objects, clouds, enemies and character on the canvas
     this.addObjectsToMap(this.backgroundObjects);
     this.addObjectsToMap(this.clouds);
     this.addObjectsToMap(this.enemies);
     this.addToMap(this.character);
+
+    this.ctx.translate(-this.camera_x, 0); //
 
     //Draw is called in a loop to create an animation effect
     self = this;
