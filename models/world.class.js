@@ -46,34 +46,34 @@ class World {
     });
   }
 
-  addToMap(movableObject) {
+  addToMap(mo) {
     this.ctx.save();
   
-    if (movableObject.otherDirection) {
-      this.ctx.translate(movableObject.x + movableObject.width, movableObject.y);
+    if (mo.otherDirection) {
+      this.ctx.translate(mo.x + mo.width, mo.y);
       this.ctx.scale(-1, 1);
-      movableObject.draw(this.ctx);
-      movableObject.drawFrame(this.ctx);
+      mo.draw(this.ctx);
+      mo.drawFrame(this.ctx);
     } else {
-      this.ctx.translate(movableObject.x, movableObject.y);
-      movableObject.draw(this.ctx);
-      movableObject.drawFrame(this.ctx);
+      this.ctx.translate(mo.x, mo.y);
+      mo.draw(this.ctx);
+      mo.drawFrame(this.ctx);
     }
   
     this.ctx.restore();
   }
   
 
-  flipImage(movableObject) {
+  flipImage(mo) {
     this.ctx.save(); // Save the current state of the canvas
-    this.ctx.translate(movableObject.width, 0); // Move the canvas to the right by the width of the object
+    this.ctx.translate(mo.width, 0); // Move the canvas to the right by the width of the object
     this.ctx.scale(-1, 1); // Flip the canvas horizontally
-    movableObject.draw(movableObject.ctx); // Draw the object on the flipped canvas
-    movableObject.x = movableObject.x * -1; // Flip the x position to the left
+    mo.draw(mo.ctx); // Draw the object on the flipped canvas
+    mo.x = mo.x * -1; // Flip the x position to the left
   }
 
-flipImageBack(movableObject) {
-  movableObject.x = movableObject.x * -1; // Flip the x position back to normal
+flipImageBack(mo) {
+  mo.x = mo.x * -1; // Flip the x position back to normal
   this.ctx.restore(); // Restore the original state of the canvas
 }
 
