@@ -19,6 +19,10 @@ class World {
     this.character.world = this;
   }
 
+  /**
+ * Draws the game world frame by frame.
+ * Clears the canvas, translates camera, draws all objects, and loops.
+ */
   draw() {
     //Clears the canvas before drawing
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -34,50 +38,57 @@ class World {
     this.ctx.translate(-this.camera_x, 0); //
 
     //Draw is called in a loop to create an animation effect
-    self = this;
-    requestAnimationFrame(function () {
-      self.draw();
+    requestAnimationFrame(() => {
+      this.draw(); // Call the draw method again for the next frame
     });
+    
   }
 
+  /**
+ * Adds an array of movable objects to the canvas.
+ * @param {MovableObject[]} objects - The objects to draw on the canvas.
+ */
   addObjectsToMap(objects) {
     objects.forEach((object) => {
       this.addToMap(object);
     });
   }
 
+  /**
+ * Adds a single movable object to the canvas, flipped if needed.
+ * @param {MovableObject} mo - The object to add to the map.
+ */
   addToMap(mo) {
     this.ctx.save();
-  
+
     if (mo.otherDirection) {
-      this.ctx.translate(mo.x + mo.width, mo.y);
-      this.ctx.scale(-1, 1);
-      mo.draw(this.ctx);
-      mo.drawFrame(this.ctx);
+      this.flipContextAndDraw(mo);
     } else {
-      this.ctx.translate(mo.x, mo.y);
-      mo.draw(this.ctx);
-      mo.drawFrame(this.ctx);
+      this.drawNormally(mo);
     }
-  
     this.ctx.restore();
   }
-  
 
-  flipImage(mo) {
-    this.ctx.save(); // Save the current state of the canvas
-    this.ctx.translate(mo.width, 0); // Move the canvas to the right by the width of the object
-    this.ctx.scale(-1, 1); // Flip the canvas horizontally
-    mo.draw(mo.ctx); // Draw the object on the flipped canvas
-    mo.x = mo.x * -1; // Flip the x position to the left
+  /**
+ * Flips and draws a movable object to face left.
+ * @param {MovableObject} mo - The object to draw.
+ */
+  flipContextAndDraw(mo) {
+    this.ctx.translate(mo.x + mo.width, mo.y);
+    this.ctx.scale(-1, 1);
+    mo.draw(this.ctx);
+    mo.drawFrame(this.ctx);
   }
 
-flipImageBack(mo) {
-  mo.x = mo.x * -1; // Flip the x position back to normal
-  this.ctx.restore(); // Restore the original state of the canvas
-}
+  drawNormally(mo) {
+    this.ctx.translate(mo.x, mo.y);
+    mo.draw(this.ctx);
+    mo.drawFrame(this.ctx);
+  }
 
-
+  /**
+ * Checks for collisions between the character and all enemies.
+ */
   checkCollisions() {
     this.level.enemies.forEach((enemy) => {
       if (this.character.isColliding(enemy)) {
@@ -85,6 +96,4 @@ flipImageBack(mo) {
       }
     });
   }
-
-
 }
