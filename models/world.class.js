@@ -1,6 +1,6 @@
 class World {
   character = new Character();
-  level = level1; 
+  level = level1;
 
   canvas;
   ctx;
@@ -24,7 +24,6 @@ class World {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
     this.ctx.translate(this.camera_x, 0); // Moves the canvas to the left by camera_x pixels
-
 
     //Draws the background objects, clouds, enemies and character on the canvas
     this.addObjectsToMap(this.level.backgroundObjects);
@@ -57,5 +56,11 @@ class World {
     } else {
       this.ctx.drawImage(movableObject.img, movableObject.x, movableObject.y, movableObject.width, movableObject.height);
     }
+
+    ctx.beginPath();
+    ctx.lineWidth = "5";
+    ctx.strokeStyle = "blue";
+    ctx.rect(130, 250, 150, 180);
+    ctx.stroke();
   }
 }
