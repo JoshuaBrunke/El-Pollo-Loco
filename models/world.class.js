@@ -1,7 +1,6 @@
 class World {
   character = new Character();
-  level = level1; // The level variable is used to store the current level of the game
-
+  level = level1; 
 
   canvas;
   ctx;

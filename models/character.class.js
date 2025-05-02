@@ -13,12 +13,11 @@ class Character extends MovableObject {
     "./assets/img/2_character_pepe/2_walk/W-26.png",
   ];
   world;
-
   constructor() {
     super().loadImage("./assets/img/2_character_pepe/2_walk/W-21.png");
     this.loadImages(this.imagesWalking);
-
     this.animate();
+
   }
 
   /**
@@ -28,6 +27,8 @@ class Character extends MovableObject {
    */
   animate() {
     setInterval(() => {
+        if (!this.world) return; // Check if world is defined
+      // Moves the character left or right based on keyboard input
       if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
         this.x += this.speed;
         this.otherDirection = false;
@@ -39,12 +40,8 @@ class Character extends MovableObject {
     }, 1000 / 60);
 
     setInterval(() => {
-      if ((this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) || (this.world.keyboard.LEFT && this.x > 0)) {
-        //Walk animation
-        let i = this.currentImage % this.imagesWalking.length;
-        let path = this.imagesWalking[i];
-        this.img = this.imageCache[path];
-        this.currentImage++;
+      if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+        this.playAnimation(this.imagesWalking);
       } else {
         //Idle animation
         this.img = this.imageCache["./assets/img/2_character_pepe/2_walk/W-21.png"];
