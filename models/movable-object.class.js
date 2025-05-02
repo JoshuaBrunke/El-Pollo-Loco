@@ -8,7 +8,31 @@ class MovableObject {
   currentImage = 0;
   speed = 0.15;
   otherDirection = false;
+  speedY = 0;
+  acceleration = 2.5; // Gravity acceleration
+  accelerationY = 0.5; // Jump acceleration
 
+  applyGravity() {
+    setInterval(() => {
+      if (this.isAboveGround) {
+        this.y -= this.speedY;
+        this.speedY -= this.acceleration;
+      } // Gravity effect
+      else if (this.y > 290) {
+        this.y = 290;
+        this.speedY = 0; // Reset speedY when touching the ground
+      }
+    }, 1000 / 25);
+  }
+
+  isAboveGround() {
+    return this.y < 290;
+  }
+
+  /**
+   * Loads an image into the img property.
+   * @param {string} path - The path to the image file.
+   */
   loadImage(path) {
     this.img = new Image();
     this.img.src = path;
