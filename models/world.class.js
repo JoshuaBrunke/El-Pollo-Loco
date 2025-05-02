@@ -80,6 +80,10 @@ class World {
     mo.drawFrame(this.ctx);
   }
 
+  /**
+ * Draws a movable object normally, without flipping.
+ * @param {MovableObject} mo - The object to draw.
+ */
   drawNormally(mo) {
     this.ctx.translate(mo.x, mo.y);
     mo.draw(this.ctx);
