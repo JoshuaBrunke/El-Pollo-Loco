@@ -1,5 +1,7 @@
 class Endboss extends MovableObject {
-
+    y = 55;
+    width = 250;
+    height = 400;
 
     imagesAlert = [
         "./assets/img/4_enemie_boss_chicken/2_alert/G5.png",
@@ -33,9 +35,18 @@ class Endboss extends MovableObject {
     constructor() {
         super().loadImage(this.imagesAlert[0]);
         this.loadImages(this.imagesAlert);
-        this.x = 700; // Set initial x position
-
-
-    
+        this.x = 2500; // Set initial x position
+        this.animate();  
   }
+    /**
+     * Method to animate the endboss
+     * @description This method is called in a loop to create an animation effect.
+     * It changes the image of the endboss.
+     */
+    animate() {
+
+        setInterval(() => {
+            this.playAnimation(this.imagesAlert); // Play the alert animation
+        }, 1500 / 10); // 1500ms / 10 = 150ms per frame
+    }
 }
