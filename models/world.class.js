@@ -55,12 +55,13 @@ class World {
       this.ctx.restore();
     } else {
       this.ctx.drawImage(movableObject.img, movableObject.x, movableObject.y, movableObject.width, movableObject.height);
+      this.ctx.beginPath();
+      this.ctx.lineWidth = "5";
+      this.ctx.strokeStyle = "blue";
+      this.ctx.rect(movableObject.x, movableObject.y, movableObject.width, movableObject.height);
+      this.ctx.stroke();
     }
 
-    ctx.beginPath();
-    ctx.lineWidth = "5";
-    ctx.strokeStyle = "blue";
-    ctx.rect(130, 250, 150, 180);
-    ctx.stroke();
+
   }
 }
