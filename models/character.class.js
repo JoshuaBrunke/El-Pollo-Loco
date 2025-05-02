@@ -44,7 +44,7 @@ class Character extends MovableObject {
       if (!this.world) return; // ✔ make sure world is available
 
       // Jumping input
-      if (this.world.keyboard.SPACE && !this.isAboveGround()) {
+      if (this.world.keyboard.UP && !this.isAboveGround()) {
         this.jump(30); // Jump height
       }
 

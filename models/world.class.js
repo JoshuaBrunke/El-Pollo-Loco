@@ -28,8 +28,9 @@ class World {
     //Draws the background objects, clouds, enemies and character on the canvas
     this.addObjectsToMap(this.level.backgroundObjects);
     this.addObjectsToMap(this.level.clouds);
-    this.addObjectsToMap(this.level.enemies);
     this.addToMap(this.character);
+    this.addObjectsToMap(this.level.enemies);
+    
 
     this.ctx.translate(-this.camera_x, 0); //
 
@@ -59,7 +60,8 @@ class World {
       this.ctx.stroke();
       this.ctx.restore();
     } else {
-      this.ctx.drawImage(movableObject.img, movableObject.x, movableObject.y, movableObject.width, movableObject.height);
+      movableObject.draw(this.ctx); // Calls the draw method of the movableObject class
+     
       this.ctx.beginPath();
       this.ctx.lineWidth = "5";
       this.ctx.strokeStyle = "blue";

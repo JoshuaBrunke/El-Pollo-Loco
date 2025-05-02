@@ -37,6 +37,11 @@ class MovableObject {
     this.img.src = path;
   }
 
+draw(ctx) {
+    ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+
+}
+
   /**
    *
    * @param {Array} arr - ["img/img1.png", "img/img2.png", "img/img3.png", ...]
