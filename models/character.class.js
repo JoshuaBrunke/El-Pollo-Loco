@@ -10,10 +10,10 @@ class Character extends MovableObject {
     "./assets/img/2_character_pepe/2_walk/W-23.png",
     "./assets/img/2_character_pepe/2_walk/W-24.png",
     "./assets/img/2_character_pepe/2_walk/W-25.png",
-    "./assets/img/2_character_pepe/2_walk/W-26.png"
+    "./assets/img/2_character_pepe/2_walk/W-26.png",
   ];
 
-   IMAGES_JUMPING = [
+  IMAGES_JUMPING = [
     "./assets/img/2_character_pepe/3_jump/J-31.png",
     "./assets/img/2_character_pepe/3_jump/J-32.png",
     "./assets/img/2_character_pepe/3_jump/J-33.png",
@@ -22,8 +22,8 @@ class Character extends MovableObject {
     "./assets/img/2_character_pepe/3_jump/J-36.png",
     "./assets/img/2_character_pepe/3_jump/J-37.png",
     "./assets/img/2_character_pepe/3_jump/J-38.png",
-    "./assets/img/2_character_pepe/3_jump/J-39.png"
-   ]
+    "./assets/img/2_character_pepe/3_jump/J-39.png",
+  ];
 
   world;
   constructor() {
@@ -32,7 +32,6 @@ class Character extends MovableObject {
     this.loadImages(this.IMAGES_JUMPING);
     this.applyGravity(); // Apply gravity to the character
     this.animate();
-
   }
 
   /**
@@ -42,35 +41,37 @@ class Character extends MovableObject {
    */
   animate() {
     setInterval(() => {
-        if (!this.world) return; // Check if world is defined
-      // Moves the character left or right based on keyboard input
+      if (!this.world) return; // ✔ make sure world is available
+
+      // Jumping input
+      if (this.world.keyboard.SPACE && !this.isAboveGround()) {
+        this.jump(30); // Jump height
+      }
+
+      // Movement
       if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-        this.x += this.speed;
+        this.moveRight();
         this.otherDirection = false;
       } else if (this.world.keyboard.LEFT && this.x > 0) {
-        this.x -= this.speed;
+        this.moveLeft();
         this.otherDirection = true;
       }
-      this.world.camera_x = -this.x + 100; // Moves the camera to the left by the character's x position
+
+      // Camera movement
+      this.world.camera_x = -this.x + 100;
     }, 1000 / 60);
 
+    // Animation switching (jump, walk, idle)
     setInterval(() => {
+      if (!this.world) return; // 💡 also a safe guard for animation
 
-    //Jump animation
       if (this.isAboveGround()) {
         this.playAnimation(this.IMAGES_JUMPING);
       } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
         this.playAnimation(this.IMAGES_WALKING);
       } else {
-        //Idle animation
         this.img = this.imageCache["./assets/img/2_character_pepe/2_walk/W-21.png"];
       }
     }, 50);
   }
-  /**
-   * Method to make the character jump
-   * @param {number} y - The height to jump to
-   */
-
-  jump() {}
 }

@@ -10,7 +10,7 @@ class Chicken extends MovableObject {
   ];
 
   constructor() {
-    super().loadImage("./assets/img/3_enemies_chicken/chicken_normal/1_walk/1_w.png");
+    super().loadImage(this.IMAGES_WALKING[0]); // Load the first image
     this.loadImages(this.IMAGES_WALKING);
     this.x = 200 + Math.random() * 500; // Random x position between 200 and 700
     this.speed = 0.15 + Math.random() * 0.25; // Random speed between 0.15 and 0.4
@@ -20,12 +20,13 @@ class Chicken extends MovableObject {
   /**
    * Method to animate the chicken
    * @description This method is called in a loop to create an animation effect.
-   * It changes the image of the chicken every 100ms.
+   * It changes the image of the chicken.
    */
 
   animate() {
-    this.moveLeft();
-
+    setInterval(() => {
+      this.moveLeft();
+    }, 1000 / 60); // Move left at 60 FPS
     setInterval(() => {
       this.playAnimation(this.IMAGES_WALKING); // Play the walking animation
     }, 1000 / 10); // 1000ms / 10 = 100ms per frame
