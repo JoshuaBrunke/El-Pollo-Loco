@@ -3,7 +3,7 @@ class Endboss extends MovableObject {
     width = 250;
     height = 400;
 
-    imagesAlert = [
+    IMAGES_ALERT = [
         "./assets/img/4_enemie_boss_chicken/2_alert/G5.png",
         "./assets/img/4_enemie_boss_chicken/2_alert/G6.png",
         "./assets/img/4_enemie_boss_chicken/2_alert/G7.png",
@@ -14,7 +14,7 @@ class Endboss extends MovableObject {
         "./assets/img/4_enemie_boss_chicken/2_alert/G12.png"
     ];
 
-    imagesAttack = [
+    IMAGES_ATTACK = [
         "./assets/img/4_enemie_boss_chicken/3_attack/G13.png",
         "./assets/img/4_enemie_boss_chicken/3_attack/G14.png",
         "./assets/img/4_enemie_boss_chicken/3_attack/G15.png",
@@ -25,7 +25,7 @@ class Endboss extends MovableObject {
         "./assets/img/4_enemie_boss_chicken/3_attack/G20.png"
     ];
 
-    imagesWalking = [
+    IMAGES_WALKING = [
         "./assets/img/4_enemie_boss_chicken/1_walk/G1.png",
         "./assets/img/4_enemie_boss_chicken/1_walk/G2.png",
         "./assets/img/4_enemie_boss_chicken/1_walk/G3.png",
@@ -33,8 +33,8 @@ class Endboss extends MovableObject {
     ];
 
     constructor() {
-        super().loadImage(this.imagesAlert[0]);
-        this.loadImages(this.imagesAlert);
+        super().loadImage(this.IMAGES_ALERT[0]);
+        this.loadImages(this.IMAGES_ALERT);
         this.x = 2500; // Set initial x position
         this.animate();  
   }
@@ -46,7 +46,7 @@ class Endboss extends MovableObject {
     animate() {
 
         setInterval(() => {
-            this.playAnimation(this.imagesAlert); // Play the alert animation
+            this.playAnimation(this.IMAGES_ALERT); // Play the alert animation
         }, 1500 / 10); // 1500ms / 10 = 150ms per frame
     }
 }

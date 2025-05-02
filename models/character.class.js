@@ -4,7 +4,7 @@ class Character extends MovableObject {
   height = 300;
   speed = 10;
 
-  imagesWalking = [
+  IMAGES_WALKING = [
     "./assets/img/2_character_pepe/2_walk/W-21.png",
     "./assets/img/2_character_pepe/2_walk/W-22.png",
     "./assets/img/2_character_pepe/2_walk/W-23.png",
@@ -15,7 +15,7 @@ class Character extends MovableObject {
   world;
   constructor() {
     super().loadImage("./assets/img/2_character_pepe/2_walk/W-21.png");
-    this.loadImages(this.imagesWalking);
+    this.loadImages(this.IMAGES_WALKING);
     this.animate();
 
   }
@@ -41,7 +41,7 @@ class Character extends MovableObject {
 
     setInterval(() => {
       if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-        this.playAnimation(this.imagesWalking);
+        this.playAnimation(this.IMAGES_WALKING);
       } else {
         //Idle animation
         this.img = this.imageCache["./assets/img/2_character_pepe/2_walk/W-21.png"];
