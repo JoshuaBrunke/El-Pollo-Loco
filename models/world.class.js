@@ -52,6 +52,11 @@ class World {
       this.ctx.translate(movableObject.width, 0);
       this.ctx.scale(-1, 1);
       this.ctx.drawImage(movableObject.img, -movableObject.x, movableObject.y, movableObject.width, movableObject.height);
+      this.ctx.beginPath();
+      this.ctx.lineWidth = "5";
+      this.ctx.strokeStyle = "blue";
+      this.ctx.rect(-movableObject.x, movableObject.y, movableObject.width, movableObject.height);
+      this.ctx.stroke();
       this.ctx.restore();
     } else {
       this.ctx.drawImage(movableObject.img, movableObject.x, movableObject.y, movableObject.width, movableObject.height);
