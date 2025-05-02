@@ -14,19 +14,18 @@ class MovableObject {
 
   applyGravity() {
     setInterval(() => {
-      if (this.isAboveGround) {
+      if (this.isAboveGround()) {
         this.y -= this.speedY;
         this.speedY -= this.acceleration;
-      } // Gravity effect
-      else if (this.y > 290) {
-        this.y = 290;
-        this.speedY = 0; // Reset speedY when touching the ground
+      } else {
+        this.speedY = 0;
+        this.y = 140; // Reset to ground level
       }
     }, 1000 / 25);
   }
 
   isAboveGround() {
-    return this.y < 290;
+    return this.y < 140;
   }
 
   /**
