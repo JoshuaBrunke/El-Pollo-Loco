@@ -12,6 +12,14 @@ class MovableObject {
   acceleration = 2.5; // Gravity acceleration
   accelerationY = 0.5; // Jump acceleration
 
+  offset = {
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0
+  };
+  
+
   applyGravity() {
     setInterval(() => {
       if (this.isAboveGround() || this.speedY > 0) {
@@ -52,18 +60,22 @@ class MovableObject {
       ctx.stroke();
     }
   }
-  //character.isColliding(chicken); - Example of how to use this function
   /**
    * Checks if this object is colliding with another movable object.
-   * @param {MovableObject} mo - The other movable object to check for collision.
-   * @returns {boolean} - True if the objects are colliding, false otherwise.
+   * @param {MovableObject} mo - The other movable object to check for collision with.
+   * @param {*} mo 
+   * @returns  {boolean} - True if the objects are colliding, false otherwise.
+   * @description This method checks if the bounding boxes of two movable objects overlap.
    */
   isColliding(mo) {
-    return this.x + this.width > mo.x && 
-    this.x < mo.x + mo.width && 
-    this.y + this.height > mo.y && 
-    this.y < mo.y + mo.height;
+    return (
+      this.x + this.width - this.offset.right > mo.x + mo.offset.left &&
+      this.x + this.offset.left < mo.x + mo.width - mo.offset.right &&
+      this.y + this.height - this.offset.bottom > mo.y + mo.offset.top &&
+      this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom
+    );
   }
+  
 
   /**
    *
