@@ -21,11 +21,11 @@ class Statusbar extends DrawableObject {
   }
 
 //e.g. setPercentage(50) will set the health bar to 50%
-  setPercentage() {
-    this.percentage = this.percentage; // => 0 ... 5
-    let imagePath = this.IMAGES[this.resolveImageIndex()]; // => "assets/img/7_statusbars/1_statusbar/2_statusbar_health/orange/0.png"
-    this.img = this.imageCache[imagePath]; 
-    this.resolveImageIndex(); // => 0 ... 5
+setPercentage(percentage) {
+    this.percentage = percentage;
+    let imagePath = this.IMAGES[this.resolveImageIndex()];
+    this.img = this.imageCache[imagePath];
+  
 }
 
 resolveImageIndex() {
