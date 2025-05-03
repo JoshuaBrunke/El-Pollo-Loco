@@ -49,43 +49,59 @@ class MovableObject {
   }
 
   drawFrame(ctx) {
-    if (this instanceof Character || this instanceof Endboss || this instanceof Chicken) {
-      // 🔵 Draw the full image boundary box
-      ctx.beginPath();
-      ctx.lineWidth = "1";
-      ctx.strokeStyle = "blue";
-      ctx.rect(0, 0, this.width, this.height);
-      ctx.stroke();
-  
-      // 🔴 Draw the offset collision box
-      ctx.beginPath();
-      ctx.lineWidth = "2";
-      ctx.strokeStyle = "red";
-      ctx.rect(
-        this.offset.left,
-        this.offset.top,
-        this.width - this.offset.left - this.offset.right,
-        this.height - this.offset.top - this.offset.bottom
-      );
-      ctx.stroke();
+    if (
+      !DEBUG_MODE ||
+      !DEBUG_MODE_HITBOXES ||
+      !(this instanceof Character || this instanceof Endboss || this instanceof Chicken)
+    ) {
+      return;
     }
+  
+    // 🔵 Draw the full image boundary box
+    ctx.beginPath();
+    ctx.lineWidth = "1";
+    ctx.strokeStyle = "blue";
+    ctx.rect(0, 0, this.width, this.height);
+    ctx.stroke();
+  
+    // 🔴 Draw the offset collision box
+    ctx.beginPath();
+    ctx.lineWidth = "2";
+    ctx.strokeStyle = "red";
+    ctx.rect(
+      this.offset.left,
+      this.offset.top,
+      this.width - this.offset.left - this.offset.right,
+      this.height - this.offset.top - this.offset.bottom
+    );
+    ctx.stroke();
   }
   
-  /**
-   * Checks if this object is colliding with another movable object.
-   * @param {MovableObject} mo - The other movable object to check for collision with.
-   * @param {*} mo
-   * @returns  {boolean} - True if the objects are colliding, false otherwise.
-   * @description This method checks if the bounding boxes of two movable objects overlap.
-   */
+
+/**
+ * //Checks for collision between two objects using their offset hitboxes for more precise detection.
+ * Optionally logs debug info if DEBUG_MODE_COLLISION is enabled.
+ *
+ * @param {MovableObject} mo - The other object to check collision against.
+ * @returns {boolean} True if the objects' offset hitboxes overlap, false otherwise.
+ */
+  
   isColliding(mo) {
-    return (
+    const colliding =
       this.x + this.width - this.offset.right > mo.x + mo.offset.left &&
       this.x + this.offset.left < mo.x + mo.width - mo.offset.right &&
       this.y + this.height - this.offset.bottom > mo.y + mo.offset.top &&
-      this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom
-    );
+      this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom;
+  
+    if (DEBUG_MODE && DEBUG_MODE_COLLISION) {
+      console.log(
+        `[Collision Check] ${this.constructor.name} vs ${mo.constructor.name} → ${colliding ? "✅ Colliding" : "❌ Not Colliding"}`
+      );
+    }
+  
+    return colliding;
   }
+  
 
   /**
    *

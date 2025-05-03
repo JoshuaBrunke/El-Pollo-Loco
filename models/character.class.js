@@ -81,4 +81,13 @@ class Character extends MovableObject {
       }
     }, 50);
   }
+
+  /**
+ * Handles the character being hit by an enemy.
+ * To be expanded later with damage logic and animations.
+ */
+  hit() {
+    console.log("Pepe got hit!");
+  }
+  
 }
