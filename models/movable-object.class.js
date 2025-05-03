@@ -52,7 +52,12 @@ class MovableObject {
       ctx.stroke();
     }
   }
-
+  //character.isColliding(chicken); - Example of how to use this function
+  /**
+   * Checks if this object is colliding with another movable object.
+   * @param {MovableObject} mo - The other movable object to check for collision.
+   * @returns {boolean} - True if the objects are colliding, false otherwise.
+   */
   isColliding(mo) {
     return this.x + this.width > mo.x && 
     this.x < mo.x + mo.width && 

@@ -13,11 +13,25 @@ class World {
     this.keyboard = keyboard;
     this.draw();
     this.setWorld();
+    this.checkCollisions();
   }
 
   setWorld() {
     this.character.world = this;
   }
+
+/**
+ * Checks for collisions between the character and all enemies ca. once per visual frame.
+ */
+checkCollisions() {
+  setInterval(() => {
+    this.level.enemies.forEach((enemy) => {
+      if (this.character.isColliding(enemy)) {
+        this.character.hit();
+      }
+    });
+  }, 1000 / 60); // 60 frames per second
+}
 
   /**
  * Draws the game world frame by frame.
@@ -90,14 +104,5 @@ class World {
     mo.drawFrame(this.ctx);
   }
 
-  /**
- * Checks for collisions between the character and all enemies.
- */
-  checkCollisions() {
-    this.level.enemies.forEach((enemy) => {
-      if (this.character.isColliding(enemy)) {
-        this.character.hit(); 
-      }
-    });
-  }
+
 }
