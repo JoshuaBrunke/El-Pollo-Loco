@@ -6,7 +6,7 @@ class World {
   keyboard;
   camera_x = 0; // The camera_x variable is used to move the camera to the left by the character's x position
   statusbar = new Statusbar();
-  throwableObjects = [new ThrowableObject()]; // Array of throwable objects
+  throwableObjects = []; // Array of throwable objects
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -14,7 +14,7 @@ class World {
     this.keyboard = keyboard;
     this.draw();
     this.setWorld();
-    this.checkCollisions();
+    this.run();
   }
 
   setWorld() {
@@ -24,16 +24,31 @@ class World {
   /**
    * Checks for collisions between the character and all enemies ca. once per visual frame.
    */
-  checkCollisions() {
+  run() {
     setInterval(() => {
+      this.checkCollisions(); 
+      this.checkThrowObjects();
+    }, 1000 / 60); // 60 FPS
+  }
+
+  checkThrowObjects() {
+    // Check if the character is throwing an object and if so, add it to the world
+    if (this.keyboard.SPACE && this.character.isAboveGround()) {
+      let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100); // Create a new throwable object
+      this.throwableObjects.push(bottle);
+      this.keyboard.SPACE = false; // Reset the space key to prevent multiple throws
+    }
+  }
+
+  checkCollisions() {
+      // Check for collisions between the character and all enemies
       this.level.enemies.forEach((enemy) => {
         if (this.character.isColliding(enemy) && this.character.canBeHit()) {
           this.character.hit();
           this.statusbar.setPercentage(this.character.energy);
         }
-      });
-    }, 1000 / 60);
-  }
+    });
+}
 
   /**
    * Draws the game world frame by frame.
