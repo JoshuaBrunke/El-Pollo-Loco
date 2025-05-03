@@ -16,9 +16,8 @@ class MovableObject {
     top: 0,
     bottom: 0,
     left: 0,
-    right: 0
+    right: 0,
   };
-  
 
   applyGravity() {
     setInterval(() => {
@@ -51,19 +50,31 @@ class MovableObject {
 
   drawFrame(ctx) {
     if (this instanceof Character || this instanceof Endboss || this instanceof Chicken) {
-    }
-    {
+      // 🔵 Draw the full image boundary box
       ctx.beginPath();
-      ctx.lineWidth = "5";
+      ctx.lineWidth = "1";
       ctx.strokeStyle = "blue";
       ctx.rect(0, 0, this.width, this.height);
       ctx.stroke();
+  
+      // 🔴 Draw the offset collision box
+      ctx.beginPath();
+      ctx.lineWidth = "2";
+      ctx.strokeStyle = "red";
+      ctx.rect(
+        this.offset.left,
+        this.offset.top,
+        this.width - this.offset.left - this.offset.right,
+        this.height - this.offset.top - this.offset.bottom
+      );
+      ctx.stroke();
     }
   }
+  
   /**
    * Checks if this object is colliding with another movable object.
    * @param {MovableObject} mo - The other movable object to check for collision with.
-   * @param {*} mo 
+   * @param {*} mo
    * @returns  {boolean} - True if the objects are colliding, false otherwise.
    * @description This method checks if the bounding boxes of two movable objects overlap.
    */
@@ -75,7 +86,6 @@ class MovableObject {
       this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom
     );
   }
-  
 
   /**
    *
