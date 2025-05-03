@@ -46,7 +46,10 @@ class World {
 
     //Draws the background objects, clouds, enemies and character on the canvas
     this.addObjectsToMap(this.level.backgroundObjects);
+    this.ctx.translate(-this.camera_x, 0); // Moves the canvas back to the right by camera_x pixels
+    //---space for fixed objects---
     this.addToMap(this.statusbar);
+    this.ctx.translate(this.camera_x, 0); // Moves the canvas to the left by camera_x pixels
     this.addObjectsToMap(this.level.clouds);
     this.addObjectsToMap(this.level.enemies);
     this.addToMap(this.character);
