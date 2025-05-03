@@ -96,7 +96,7 @@ class World {
   checkCollisions() {
     this.level.enemies.forEach((enemy) => {
       if (this.character.isColliding(enemy)) {
-        this.character.hit(); // Call the hit method of the character class
+        this.character.hit(); 
       }
     });
   }

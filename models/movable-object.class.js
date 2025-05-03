@@ -40,16 +40,25 @@ class MovableObject {
   draw(ctx) {
     ctx.drawImage(this.img, 0, 0, this.width, this.height);
   }
-  
-  drawFrame(ctx) {
-    ctx.beginPath();
-    ctx.lineWidth = "5";
-    ctx.strokeStyle = "blue";
-    ctx.rect(0, 0, this.width, this.height);
-    ctx.stroke();
-  }
-  
 
+  drawFrame(ctx) {
+    if (this instanceof Character || this instanceof Endboss || this instanceof Chicken) {
+    }
+    {
+      ctx.beginPath();
+      ctx.lineWidth = "5";
+      ctx.strokeStyle = "blue";
+      ctx.rect(0, 0, this.width, this.height);
+      ctx.stroke();
+    }
+  }
+
+  isColliding(mo) {
+    return this.x + this.width > mo.x && 
+    this.x < mo.x + mo.width && 
+    this.y + this.height > mo.y && 
+    this.y < mo.y + mo.height;
+  }
 
   /**
    *
