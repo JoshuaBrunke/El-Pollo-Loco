@@ -136,4 +136,14 @@ class MovableObject {
     const now = new Date().getTime();
     return now - this.lastHit > 1000; // 1 second cooldown
   }
+
+  hit() {
+    if (this.canBeHit()) {
+      this.energy -= 2;
+      if (this.energy < 0) {
+        this.energy = 0; // Prevents negative energy
+      }
+      this.lastHit = new Date().getTime();
+    }
+  }
 }
