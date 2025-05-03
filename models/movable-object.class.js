@@ -146,4 +146,12 @@ class MovableObject {
       this.lastHit = new Date().getTime();
     }
   }
+
+  isDead() {
+    return this.energy <= 0;
+  }
+  
+  isHurt() {
+    return this.energy < 100;
+  }
 }
