@@ -10,8 +10,6 @@ class ThrowableObject extends MovableObject {
   }
 
   throw() {
-    this.x = x;
-    this.y = y;
     this.speedX = 20; // Set the horizontal speed of the object
     this.speedY = 20; // Set the vertical speed of the object
     this.applyGravity(); // Apply gravity to the object
