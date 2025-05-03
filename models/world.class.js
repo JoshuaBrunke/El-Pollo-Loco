@@ -6,6 +6,7 @@ class World {
   ctx;
   keyboard;
   camera_x = 0; // The camera_x variable is used to move the camera to the left by the character's x position
+  statusbar = new Statusbar();
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -45,6 +46,7 @@ class World {
 
     //Draws the background objects, clouds, enemies and character on the canvas
     this.addObjectsToMap(this.level.backgroundObjects);
+    this.addToMap(this.statusbar);
     this.addObjectsToMap(this.level.clouds);
     this.addObjectsToMap(this.level.enemies);
     this.addToMap(this.character);

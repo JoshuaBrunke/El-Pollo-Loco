@@ -30,30 +30,7 @@ class MovableObject extends DrawableObject {
     return this.y < 140;
   }
 
-  drawFrame(ctx) {
-    if (!DEBUG_MODE || !DEBUG_MODE_HITBOXES || !(this instanceof Character || this instanceof Endboss || this instanceof Chicken)) {
-      return;
-    }
 
-    // 🔵 Draws the full image boundary box
-    ctx.beginPath();
-    ctx.lineWidth = "1";
-    ctx.strokeStyle = "blue";
-    ctx.rect(0, 0, this.width, this.height);
-    ctx.stroke();
-
-    // 🔴 Draws the offset collision box
-    ctx.beginPath();
-    ctx.lineWidth = "2";
-    ctx.strokeStyle = "red";
-    ctx.rect(
-      this.offset.left,
-      this.offset.top,
-      this.width - this.offset.left - this.offset.right,
-      this.height - this.offset.top - this.offset.bottom
-    );
-    ctx.stroke();
-  }
 
   /**
    * //Checks for collision between two objects using their offset hitboxes for more precise detection.
@@ -106,7 +83,7 @@ class MovableObject extends DrawableObject {
   hit() {
     if (!this.canBeHit()) return;
 
-    this.energy -= 2;
+    this.energy -= 5;
     if (this.energy < 0) this.energy = 0;
 
     this.lastHit = new Date().getTime();

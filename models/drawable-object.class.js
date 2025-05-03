@@ -20,6 +20,31 @@ class DrawableObject {
     ctx.drawImage(this.img, 0, 0, this.width, this.height);
   }
 
+  drawFrame(ctx) {
+    if (!DEBUG_MODE || !DEBUG_MODE_HITBOXES || !(this instanceof Character || this instanceof Endboss || this instanceof Chicken)) {
+      return;
+    }
+
+    // 🔵 Draws the full image boundary box
+    ctx.beginPath();
+    ctx.lineWidth = "1";
+    ctx.strokeStyle = "blue";
+    ctx.rect(0, 0, this.width, this.height);
+    ctx.stroke();
+
+    // 🔴 Draws the offset collision box
+    ctx.beginPath();
+    ctx.lineWidth = "2";
+    ctx.strokeStyle = "red";
+    ctx.rect(
+      this.offset.left,
+      this.offset.top,
+      this.width - this.offset.left - this.offset.right,
+      this.height - this.offset.top - this.offset.bottom
+    );
+    ctx.stroke();
+  }
+
   /**
    *
    * @param {Array} arr - ["img/img1.png", "img/img2.png", "img/img3.png", ...]
