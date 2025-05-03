@@ -3,6 +3,8 @@ class Character extends MovableObject {
   width = 100;
   height = 300;
   speed = 10;
+  isCurrentlyHurt = false;
+  isCurrentlyDead = false;
 
   IMAGES_WALKING = [
     "./assets/img/2_character_pepe/2_walk/W-21.png",
@@ -55,7 +57,7 @@ class Character extends MovableObject {
       right: 30,
     };
 
-    this.applyGravity(); 
+    this.applyGravity();
     this.animate();
   }
 
@@ -65,25 +67,18 @@ class Character extends MovableObject {
    * It changes the image of the character.
    */
   animate() {
+    // 👟 Movement & camera logic
     setInterval(() => {
-      if (!this.world) return; // ✔ make sure world is available
+      if (!this.world) return;
 
       if (this.isDead()) {
-        this.playAnimation(this.IMAGES_DEAD); // Play the dead animation
-        return; // Stop further execution if dead
+        return; // Don't move when dead
       }
 
-      if (this.isHurt()) {
-        this.playAnimation(this.IMAGES_HURT); // Play the hurt animation
-        return; // Stop further execution if hurt
-      }
-
-      // Jumping input
       if (this.world.keyboard.UP && !this.isAboveGround()) {
-        this.jump(30); // Jump height
+        this.jump(30);
       }
 
-      // Movement
       if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
         this.moveRight();
         this.otherDirection = false;
@@ -92,21 +87,24 @@ class Character extends MovableObject {
         this.otherDirection = true;
       }
 
-      // Camera movement
       this.world.camera_x = -this.x + 100;
     }, 1000 / 60);
 
-    // Animation switching (jump, walk, idle)
+    // 🎞️ Animation logic (walk, jump, hurt, dead)
     setInterval(() => {
-      if (!this.world) return; // 💡 also a safe guard for animation
+      if (!this.world) return;
 
-      if (this.isAboveGround()) {
+      if (this.isDead()) {
+        this.playAnimation(this.IMAGES_DEAD);
+      } else if (this.isCurrentlyHurt) {
+        this.playAnimation(this.IMAGES_HURT);
+      } else if (this.isAboveGround()) {
         this.playAnimation(this.IMAGES_JUMPING);
       } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
         this.playAnimation(this.IMAGES_WALKING);
       } else {
         this.img = this.imageCache["./assets/img/2_character_pepe/2_walk/W-21.png"];
       }
-    }, 50);
+    }, 100);
   }
 }

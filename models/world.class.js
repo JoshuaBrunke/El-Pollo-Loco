@@ -20,23 +20,23 @@ class World {
     this.character.world = this;
   }
 
-/**
- * Checks for collisions between the character and all enemies ca. once per visual frame.
- */
-checkCollisions() {
-  setInterval(() => {
-    this.level.enemies.forEach((enemy) => {
-      if (this.character.isColliding(enemy)) {
-        this.character.hit();
-      }
-    });
-  }, 1000 / 60); // 60 frames per second
-}
+  /**
+   * Checks for collisions between the character and all enemies ca. once per visual frame.
+   */
+  checkCollisions() {
+    setInterval(() => {
+      this.level.enemies.forEach((enemy) => {
+        if (this.character.isColliding(enemy) && this.character.canBeHit()) {
+          this.character.hit();
+        }
+      });
+    }, 1000 / 60);
+  }
 
   /**
- * Draws the game world frame by frame.
- * Clears the canvas, translates camera, draws all objects, and loops.
- */
+   * Draws the game world frame by frame.
+   * Clears the canvas, translates camera, draws all objects, and loops.
+   */
   draw() {
     //Clears the canvas before drawing
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -55,13 +55,12 @@ checkCollisions() {
     requestAnimationFrame(() => {
       this.draw(); // Call the draw method again for the next frame
     });
-    
   }
 
   /**
- * Adds an array of movable objects to the canvas.
- * @param {MovableObject[]} objects - The objects to draw on the canvas.
- */
+   * Adds an array of movable objects to the canvas.
+   * @param {MovableObject[]} objects - The objects to draw on the canvas.
+   */
   addObjectsToMap(objects) {
     objects.forEach((object) => {
       this.addToMap(object);
@@ -69,9 +68,9 @@ checkCollisions() {
   }
 
   /**
- * Adds a single movable object to the canvas, flipped if needed.
- * @param {MovableObject} mo - The object to add to the map.
- */
+   * Adds a single movable object to the canvas, flipped if needed.
+   * @param {MovableObject} mo - The object to add to the map.
+   */
   addToMap(mo) {
     this.ctx.save();
 
@@ -84,9 +83,9 @@ checkCollisions() {
   }
 
   /**
- * Flips and draws a movable object to face left.
- * @param {MovableObject} mo - The object to draw.
- */
+   * Flips and draws a movable object to face left.
+   * @param {MovableObject} mo - The object to draw.
+   */
   flipContextAndDraw(mo) {
     this.ctx.translate(mo.x + mo.width, mo.y);
     this.ctx.scale(-1, 1);
@@ -95,14 +94,12 @@ checkCollisions() {
   }
 
   /**
- * Draws a movable object normally, without flipping.
- * @param {MovableObject} mo - The object to draw.
- */
+   * Draws a movable object normally, without flipping.
+   * @param {MovableObject} mo - The object to draw.
+   */
   drawNormally(mo) {
     this.ctx.translate(mo.x, mo.y);
     mo.draw(this.ctx);
     mo.drawFrame(this.ctx);
   }
-
-
 }

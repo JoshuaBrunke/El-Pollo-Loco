@@ -138,20 +138,26 @@ class MovableObject {
   }
 
   hit() {
-    if (this.canBeHit()) {
-      this.energy -= 2;
-      if (this.energy < 0) {
-        this.energy = 0; // Prevents negative energy
-      }
-      this.lastHit = new Date().getTime();
-    }
+    if (!this.canBeHit()) return;
+
+    this.energy -= 2;
+    if (this.energy < 0) this.energy = 0;
+
+    this.lastHit = new Date().getTime();
+    this.isCurrentlyHurt = true;
+
+    // Clear the hurt flag after 500ms
+    setTimeout(() => {
+      this.isCurrentlyHurt = false;
+    }, 500);
   }
 
   isDead() {
     return this.energy <= 0;
   }
-  
+
   isHurt() {
-    return this.energy < 100;
+    const timeSinceLastHit = new Date().getTime() - this.lastHit;
+    return timeSinceLastHit < 1000; // Hurt animation plays for 1 second
   }
 }
