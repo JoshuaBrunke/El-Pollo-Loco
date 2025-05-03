@@ -34,9 +34,9 @@ class Character extends MovableObject {
       top: 150,
       bottom: 15,
       left: 20,
-      right: 30
+      right: 30,
     };
-    
+
     this.applyGravity(); // Apply gravity to the character
     this.animate();
   }
@@ -83,11 +83,15 @@ class Character extends MovableObject {
   }
 
   /**
- * Handles the character being hit by an enemy.
- * To be expanded later with damage logic and animations.
- */
+   * Handles the character being hit by an enemy.
+   * To be expanded later with damage logic and animations.
+   */
   hit() {
-    console.log("Pepe got hit!");
+    if (this.canBeHit()) {
+      this.energy -= 2;
+      console.log("Pepe got hit! Energy left: " + this.energy);
+      this.lastHit = new Date().getTime();
+
+    }
   }
-  
 }

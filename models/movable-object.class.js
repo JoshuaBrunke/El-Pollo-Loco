@@ -11,6 +11,8 @@ class MovableObject {
   speedY = 0;
   acceleration = 2.5; // Gravity acceleration
   accelerationY = 0.5; // Jump acceleration
+  energy = 100; // Starting health points
+  lastHit = 0; // timestamp of last hit in milliseconds
 
   offset = {
     top: 0,
@@ -49,22 +51,18 @@ class MovableObject {
   }
 
   drawFrame(ctx) {
-    if (
-      !DEBUG_MODE ||
-      !DEBUG_MODE_HITBOXES ||
-      !(this instanceof Character || this instanceof Endboss || this instanceof Chicken)
-    ) {
+    if (!DEBUG_MODE || !DEBUG_MODE_HITBOXES || !(this instanceof Character || this instanceof Endboss || this instanceof Chicken)) {
       return;
     }
-  
-    // 🔵 Draw the full image boundary box
+
+    // 🔵 Draws the full image boundary box
     ctx.beginPath();
     ctx.lineWidth = "1";
     ctx.strokeStyle = "blue";
     ctx.rect(0, 0, this.width, this.height);
     ctx.stroke();
-  
-    // 🔴 Draw the offset collision box
+
+    // 🔴 Draws the offset collision box
     ctx.beginPath();
     ctx.lineWidth = "2";
     ctx.strokeStyle = "red";
@@ -76,32 +74,30 @@ class MovableObject {
     );
     ctx.stroke();
   }
-  
 
-/**
- * //Checks for collision between two objects using their offset hitboxes for more precise detection.
- * Optionally logs debug info if DEBUG_MODE_COLLISION is enabled.
- *
- * @param {MovableObject} mo - The other object to check collision against.
- * @returns {boolean} True if the objects' offset hitboxes overlap, false otherwise.
- */
-  
+  /**
+   * //Checks for collision between two objects using their offset hitboxes for more precise detection.
+   * Optionally logs debug info if DEBUG_MODE_COLLISION is enabled.
+   *
+   * @param {MovableObject} mo - The other object to check collision against.
+   * @returns {boolean} True if the objects' offset hitboxes overlap, false otherwise.
+   */
+
   isColliding(mo) {
     const colliding =
       this.x + this.width - this.offset.right > mo.x + mo.offset.left &&
       this.x + this.offset.left < mo.x + mo.width - mo.offset.right &&
       this.y + this.height - this.offset.bottom > mo.y + mo.offset.top &&
       this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom;
-  
+
     if (DEBUG_MODE && DEBUG_MODE_COLLISION) {
       console.log(
         `[Collision Check] ${this.constructor.name} vs ${mo.constructor.name} → ${colliding ? "✅ Colliding" : "❌ Not Colliding"}`
       );
     }
-  
+
     return colliding;
   }
-  
 
   /**
    *
@@ -134,5 +130,10 @@ class MovableObject {
 
   jump() {
     this.speedY = 30; // Set the speedY to a positive value to make the object jump
+  }
+
+  canBeHit() {
+    const now = new Date().getTime();
+    return now - this.lastHit > 1000; // 1 second cooldown
   }
 }
