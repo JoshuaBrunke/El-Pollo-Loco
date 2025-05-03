@@ -1,12 +1,12 @@
 class World {
   character = new Character();
   level = level1;
-
   canvas;
   ctx;
   keyboard;
   camera_x = 0; // The camera_x variable is used to move the camera to the left by the character's x position
   statusbar = new Statusbar();
+  throwableObjects = [new ThrowableObject()]; // Array of throwable objects
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -53,6 +53,7 @@ class World {
     this.ctx.translate(this.camera_x, 0); // Moves the canvas to the left by camera_x pixels
     this.addObjectsToMap(this.level.clouds);
     this.addObjectsToMap(this.level.enemies);
+    this.addObjectsToMap(this.throwableObjects); // Draws the throwable objects
     this.addToMap(this.character);
 
     this.ctx.translate(-this.camera_x, 0); //
