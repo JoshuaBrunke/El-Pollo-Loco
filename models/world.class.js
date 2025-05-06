@@ -32,11 +32,11 @@ class World {
   }
 
   checkThrowObjects() {
-    // Check if the character is throwing an object and if so, add it to the world
+    // Checks if the character is throwing an object and if so, add it to the world
     if (this.keyboard.SPACE ) {
-      let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100); // Create a new throwable object
+      let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100); // Creates a new throwable object
       this.throwableObjects.push(bottle);
-      this.keyboard.SPACE = false; // Reset the space key to prevent multiple throws
+      this.keyboard.SPACE = false; // Resets the space key to prevent multiple throws
     }
   }
 
