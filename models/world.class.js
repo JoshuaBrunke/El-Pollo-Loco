@@ -5,7 +5,8 @@ class World {
   ctx;
   keyboard;
   camera_x = 0; // The camera_x variable is used to move the camera to the left by the character's x position
-  statusbar = new Statusbar();
+  statusbar = new HealthBar();
+
   throwableObjects = []; // Array of throwable objects
 
   constructor(canvas, keyboard) {
