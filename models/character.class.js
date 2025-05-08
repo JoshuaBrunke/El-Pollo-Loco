@@ -44,7 +44,6 @@ class Character extends MovableObject {
   ];
 
   IMAGES_IDLE = [
-
     "./assets/img/2_character_pepe/1_idle/idle/I-2.png",
     "./assets/img/2_character_pepe/1_idle/idle/I-3.png",
     "./assets/img/2_character_pepe/1_idle/idle/I-4.png",
@@ -53,21 +52,21 @@ class Character extends MovableObject {
     "./assets/img/2_character_pepe/1_idle/idle/I-7.png",
     "./assets/img/2_character_pepe/1_idle/idle/I-8.png",
     "./assets/img/2_character_pepe/1_idle/idle/I-9.png",
-    "./assets/img/2_character_pepe/1_idle/idle/I-10.png"
+    "./assets/img/2_character_pepe/1_idle/idle/I-10.png",
   ];
 
-IMAGES_SLEEP = [
-  "./assets/img/2_character_pepe/1_idle/long_idle/I-11.png",
-  "./assets/img/2_character_pepe/1_idle/long_idle/I-12.png",
-  "./assets/img/2_character_pepe/1_idle/long_idle/I-13.png",
-  "./assets/img/2_character_pepe/1_idle/long_idle/I-14.png",
-  "./assets/img/2_character_pepe/1_idle/long_idle/I-15.png",
-  "./assets/img/2_character_pepe/1_idle/long_idle/I-16.png",
-  "./assets/img/2_character_pepe/1_idle/long_idle/I-17.png",
-  "./assets/img/2_character_pepe/1_idle/long_idle/I-18.png",
-  "./assets/img/2_character_pepe/1_idle/long_idle/I-19.png",
-  "./assets/img/2_character_pepe/1_idle/long_idle/I-20.png"
-];
+  IMAGES_SLEEP = [
+    "./assets/img/2_character_pepe/1_idle/long_idle/I-11.png",
+    "./assets/img/2_character_pepe/1_idle/long_idle/I-12.png",
+    "./assets/img/2_character_pepe/1_idle/long_idle/I-13.png",
+    "./assets/img/2_character_pepe/1_idle/long_idle/I-14.png",
+    "./assets/img/2_character_pepe/1_idle/long_idle/I-15.png",
+    "./assets/img/2_character_pepe/1_idle/long_idle/I-16.png",
+    "./assets/img/2_character_pepe/1_idle/long_idle/I-17.png",
+    "./assets/img/2_character_pepe/1_idle/long_idle/I-18.png",
+    "./assets/img/2_character_pepe/1_idle/long_idle/I-19.png",
+    "./assets/img/2_character_pepe/1_idle/long_idle/I-20.png",
+  ];
 
   world;
   constructor() {
@@ -121,10 +120,21 @@ IMAGES_SLEEP = [
     // 🎞️ Animation logic (walk, jump, hurt, dead)
     setInterval(() => {
       if (!this.world) return;
-
       if (this.isDead()) {
-        this.playAnimation(this.IMAGES_DEAD);
-      } else if (this.isCurrentlyHurt) {
+        if (!this.isCurrentlyDead) {
+          this.isCurrentlyDead = true;
+          this.currentImage = 0;
+        }
+        if (this.currentImage < this.IMAGES_DEAD.length) {
+          this.playAnimation(this.IMAGES_DEAD);
+        } else {
+          // Stay frozen on last frame
+          this.img = this.imageCache[this.IMAGES_DEAD[this.IMAGES_DEAD.length - 1]];
+        }
+        return; // Exit after handling dead logic
+      }
+
+      if (this.isCurrentlyHurt) {
         this.playAnimation(this.IMAGES_HURT);
       } else if (this.isAboveGround()) {
         this.playAnimation(this.IMAGES_JUMPING);
