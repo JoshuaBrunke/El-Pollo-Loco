@@ -5,7 +5,7 @@ class World {
   ctx;
   keyboard;
   camera_x = 0; // The camera_x variable is used to move the camera to the left by the character's x position
-  statusbar = new HealthBar();
+  healthBar = new HealthBar();
 
   throwableObjects = []; // Array of throwable objects
 
@@ -46,7 +46,7 @@ class World {
       this.level.enemies.forEach((enemy) => {
         if (this.character.isColliding(enemy) && this.character.canBeHit()) {
           this.character.hit();
-          this.statusbar.setPercentage(this.character.energy);
+          this.healthBar.setPercentage(this.character.energy);
         }
     });
 }
@@ -65,7 +65,7 @@ class World {
     this.addObjectsToMap(this.level.backgroundObjects);
     this.ctx.translate(-this.camera_x, 0); // Moves the canvas back to the right by camera_x pixels
     //---space for fixed objects---
-    this.addToMap(this.statusbar);
+    this.addToMap(this.healthBar);
     this.ctx.translate(this.camera_x, 0); // Moves the canvas to the left by camera_x pixels
     this.addObjectsToMap(this.level.clouds);
     this.addObjectsToMap(this.level.enemies);
