@@ -1,4 +1,15 @@
 class MutantChicken extends ChickenBase {
+    y = 340;
+    width = 90;
+    height = 90;
+  
+    offset = {
+      top: 13,
+      bottom: 10,
+      left: 9,
+      right: 9,
+    };
+  
     constructor() {
       super();
       const IMAGES_WALKING = [
@@ -14,6 +25,7 @@ class MutantChicken extends ChickenBase {
         speed: 0.25 + Math.random() * 0.3,
         energy: 10,
         imageDead: IMAGE_DEAD,
+        damage: 10, // stronger damage
       });
       this.animate();
     }

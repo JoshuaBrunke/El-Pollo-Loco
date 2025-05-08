@@ -12,7 +12,9 @@ class Chicken extends ChickenBase {
       this.setDefaults({
         x: 200 + Math.random() * 500,
         speed: 0.15 + Math.random() * 0.25,
+        energy: 5,
         imageDead: IMAGE_DEAD,
+        damage: 5, // light damage
       });
       this.animate();
     }

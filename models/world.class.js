@@ -27,14 +27,14 @@ class World {
    */
   run() {
     setInterval(() => {
-      this.checkCollisions(); 
+      this.checkCollisions();
       this.checkThrowObjects();
     }, 1000 / 60); // 60 FPS
   }
 
   checkThrowObjects() {
     // Checks if the character is throwing an object and if so, add it to the world
-    if (this.keyboard.SPACE ) {
+    if (this.keyboard.SPACE) {
       let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100); // Creates a new throwable object
       this.throwableObjects.push(bottle);
       this.keyboard.SPACE = false; // Resets the space key to prevent multiple throws
@@ -42,14 +42,15 @@ class World {
   }
 
   checkCollisions() {
-      // Check for collisions between the character and all enemies
-      this.level.enemies.forEach((enemy) => {
-        if (this.character.isColliding(enemy) && this.character.canBeHit()) {
-          this.character.hit();
-          this.healthBar.setPercentage(this.character.energy);
-        }
+    // Check for collisions between the character and all enemies
+    this.level.enemies.forEach((enemy) => {
+      if (this.character.isColliding(enemy) && this.character.canBeHit()) {
+        const damage = enemy.damage || 5; // fallback to 5 if damage isn't defined
+        this.character.hit(damage);
+        this.healthBar.setPercentage(this.character.energy);
+      }
     });
-}
+  }
 
   /**
    * Draws the game world frame by frame.

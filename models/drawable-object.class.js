@@ -21,7 +21,7 @@ class DrawableObject {
   }
 
   drawFrame(ctx) {
-    if (!DEBUG_MODE || !DEBUG_MODE_HITBOXES || !(this instanceof Character || this instanceof Endboss || this instanceof Chicken)) {
+    if (!DEBUG_MODE || !DEBUG_MODE_HITBOXES || !(this instanceof Character || this instanceof Endboss || this instanceof ChickenBase)) {
       return;
     }
 

@@ -85,20 +85,21 @@ class MovableObject extends DrawableObject {
     return now - this.lastHit > 1000; // 1 second cooldown
   }
 
-  hit() {
+  hit(damage = 5) {
     if (!this.canBeHit()) return;
-
-    this.energy -= 5;
+  
+    this.energy -= damage;
     if (this.energy < 0) this.energy = 0;
-
+  
     this.lastHit = new Date().getTime();
     this.isCurrentlyHurt = true;
-
-    // Clear the hurt flag after 500ms
+  
+    // Clear hurt flag after 500ms
     setTimeout(() => {
       this.isCurrentlyHurt = false;
     }, 500);
   }
+  
 
   isDead() {
     return this.energy <= 0;
