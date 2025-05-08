@@ -10,19 +10,21 @@ class ChickenBase extends MovableObject {
     right: 0,
   };
 
-  constructor(imagesWalking, imageDead) {
-    super().loadImage(imagesWalking[0]);
-    this.loadImages(imagesWalking);
-    this.IMAGE_DEAD = imageDead;
-    this.animate();
-  }
-
   animate() {
-    setInterval(() => this.moveLeft(), 1000 / 60);
-    setInterval(() => this.playAnimation(this.IMAGES_WALKING), 100);
+    setInterval(() => this.moveLeft(), 1000 / 60); // Movement loop
+    setInterval(() => this.playAnimation(this.IMAGES_WALKING), 100); // Frame animation loop
   }
 
-  setImages(images) {
-    this.IMAGES_WALKING = images;
+  setImages(IMAGES_WALKING) {
+    this.IMAGES_WALKING = IMAGES_WALKING;
+    this.loadImage(IMAGES_WALKING[0]); // Set initial image
+    this.loadImages(IMAGES_WALKING); // Preload all images
+  }
+
+  setDefaults({ x, speed, energy = 5, imageDead }) {
+    this.x = x;
+    this.speed = speed;
+    this.energy = energy;
+    this.IMAGE_DEAD = imageDead;
   }
 }
