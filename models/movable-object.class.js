@@ -1,3 +1,4 @@
+const GROUND_LEVEL = 140;
 class MovableObject extends DrawableObject {
   speed = 0.15;
   otherDirection = false;
@@ -6,6 +7,8 @@ class MovableObject extends DrawableObject {
   accelerationY = 0.5; // Jump acceleration
   energy = 100; // Starting health points
   lastHit = 0; // timestamp of last hit in milliseconds
+
+
 
   offset = {
     top: 0,
@@ -21,17 +24,15 @@ class MovableObject extends DrawableObject {
         this.speedY -= this.acceleration;
       } else if (!this.isAboveGround()) {
         this.speedY = 0;
-        this.y = 140; // Reset to ground level
+        this.y = GROUND_LEVEL; // Reset to ground level
       }
     }, 1000 / 25);
   }
 
   isAboveGround() {
-    if (this instanceof ThrowableObject) {
-      return true; // Allow throwable objects to be above ground
-    }else 
-    return this.y < 140;
+    return this instanceof ThrowableObject || this.y < GROUND_LEVEL;
   }
+  
 
 
 
@@ -60,11 +61,12 @@ class MovableObject extends DrawableObject {
   }
 
   playAnimation(images) {
+    if (!images.length) return;
     let i = this.currentImage % images.length;
-    let path = images[i];
-    this.img = this.imageCache[path];
+    this.img = this.imageCache[images[i]];
     this.currentImage++;
   }
+  
 
   moveRight() {
     this.x += this.speed;
