@@ -10,12 +10,13 @@ class ThrowableObject extends MovableObject {
   }
 
   throw() {
-    this.speedX = 20; // Set the horizontal speed of the object
-    this.speedY = 20; // Set the vertical speed of the object
-    this.applyGravity(); // Apply gravity to the object
+    this.speedX = 20;       // Horizontal speed
+    this.speedY = 20;       // Initial upward impulse
+    this.applyGravity();    // Let gravity handle the falling
+  
     setInterval(() => {
-        this.x += this.speedX; // Move the object horizontally
-        this.y -= this.speedY; // Move the object vertically
-  }, 25); // Update the position every 25ms
+      this.x += this.speedX;  // Move horizontally only
+    }, 25);
   }
+  
 }
