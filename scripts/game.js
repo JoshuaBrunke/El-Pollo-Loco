@@ -18,37 +18,53 @@ function loadCanvas() {
 }
 
 window.addEventListener("keydown", (e) => {
-  if (e.keyCode == 39) {
-    keyboard.RIGHT = true;
-  } else if (e.keyCode == 37) {
-    keyboard.LEFT = true;
-  } else if (e.keyCode == 38) {
-    keyboard.UP = true;
-  } else if (e.keyCode == 40) {
-    keyboard.DOWN = true;
-  } else if (e.keyCode == 32) {
-    keyboard.SPACE = true;
-  } else if (e.keyCode == 13) {
-    keyboard.ENTER = true;
-  } else if (e.keyCode == 27) {
-    keyboard.ESCAPE = true;
+  switch (e.key) {
+    case "ArrowRight":
+      keyboard.RIGHT = true;
+      break;
+    case "ArrowLeft":
+      keyboard.LEFT = true;
+      break;
+    case "ArrowUp":
+      keyboard.UP = true;
+      break;
+    case "ArrowDown":
+      keyboard.DOWN = true;
+      break;
+    case " ":
+      keyboard.SPACE = true;
+      break;
+    case "Enter":
+      keyboard.ENTER = true;
+      break;
+    case "Escape":
+      keyboard.ESCAPE = true;
+      break;
   }
 });
 
 window.addEventListener("keyup", (e) => {
-  if (e.keyCode == 39) {
-    keyboard.RIGHT = false;
-  } else if (e.keyCode == 37) {
-    keyboard.LEFT = false;
-  } else if (e.keyCode == 38) {
-    keyboard.UP = false;
-  } else if (e.keyCode == 40) {
-    keyboard.DOWN = false;
-  } else if (e.keyCode == 32) {
-    keyboard.SPACE = false;
-  } else if (e.keyCode == 13) {
-    keyboard.ENTER = false;
-  } else if (e.keyCode == 27) {
-    keyboard.ESCAPE = false;
+  switch (e.key) {
+    case "ArrowRight":
+      keyboard.RIGHT = false;
+      break;
+    case "ArrowLeft":
+      keyboard.LEFT = false;
+      break;
+    case "ArrowUp":
+      keyboard.UP = false;
+      break;
+    case "ArrowDown":
+      keyboard.DOWN = false;
+      break;
+    case " ":
+      keyboard.SPACE = false;
+      break;
+    case "Enter":
+      keyboard.ENTER = false;
+      break;
+    case "Escape":
+      keyboard.ESCAPE = false;
+      break;
   }
 });
