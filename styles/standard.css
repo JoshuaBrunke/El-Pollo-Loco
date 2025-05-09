@@ -18,17 +18,17 @@ body {
 
 @font-face {
   font-family: "Orbitron";
-  src: url(./assets/fonts/Orbitron-VariableFont_wght.ttf);
+  src: url(../assets/fonts/Orbitron-VariableFont_wght.ttf);
 }
 
 @font-face {
   font-family: "Raleway";
-  src: url(./assets/fonts/Raleway-VariableFont_wght.ttf);
+  src: url(../assets/fonts/Raleway-VariableFont_wght.ttf);
 }
 
 @font-face {
   font-family: "Expletus Sans";
-  src: url(./assets/fonts/ExpletusSans-VariableFont_wght.ttf);
+  src: url(../assets/fonts/ExpletusSans-VariableFont_wght.ttf);
 }
 
 h1,
