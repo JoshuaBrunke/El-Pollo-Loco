@@ -6,6 +6,9 @@ class World {
   keyboard;
   camera_x = 0; // The camera_x variable is used to move the camera to the left by the character's x position
   healthBar = new HealthBar();
+  bossBar = new BossBar(); 
+  bottleBar = new BottleBar(); 
+  coinBar = new CoinBar();
 
   throwableObjects = []; // Array of throwable objects
 
@@ -67,6 +70,9 @@ class World {
     this.ctx.translate(-this.camera_x, 0); // Moves the canvas back to the right by camera_x pixels
     //---space for fixed objects---
     this.addToMap(this.healthBar);
+    this.addToMap(this.bossBar);
+    this.addToMap(this.bottleBar);
+    this.addToMap(this.coinBar);
     this.ctx.translate(this.camera_x, 0); // Moves the canvas to the left by camera_x pixels
     this.addObjectsToMap(this.level.clouds);
     this.addObjectsToMap(this.level.enemies);

@@ -25,6 +25,10 @@ IMAGES_ROTATION = [
 
   constructor(x, y) {
     super().loadImage("./assets/img/6_salsa_bottle/salsa_bottle.png");
+    this.loadImages(this.IMAGES_GROUND);
+    this.loadImages(this.IMAGES_BROKEN);
+    this.loadImages(this.IMAGES_ROTATION);
+    this.loadImage(this.IMAGE_PLAIN);
     this.x = x;
     this.y = y;
     this.width = 60;
