@@ -3,12 +3,10 @@ class MovableObject extends DrawableObject {
   speed = 0.15;
   otherDirection = false;
   speedY = 0;
-  acceleration = 2.5; // Gravity acceleration
-  accelerationY = 0.5; // Jump acceleration
-  energy = 100; // Starting health points
-  lastHit = 0; // timestamp of last hit in milliseconds
-
-
+  acceleration = 2.5;
+  accelerationY = 0.5;
+  energy = 100;
+  lastHit = 0;
 
   offset = {
     top: 0,
@@ -24,7 +22,7 @@ class MovableObject extends DrawableObject {
         this.speedY -= this.acceleration;
       } else if (!this.isAboveGround()) {
         this.speedY = 0;
-        this.y = GROUND_LEVEL; // Reset to ground level
+        this.y = GROUND_LEVEL;
       }
     }, 1000 / 25);
   }
@@ -32,32 +30,14 @@ class MovableObject extends DrawableObject {
   isAboveGround() {
     return this instanceof ThrowableObject || this.y < GROUND_LEVEL;
   }
-  
-
-
-
-  /**
-   * //Checks for collision between two objects using their offset hitboxes for more precise detection.
-   * Optionally logs debug info if DEBUG_MODE_COLLISION is enabled.
-   *
-   * @param {MovableObject} mo - The other object to check collision against.
-   * @returns {boolean} True if the objects' offset hitboxes overlap, false otherwise.
-   */
 
   isColliding(mo) {
-    const colliding =
+    return (
       this.x + this.width - this.offset.right > mo.x + mo.offset.left &&
       this.x + this.offset.left < mo.x + mo.width - mo.offset.right &&
       this.y + this.height - this.offset.bottom > mo.y + mo.offset.top &&
-      this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom;
-
-    if (DEBUG_MODE && DEBUG_MODE_COLLISION) {
-      console.log(
-        `[Collision Check] ${this.constructor.name} vs ${mo.constructor.name} → ${colliding ? "✅ Colliding" : "❌ Not Colliding"}`
-      );
-    }
-
-    return colliding;
+      this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom
+    );
   }
 
   playAnimation(images) {
@@ -66,7 +46,6 @@ class MovableObject extends DrawableObject {
     this.img = this.imageCache[images[i]];
     this.currentImage++;
   }
-  
 
   moveRight() {
     this.x += this.speed;
@@ -77,29 +56,27 @@ class MovableObject extends DrawableObject {
   }
 
   jump() {
-    this.speedY = 30; // Set the speedY to a positive value to make the object jump
+    this.speedY = 30;
   }
 
   canBeHit() {
     const now = new Date().getTime();
-    return now - this.lastHit > 1000; // 1 second cooldown
+    return now - this.lastHit > 1000;
   }
 
   hit(damage = 5) {
     if (!this.canBeHit()) return;
-  
+
     this.energy -= damage;
     if (this.energy < 0) this.energy = 0;
-  
+
     this.lastHit = new Date().getTime();
     this.isCurrentlyHurt = true;
-  
-    // Clear hurt flag after 500ms
+
     setTimeout(() => {
       this.isCurrentlyHurt = false;
     }, 500);
   }
-  
 
   isDead() {
     return this.energy <= 0;
@@ -107,6 +84,6 @@ class MovableObject extends DrawableObject {
 
   isHurt() {
     const timeSinceLastHit = new Date().getTime() - this.lastHit;
-    return timeSinceLastHit < 1000; // Hurt animation plays for 1 second
+    return timeSinceLastHit < 1000;
   }
 }
