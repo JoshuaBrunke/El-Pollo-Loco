@@ -7,7 +7,7 @@ IMAGES_GROUND = [
   "./assets/img/6_salsa_bottle/2_salsa_bottle_on_ground.png",
 ];
 
-IMAGES_BROKEN = [
+IMAGES_SPLASH = [
   "./assets/img/6_salsa_bottle/bottle_rotation/bottle_splash/1_bottle_splash.png",
   "./assets/img/6_salsa_bottle/bottle_rotation/bottle_splash/2_bottle_splash.png",
   "./assets/img/6_salsa_bottle/bottle_rotation/bottle_splash/3_bottle_splash.png",
@@ -26,7 +26,7 @@ IMAGES_ROTATION = [
   constructor(x, y) {
     super().loadImage("./assets/img/6_salsa_bottle/salsa_bottle.png");
     this.loadImages(this.IMAGES_GROUND);
-    this.loadImages(this.IMAGES_BROKEN);
+    this.loadImages(this.IMAGES_SPLASH);
     this.loadImages(this.IMAGES_ROTATION);
     this.loadImage(this.IMAGE_PLAIN);
     this.x = x;
