@@ -8,6 +8,12 @@ const bottlePositions = [
   const bottleGroundY = 360; 
   const bottles = bottlePositions.map(x => new Bottle(x, bottleGroundY));
   
+  const coinPositions = [
+    [113, 200], [452, 160], [7680, 180], [950, 140], [1103, 170],
+    [1302, 190], [1520, 150], [1710, 180], [1850, 160], [2006, 150]
+  ];
+
+  const coins = coinPositions.map(([x, y]) => new Coin(x, y));
   
   const level1 = new Level(
     [
@@ -50,7 +56,8 @@ const bottlePositions = [
       new BackgroundObject("./assets/img/5_background/layers/2_second_layer/2.png", 719 * 3),
       new BackgroundObject("./assets/img/5_background/layers/1_first_layer/2.png", 719 * 3),
   
-      ...bottles // Spread the bottle objects into the background objects array
-    ]
+      ...bottles, // Spread the bottle objects into the background objects array
+      ...coins // Spread the coin objects into the background objects array
+    ],
   );
   
