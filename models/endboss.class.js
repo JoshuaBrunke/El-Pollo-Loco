@@ -100,20 +100,19 @@ class Endboss extends MovableObject {
     }
   }
 
-  playOneTimeAnimation(images, onFinish = () => {}) {
-    clearInterval(this.currentAnimationInterval);
-    let i = 0;
-    this.currentAnimationInterval = setInterval(() => {
-      if (i < images.length) {
-        this.img = this.imageCache[images[i]];
-        i++;
-      } else {
-        clearInterval(this.currentAnimationInterval);
-        onFinish();
-        if (!this.isDead) this.animate();
-      }
-    }, 100);
-  }
+playOneTimeAnimation(images, onFinish = () => {}) {
+  let i = 0;
+  const frameInterval = setInterval(() => {
+    if (i < images.length) {
+      this.img = this.imageCache[images[i]];
+      i++;
+    } else {
+      clearInterval(frameInterval);
+      onFinish();
+    }
+  }, 100);
+}
+
 
 hitByBottle() {
   if (this.isDead) return;
@@ -133,13 +132,41 @@ hitByBottle() {
 }
 
 maybeAttackPepe() {
-  if (!this.isChasing || this.isDead || this.isHurt) return;
+  if (!this.isChasing || this.isDead || this.isHurt || this.isAttacking) return;
 
-  // 30% chance to attack
   const shouldAttack = Math.random() < 0.3;
-  if (shouldAttack) {
-    this.playOneTimeAnimation(this.IMAGES_ATTACK);
-  }
+  if (!shouldAttack) return;
+
+  this.isAttacking = true;
+  let lungeDistance = 60;
+  let lungeSpeed = 10;
+
+  let steps = lungeDistance / lungeSpeed;
+  let currentStep = 0;
+
+  // Temporarily stop regular animation while lunging
+  clearInterval(this.currentAnimationInterval);
+
+  this.playOneTimeAnimation(this.IMAGES_ATTACK, () => {
+    this.isAttacking = false;
+    this.animate(); // Resume normal animation loop
+  });
+
+  let lungeInterval = setInterval(() => {
+    this.x -= lungeSpeed;
+    currentStep++;
+
+    // ✅ Check collision with Pepe
+    if (this.world?.character && this.isColliding(this.world.character)) {
+      this.world.character.hit(this.damage);
+      this.world.healthBar.setPercentage(this.world.character.energy);
+    }
+
+    if (currentStep >= steps || this.isDead) {
+      clearInterval(lungeInterval);
+    }
+  }, 50);
 }
+
 
 }
