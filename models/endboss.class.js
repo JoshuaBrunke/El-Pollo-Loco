@@ -93,15 +93,21 @@ class Endboss extends MovableObject {
     }, 100);
   }
 
-  hitByBottle() {
-    if (this.isDead) return;
+hitByBottle() {
+  if (this.isDead) return;
 
-    this.energy -= 10;
-    this.isHurt = true;
+  this.energy -= 10;
+  this.isHurt = true;
 
-    if (this.energy <= 0) {
-      this.energy = 0;
-      this.isDead = true;
-    }
+  // ✅ Update boss health bar
+  if (world?.bossBar) {
+    world.bossBar.setPercentage(this.energy);
   }
+
+  if (this.energy <= 0) {
+    this.energy = 0;
+    this.isDead = true;
+  }
+}
+
 }
