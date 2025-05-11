@@ -18,6 +18,8 @@ class ThrowableObject extends MovableObject {
     this.width = 60;
     this.height = 60;
     this.direction = direction;
+    this.hasHit = false; // 🆕 mark bottle as active until it hits something
+
 
     this.throw();
   }

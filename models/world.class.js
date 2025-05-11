@@ -37,24 +37,23 @@ run() {
 
 checkBottleHits() {
   this.throwableObjects.forEach((bottle) => {
-    this.level.enemies = this.level.enemies.filter((enemy) => {
-      if (bottle.isColliding(enemy)) {
-        // ✅ Chickens and mutants die
+    this.level.enemies.forEach((enemy) => {
+      if (!enemy.isDead && !bottle.hasHit && bottle.isColliding(enemy)) {
         if (enemy instanceof Chicken || enemy instanceof MutantChicken) {
-          return false; // Remove enemy
+          enemy.die();
+        } else if (enemy instanceof Endboss) {
+          enemy.hitByBottle?.(); // call hitByBottle() if it exists
         }
 
-        // ✅ Endboss takes damage
-        if (enemy instanceof Endboss) {
-          enemy.hitByBottle(); // We'll define this soon
-        }
-
-        return true; // Keep other enemies (if any)
+        bottle.hasHit = true;
       }
-      return true; // No collision, keep enemy
     });
   });
+
+  // Remove bottles that have hit something
+  this.throwableObjects = this.throwableObjects.filter(b => !b.hasHit);
 }
+
 
 checkThrowObjects() {
   if (this.keyboard.SPACE && this.bottlesCollected > 0) {
