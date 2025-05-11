@@ -18,15 +18,18 @@ class ThrowableObject extends MovableObject {
   ];
 
   constructor(x, y, direction = 1) {
-    super(); // ✅ Required before any `this`
-    this.loadImage(IMAGE_PLAIN);
+    super();
     this.loadImages(this.IMAGES_ROTATION);
     this.loadImages(this.IMAGES_SPLASH);
+    this.loadImage(this.IMAGES_ROTATION[0]);
+
     this.x = x;
     this.y = y;
     this.width = 60;
     this.height = 60;
     this.direction = direction;
+    this.isSplashing = false;
+
     this.throw();
   }
 
@@ -35,8 +38,32 @@ class ThrowableObject extends MovableObject {
     this.speedY = 20;
     this.applyGravity();
 
-    setInterval(() => {
+    this.moveInterval = setInterval(() => {
       this.x += this.speedX;
+
     }, 25);
+
+    this.rotateInterval = setInterval(() => {
+      if (!this.isSplashing) {
+        this.playAnimation(this.IMAGES_ROTATION);
+      }
+    }, 100);
+  }
+
+  splash() {
+    this.isSplashing = true;
+    clearInterval(this.moveInterval);
+    clearInterval(this.rotateInterval);
+
+    let splashIndex = 0;
+    const splashInterval = setInterval(() => {
+      if (splashIndex < this.IMAGES_SPLASH.length) {
+        this.img = this.imageCache[this.IMAGES_SPLASH[splashIndex]];
+        splashIndex++;
+      } else {
+        clearInterval(splashInterval);
+        world.throwableObjects = world.throwableObjects.filter(obj => obj !== this);
+      }
+    }, 50);
   }
 }
