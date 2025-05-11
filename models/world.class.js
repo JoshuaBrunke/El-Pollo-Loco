@@ -68,29 +68,39 @@ checkThrowObjects() {
 }
 
 
-  checkCollisions() {
-    this.level.enemies.forEach((enemy) => {
-      if (this.character.isColliding(enemy) && this.character.canBeHit()) {
+checkCollisions() {
+  this.level.enemies.forEach((enemy) => {
+    const collides = this.character.isColliding(enemy);
+    const enemyAlive = !enemy.isDead;
+
+    if (collides && enemyAlive) {
+      const landedOnTop = this.character.speedY < 0 && this.character.y < enemy.y;
+
+      if (landedOnTop && (enemy instanceof Chicken || enemy instanceof MutantChicken)) {
+        enemy.die();
+      } else if (this.character.canBeHit()) {
         const damage = enemy.damage || 5;
         this.character.hit(damage);
         this.healthBar.setPercentage(this.character.energy);
       }
-    });
+    }
+  });
 
-    this.level.backgroundObjects = this.level.backgroundObjects.filter((obj) => {
-      if (obj instanceof Bottle && this.character.isColliding(obj)) {
-        this.bottlesCollected++;
-        this.bottleBar.setPercentage(this.bottlesCollected * 5);
-        return false;
-      }
-      if (obj instanceof Coin && this.character.isColliding(obj)) {
-        this.coinsCollected++;
-        this.coinBar.setPercentage(this.coinsCollected * 10);
-        return false;
-      }
-      return true;
-    });
-  }
+  this.level.backgroundObjects = this.level.backgroundObjects.filter((obj) => {
+    if (obj instanceof Bottle && this.character.isColliding(obj)) {
+      this.bottlesCollected++;
+      this.bottleBar.setPercentage(this.bottlesCollected * 5);
+      return false;
+    }
+    if (obj instanceof Coin && this.character.isColliding(obj)) {
+      this.coinsCollected++;
+      this.coinBar.setPercentage(this.coinsCollected * 10);
+      return false;
+    }
+    return true;
+  });
+}
+
 
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
