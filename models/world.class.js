@@ -34,15 +34,18 @@ class World {
     }, 1000 / 60);
   }
 
-  checkThrowObjects() {
-    if (this.keyboard.SPACE && this.bottlesCollected > 0) {
-      let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
-      this.throwableObjects.push(bottle);
-      this.bottlesCollected--;
-      this.bottleBar.setPercentage((this.bottlesCollected / 20) * 100);
-      this.keyboard.SPACE = false;
-    }
+checkThrowObjects() {
+  if (this.keyboard.SPACE && this.bottlesCollected > 0) {
+    const offsetX = this.character.otherDirection ? -100 : 100;
+    const direction = this.character.otherDirection ? -1 : 1;
+    let bottle = new ThrowableObject(this.character.x + offsetX, this.character.y + 100, direction);
+    this.throwableObjects.push(bottle);
+    this.bottlesCollected--;
+    this.bottleBar.setPercentage((this.bottlesCollected / 20) * 100);
+    this.keyboard.SPACE = false;
   }
+}
+
 
   checkCollisions() {
     this.level.enemies.forEach((enemy) => {
