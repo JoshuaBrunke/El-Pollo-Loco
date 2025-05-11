@@ -33,37 +33,50 @@ class ThrowableObject extends MovableObject {
     this.throw();
   }
 
-  throw() {
-    this.speedX = 14 * this.direction;
-    this.speedY = 20;
-    this.applyGravity();
+throw() {
+  this.speedX = 14 * this.direction;
+  this.speedY = 20;
+  this.applyGravity();
 
-    this.moveInterval = setInterval(() => {
-      this.x += this.speedX;
+  this.moveInterval = setInterval(() => {
+    this.x += this.speedX;
+  }, 40);
 
-    }, 25);
+  this.rotateInterval = setInterval(() => {
+    if (!this.isSplashing) {
+      this.playAnimation(this.IMAGES_ROTATION);
+    }
+  }, 100);
 
-    this.rotateInterval = setInterval(() => {
-      if (!this.isSplashing) {
-        this.playAnimation(this.IMAGES_ROTATION);
-      }
-    }, 100);
+this.groundCheckInterval = setInterval(() => {
+  const isAtGround = Math.abs(this.y - GROUND_LEVEL) < 3;
+  const isDoneFalling = this.speedY <= 0;
+
+  if (!this.isSplashing && isAtGround && isDoneFalling) {
+    this.y = GROUND_LEVEL;
+    this.splash();
   }
+}, 25);
 
-  splash() {
-    this.isSplashing = true;
-    clearInterval(this.moveInterval);
-    clearInterval(this.rotateInterval);
+}
 
-    let splashIndex = 0;
-    const splashInterval = setInterval(() => {
-      if (splashIndex < this.IMAGES_SPLASH.length) {
-        this.img = this.imageCache[this.IMAGES_SPLASH[splashIndex]];
-        splashIndex++;
-      } else {
-        clearInterval(splashInterval);
-        world.throwableObjects = world.throwableObjects.filter(obj => obj !== this);
-      }
-    }, 50);
-  }
+
+splash() {
+  this.isSplashing = true;
+  clearInterval(this.moveInterval);
+  clearInterval(this.rotateInterval);
+  clearInterval(this.groundCheckInterval); // prevent repeated splashing
+
+  let splashIndex = 0;
+  const splashInterval = setInterval(() => {
+    if (splashIndex < this.IMAGES_SPLASH.length) {
+      this.img = this.imageCache[this.IMAGES_SPLASH[splashIndex]];
+      splashIndex++;
+    } else {
+      clearInterval(splashInterval);
+      world.throwableObjects = world.throwableObjects.filter(obj => obj !== this);
+    }
+  }, 50);
+}
+
 }

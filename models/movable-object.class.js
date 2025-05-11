@@ -21,18 +21,11 @@ applyGravity() {
     if (this.isAboveGround() || this.speedY > 0) {
       this.y -= this.speedY;
       this.speedY -= this.acceleration;
-    } else if (!this.isAboveGround()) {
+} else if (this.y > GROUND_LEVEL - 5 && this.y <= GROUND_LEVEL + 5) {
+
       this.speedY = 0;
       this.y = GROUND_LEVEL;
 
-      // 💥 Only splash when the object has just hit the ground
-      if (
-        this instanceof ThrowableObject &&
-        typeof this.splash === "function" &&
-        !this.isSplashing
-      ) {
-        this.splash();
-      }
     }
   }, 1000 / 25);
 }
