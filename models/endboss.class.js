@@ -50,6 +50,9 @@ class Endboss extends MovableObject {
 
  damage = 20;
 
+  speed = 1.5; // 🐔 Boss walks steadily, but not too fast
+  isChasing = false; // 🆕 Track whether boss should start walking
+
   constructor() {
     super().loadImage(this.IMAGES_ALERT[0]);
     this.loadImages(this.IMAGES_ALERT);
@@ -62,6 +65,9 @@ class Endboss extends MovableObject {
     this.x = 2500;
 
     this.animate();
+
+    this.attackInterval = setInterval(() => this.maybeAttackPepe(), 2000);
+
   }
 
   animate() {
@@ -73,9 +79,25 @@ class Endboss extends MovableObject {
           this.isHurt = false;
         });
       } else {
-        this.playAnimation(this.IMAGES_ALERT);
+        // 👀 Check if Pepe is close enough to trigger boss walk
+        if (!this.isChasing && world.character.x > 2200) {
+          this.isChasing = true;
+        }
+
+        if (this.isChasing) {
+          this.walkTowardPepe();
+          this.playAnimation(this.IMAGES_WALKING);
+        } else {
+          this.playAnimation(this.IMAGES_ALERT);
+        }
       }
     }, 150);
+  }
+
+  walkTowardPepe() {
+    if (this.x > world.character.x + 50) {
+      this.x -= this.speed;
+    }
   }
 
   playOneTimeAnimation(images, onFinish = () => {}) {
@@ -107,6 +129,16 @@ hitByBottle() {
   if (this.energy <= 0) {
     this.energy = 0;
     this.isDead = true;
+  }
+}
+
+maybeAttackPepe() {
+  if (!this.isChasing || this.isDead || this.isHurt) return;
+
+  // 30% chance to attack
+  const shouldAttack = Math.random() < 0.3;
+  if (shouldAttack) {
+    this.playOneTimeAnimation(this.IMAGES_ATTACK);
   }
 }
 
