@@ -50,7 +50,7 @@ class Endboss extends MovableObject {
 
  damage = 20;
 
-  speed = 1.5; // 🐔 Boss walks steadily, but not too fast
+  speed = 2.5; // 🐔 Boss walks steadily, but not too fast
   isChasing = false; // 🆕 Track whether boss should start walking
 
   constructor() {
@@ -66,7 +66,7 @@ class Endboss extends MovableObject {
 
     this.animate();
 
-    this.attackInterval = setInterval(() => this.maybeAttackPepe(), 2000);
+    this.attackInterval = setInterval(() => this.maybeAttackPepe(), 1000);
 
   }
 
@@ -134,7 +134,7 @@ hitByBottle() {
 maybeAttackPepe() {
   if (!this.isChasing || this.isDead || this.isHurt || this.isAttacking) return;
 
-  const shouldAttack = Math.random() < 0.3;
+  const shouldAttack = Math.random() < 0.5; // 50% chance to attack
   if (!shouldAttack) return;
 
   this.isAttacking = true;
