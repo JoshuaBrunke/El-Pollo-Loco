@@ -27,12 +27,34 @@ class World {
     this.character.world = this;
   }
 
-  run() {
-    setInterval(() => {
-      this.checkCollisions();
-      this.checkThrowObjects();
-    }, 1000 / 60);
-  }
+run() {
+  setInterval(() => {
+    this.checkCollisions();
+    this.checkThrowObjects();
+    this.checkBottleHits(); // ✅ NEW: Bottle vs. enemies
+  }, 1000 / 60);
+}
+
+checkBottleHits() {
+  this.throwableObjects.forEach((bottle) => {
+    this.level.enemies = this.level.enemies.filter((enemy) => {
+      if (bottle.isColliding(enemy)) {
+        // ✅ Chickens and mutants die
+        if (enemy instanceof Chicken || enemy instanceof MutantChicken) {
+          return false; // Remove enemy
+        }
+
+        // ✅ Endboss takes damage
+        if (enemy instanceof Endboss) {
+          enemy.hitByBottle(); // We'll define this soon
+        }
+
+        return true; // Keep other enemies (if any)
+      }
+      return true; // No collision, keep enemy
+    });
+  });
+}
 
 checkThrowObjects() {
   if (this.keyboard.SPACE && this.bottlesCollected > 0) {
