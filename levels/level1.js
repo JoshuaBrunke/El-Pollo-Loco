@@ -9,7 +9,7 @@ const bottlePositions = [
   const bottles = bottlePositions.map(x => new Bottle(x, bottleGroundY));
   
   const coinPositions = [
-    [113, 200], [452, 160], [7680, 180], [950, 140], [1103, 170],
+     [113, 200], [452, 160], [680, 180], [950, 140], [1103, 170],
     [1302, 190], [1520, 150], [1710, 180], [1850, 160], [2006, 150]
   ];
 

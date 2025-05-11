@@ -12,9 +12,9 @@ class Bottle extends MovableObject {
       this.height = 60;
   
       if (bottleImage === image1) {
-        this.offset = { top: 10, bottom: 8, left: 24, right: 14 };
+        this.offset = { top: 10, bottom: 8, left: 21, right: 11 };
       } else {
-        this.offset = { top: 10, bottom: 8, left: 19, right: 19 };
+        this.offset = { top: 10, bottom: 8, left: 15, right: 15 };
       }
     }
   }

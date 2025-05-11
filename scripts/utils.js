@@ -14,3 +14,4 @@ function addAttributesToExternalLinks() {
     link.setAttribute("rel", "noopener noreferrer nofollow");
   });
 }
+

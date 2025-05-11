@@ -2,10 +2,6 @@ class ThrowableObject extends MovableObject {
 
 IMAGE_PLAIN = "./assets/img/6_salsa_bottle/salsa_bottle.png";
 
-IMAGES_GROUND = [
-  "./assets/img/6_salsa_bottle/1_salsa_bottle_on_ground.png",
-  "./assets/img/6_salsa_bottle/2_salsa_bottle_on_ground.png",
-];
 
 IMAGES_SPLASH = [
   "./assets/img/6_salsa_bottle/bottle_rotation/bottle_splash/1_bottle_splash.png",

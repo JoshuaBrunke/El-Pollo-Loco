@@ -6,8 +6,8 @@ class World {
   keyboard;
   camera_x = 0;
   healthBar = new HealthBar();
-  bossBar = new BossBar(); 
-  bottleBar = new BottleBar(); 
+  bossBar = new BossBar();
+  bottleBar = new BottleBar();
   coinBar = new CoinBar();
   bottlesCollected = 0;
   coinsCollected = 0;
@@ -45,38 +45,28 @@ class World {
   }
 
   checkCollisions() {
-  // Handle enemy collisions
-  this.level.enemies.forEach((enemy) => {
-    if (this.character.isColliding(enemy) && this.character.canBeHit()) {
-      const damage = enemy.damage || 5;
-      this.character.hit(damage);
-      this.healthBar.setPercentage(this.character.energy);
-    }
-  });
+    this.level.enemies.forEach((enemy) => {
+      if (this.character.isColliding(enemy) && this.character.canBeHit()) {
+        const damage = enemy.damage || 5;
+        this.character.hit(damage);
+        this.healthBar.setPercentage(this.character.energy);
+      }
+    });
 
-  // Handle bottle pickups
-  this.level.backgroundObjects = this.level.backgroundObjects.filter(obj => {
-    if (obj instanceof Bottle && this.character.isColliding(obj)) {
-      if (this.bottlesCollected < 20) {
+    this.level.backgroundObjects = this.level.backgroundObjects.filter((obj) => {
+      if (obj instanceof Bottle && this.character.isColliding(obj)) {
         this.bottlesCollected++;
-        this.bottleBar.setPercentage((this.bottlesCollected / 20) * 100);
+        this.bottleBar.setPercentage(this.bottlesCollected * 5);
+        return false;
       }
-      return false; // Remove collected bottle
-    }
-
-    // 🪙 Handle coin pickups
-    if (obj instanceof Coin && this.character.isColliding(obj)) {
-      if (this.coinsCollected < 10) {
+      if (obj instanceof Coin && this.character.isColliding(obj)) {
         this.coinsCollected++;
-        this.coinBar.setPercentage((this.coinsCollected / 10) * 100);
+        this.coinBar.setPercentage(this.coinsCollected * 10);
+        return false;
       }
-      return false; // Remove collected coin
-    }
-
-    return true; // Keep all other objects
-  });
-}
-
+      return true;
+    });
+  }
 
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
