@@ -31,12 +31,28 @@ class Endboss extends MovableObject {
       "./assets/img/4_enemie_boss_chicken/1_walk/G3.png",
       "./assets/img/4_enemie_boss_chicken/1_walk/G4.png",
     ];
+
+    IMAGES_HURT = [
+      "./assets/img/4_enemie_boss_chicken/4_hurt/G21.png",
+      "./assets/img/4_enemie_boss_chicken/4_hurt/G22.png",
+      "./assets/img/4_enemie_boss_chicken/4_hurt/G23.png",
+    ];
+
+    IMAGES_DEAD = [
+      "./assets/img/4_enemie_boss_chicken/5_dead/G24.png",
+      "./assets/img/4_enemie_boss_chicken/5_dead/G25.png",
+      "./assets/img/4_enemie_boss_chicken/5_dead/G26.png",
+    ];
   
     damage = 20; // Most powerful enemy
   
     constructor() {
       super().loadImage(this.IMAGES_ALERT[0]);
       this.loadImages(this.IMAGES_ALERT);
+      this.loadImages(this.IMAGES_ATTACK);
+      this.loadImages(this.IMAGES_WALKING);
+      this.loadImages(this.IMAGES_HURT);
+      this.loadImages(this.IMAGES_DEAD);
       this.offset = {
         top: 63,
         bottom: 13,
