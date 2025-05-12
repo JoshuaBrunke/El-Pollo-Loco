@@ -3,8 +3,6 @@ class Character extends MovableObject {
   width = 100;
   height = 300;
   speed = 10;
-  isCurrentlyHurt = false;
-  isCurrentlyDead = false;
 
   IMAGES_WALKING = [
     "./assets/img/2_character_pepe/2_walk/W-21.png",
@@ -68,9 +66,8 @@ class Character extends MovableObject {
     "./assets/img/2_character_pepe/1_idle/long_idle/I-20.png",
   ];
 
-  world;
   constructor() {
-    super().loadImage("./assets/img/2_character_pepe/2_walk/W-21.png");
+    super().loadImage(this.IMAGES_WALKING[0]);
     this.loadImages(this.IMAGES_WALKING);
     this.loadImages(this.IMAGES_JUMPING);
     this.loadImages(this.IMAGES_HURT);
@@ -88,19 +85,10 @@ class Character extends MovableObject {
     this.animate();
   }
 
-  /**
-   * Method to animate the character
-   * @description This method is called in a loop to create an animation effect.
-   * It changes the image of the character.
-   */
   animate() {
-    // 👟 Movement & camera logic
+    // Movement logic
     setInterval(() => {
-      if (!this.world) return;
-
-      if (this.isDead()) {
-        return; // Don't move when dead
-      }
+      if (!this.world || this.isDead()) return;
 
       if (this.world.keyboard.UP && !this.isAboveGround()) {
         this.jump(30);
@@ -117,24 +105,20 @@ class Character extends MovableObject {
       this.world.camera_x = -this.x + 100;
     }, 1000 / 60);
 
-    // 🎞️ Animation logic (walk, jump, hurt, dead)
+    // Animation logic
     setInterval(() => {
       if (!this.world) return;
+
       if (this.isDead()) {
-        if (!this.isCurrentlyDead) {
-          this.isCurrentlyDead = true;
-          this.currentImage = 0;
-        }
         if (this.currentImage < this.IMAGES_DEAD.length) {
           this.playAnimation(this.IMAGES_DEAD);
         } else {
-          // Stay frozen on last frame
           this.img = this.imageCache[this.IMAGES_DEAD[this.IMAGES_DEAD.length - 1]];
         }
-        return; // Exit after handling dead logic
+        return;
       }
 
-      if (this.isCurrentlyHurt) {
+      if (this.isHurt()) {
         this.playAnimation(this.IMAGES_HURT);
       } else if (this.isAboveGround()) {
         this.playAnimation(this.IMAGES_JUMPING);

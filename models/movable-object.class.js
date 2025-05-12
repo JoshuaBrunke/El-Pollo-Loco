@@ -65,16 +65,13 @@ class MovableObject extends DrawableObject {
     return now - this.lastHit > 1000;
   }
 
-  hit(damage = 5) {
-    if (!this.canBeHit()) return;
-    this.energy -= damage;
-    if (this.energy < 0) this.energy = 0;
-    this.lastHit = new Date().getTime();
-    this.isCurrentlyHurt = true;
-    setTimeout(() => {
-      this.isCurrentlyHurt = false;
-    }, 500);
-  }
+hit(damage = 5) {
+  if (!this.canBeHit()) return;
+  this.energy -= damage;
+  if (this.energy < 0) this.energy = 0;
+  this.lastHit = new Date().getTime();
+}
+
 
   isDead() {
     return this.energy <= 0;
