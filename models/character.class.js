@@ -3,6 +3,8 @@ class Character extends MovableObject {
   width = 100;
   height = 300;
   speed = 10;
+  lastAction = Date.now();
+  isSleeping = false;
 
   IMAGES_WALKING = [
     "./assets/img/2_character_pepe/2_walk/W-21.png",
@@ -90,14 +92,23 @@ class Character extends MovableObject {
     setInterval(() => {
       if (!this.world || this.isDead()) return;
 
-      if (this.world.keyboard.UP && !this.isAboveGround()) {
+      const keys = this.world.keyboard;
+      const userInput = keys.UP || keys.LEFT || keys.RIGHT || keys.DOWN || keys.SPACE;
+
+      // Reset idle timer on input
+      if (userInput) {
+        this.lastAction = Date.now();
+        this.isSleeping = false;
+      }
+
+      if (!this.isSleeping && keys.UP && !this.isAboveGround()) {
         this.jump(30);
       }
 
-      if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+      if (!this.isSleeping && keys.RIGHT && this.x < this.world.level.level_end_x) {
         this.moveRight();
         this.otherDirection = false;
-      } else if (this.world.keyboard.LEFT && this.x > 0) {
+      } else if (!this.isSleeping && keys.LEFT && this.x > 0) {
         this.moveLeft();
         this.otherDirection = true;
       }
@@ -108,6 +119,14 @@ class Character extends MovableObject {
     // Animation logic
     setInterval(() => {
       if (!this.world) return;
+
+      const now = Date.now();
+      const idleFor = now - this.lastAction;
+
+      if (idleFor > 10000 && !this.isSleeping) {
+        this.isSleeping = true;
+        this.currentImage = 0; // restart sleep animation
+      }
 
       if (this.isDead()) {
         if (this.currentImage < this.IMAGES_DEAD.length) {
@@ -120,6 +139,8 @@ class Character extends MovableObject {
 
       if (this.isHurt()) {
         this.playAnimation(this.IMAGES_HURT);
+      } else if (this.isSleeping) {
+        this.playAnimation(this.IMAGES_SLEEP);
       } else if (this.isAboveGround()) {
         this.playAnimation(this.IMAGES_JUMPING);
       } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
