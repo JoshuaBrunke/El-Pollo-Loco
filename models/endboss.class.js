@@ -5,6 +5,7 @@ class Endboss extends MovableObject {
   energy = 100;
   isDead = false;
   isHurt = false;
+  isCurrentlyHurt = false;
   isAttacking = false;
   isChasing = false;
   speed = 5.5;
@@ -66,36 +67,44 @@ class Endboss extends MovableObject {
     this.startAttackLoop();
   }
 
-startAnimationLoop() {
-  this.animationInterval = setInterval(() => {
-    if (this.isCurrentlyDead) {
-      if (this.currentImage < this.IMAGES_DEAD.length) {
-        this.playAnimation(this.IMAGES_DEAD);
-      } else {
-        this.img = this.imageCache[this.IMAGES_DEAD[this.IMAGES_DEAD.length - 1]];
+  startAnimationLoop() {
+    this.animationInterval = setInterval(() => {
+      if (this.isCurrentlyDead) {
+        if (this.currentImage < this.IMAGES_DEAD.length) {
+          this.playAnimation(this.IMAGES_DEAD);
+        } else {
+          this.img = this.imageCache[this.IMAGES_DEAD[this.IMAGES_DEAD.length - 1]];
+        }
+        return;
       }
-      return;
-    }
 
-    if (this.isDead || this.isAttacking) return;
+      if (this.isDead || this.isAttacking) return;
 
-    if (this.isHurt) {
-      this.playOneTimeAnimation(this.IMAGES_HURT, () => {
-        this.isHurt = false;
-      });
-    } else if (!this.isChasing && world.character.x > 2200) {
-      this.isChasing = true;
-    }
+      if (this.isHurt) {
+        if (!this.isCurrentlyHurt) {
+          this.isCurrentlyHurt = true;
+          this.currentImage = 0;
+        }
+        if (this.currentImage < this.IMAGES_HURT.length) {
+          this.playAnimation(this.IMAGES_HURT);
+        } else {
+          this.img = this.imageCache[this.IMAGES_HURT[this.IMAGES_HURT.length - 1]];
+          this.isHurt = false;
+          this.isCurrentlyHurt = false;
+        }
+        return; // Exit after hurt logic
+      } else if (!this.isChasing && world.character.x > 2200) {
+        this.isChasing = true;
+      }
 
-    if (this.isChasing) {
-      this.walkTowardPepe();
-      this.playAnimation(this.IMAGES_WALKING);
-    } else {
-      this.playAnimation(this.IMAGES_ALERT);
-    }
-  }, 150);
-}
-
+      if (this.isChasing) {
+        this.walkTowardPepe();
+        this.playAnimation(this.IMAGES_WALKING);
+      } else {
+        this.playAnimation(this.IMAGES_ALERT);
+      }
+    }, 150);
+  }
 
   startAttackLoop() {
     setInterval(() => {
@@ -155,28 +164,25 @@ startAnimationLoop() {
     }, 100);
   }
 
-hitByBottle() {
-  if (this.isDead) return;
+  hitByBottle() {
+    if (this.isDead) return;
 
-  this.energy -= 10;
-  this.isHurt = true;
+    this.energy -= 10;
+    this.isHurt = true;
 
-  if (world?.bossBar) {
-    world.bossBar.setPercentage(this.energy);
+    if (world?.bossBar) {
+      world.bossBar.setPercentage(this.energy);
+    }
+
+    if (this.energy <= 0) {
+      this.energy = 0;
+      this.isDead = true;
+      this.playDeath(); // 👉 play death animation
+    }
   }
 
-  if (this.energy <= 0) {
-    this.energy = 0;
-    this.isDead = true;
-    this.playDeath(); // 👉 play death animation
+  playDeath() {
+    this.isCurrentlyDead = true;
+    this.currentImage = 0; // Start at the first death frame
   }
-}
-
-playDeath() {
-  this.isCurrentlyDead = true;
-  this.currentImage = 0; // Start at the first death frame
-}
-
-
-
 }
