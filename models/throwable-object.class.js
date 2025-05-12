@@ -12,15 +12,12 @@ class ThrowableObject extends MovableObject {
     super();
     this.loadImages(this.IMAGES_ROTATION);
     this.loadImage(this.IMAGES_ROTATION[0]);
-
     this.x = x;
     this.y = y;
     this.width = 60;
     this.height = 60;
     this.direction = direction;
-    this.hasHit = false; // 🆕 mark bottle as active until it hits something
-
-
+    this.hasHit = false;
     this.throw();
   }
 
@@ -28,11 +25,9 @@ class ThrowableObject extends MovableObject {
     this.speedX = 14 * this.direction;
     this.speedY = 20;
     this.applyGravity();
-
     this.moveInterval = setInterval(() => {
       this.x += this.speedX;
     }, 40);
-
     this.rotateInterval = setInterval(() => {
       this.playAnimation(this.IMAGES_ROTATION);
     }, 100);

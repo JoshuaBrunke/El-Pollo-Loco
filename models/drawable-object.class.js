@@ -21,18 +21,28 @@ class DrawableObject {
   }
 
   drawFrame(ctx) {
-    if (!DEBUG_MODE || !DEBUG_MODE_HITBOXES || !(this instanceof Character || this instanceof Endboss || this instanceof ChickenBase || this instanceof Bottle || this instanceof Coin)) {
+    if (
+      !DEBUG_MODE ||
+      !DEBUG_MODE_HITBOXES ||
+      !(
+        this instanceof Character ||
+        this instanceof Endboss ||
+        this instanceof ChickenBase ||
+        this instanceof Bottle ||
+        this instanceof Coin
+      )
+    ) {
       return;
     }
 
-    // 🔵 Draws the full image boundary box
+    // Draws the full image box
     ctx.beginPath();
     ctx.lineWidth = "1";
     ctx.strokeStyle = "blue";
     ctx.rect(0, 0, this.width, this.height);
     ctx.stroke();
 
-    // 🔴 Draws the offset collision box
+    // Draws the offset box
     ctx.beginPath();
     ctx.lineWidth = "2";
     ctx.strokeStyle = "red";

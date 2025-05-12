@@ -13,8 +13,6 @@ function loadCanvas() {
   canvas.height = 480;
   ctx = canvas.getContext("2d");
   world = new World(canvas, keyboard);
-
-  console.log("My character is", world.character);
 }
 
 window.addEventListener("keydown", (e) => {

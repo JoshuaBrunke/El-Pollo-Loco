@@ -11,7 +11,6 @@ class World {
   coinBar = new CoinBar();
   bottlesCollected = 0;
   coinsCollected = 0;
-
   throwableObjects = [];
 
   constructor(canvas, keyboard) {
@@ -31,7 +30,7 @@ class World {
     setInterval(() => {
       this.checkCollisions();
       this.checkThrowObjects();
-      this.checkBottleHits(); // ✅ NEW: Bottle vs. enemies
+      this.checkBottleHits();
     }, 1000 / 60);
   }
 
@@ -42,14 +41,12 @@ class World {
           if (enemy instanceof Chicken || enemy instanceof MutantChicken) {
             enemy.die();
           } else if (enemy instanceof Endboss) {
-            enemy.hitByBottle?.(); // call hitByBottle() if it exists
+            enemy.hitByBottle?.();
           }
-
           bottle.hasHit = true;
         }
       });
     });
-
     // Remove bottles that have hit something
     this.throwableObjects = this.throwableObjects.filter((b) => !b.hasHit);
   }
@@ -70,14 +67,12 @@ class World {
     this.level.enemies.forEach((enemy) => {
       const collides = this.character.isColliding(enemy);
       const enemyAlive = !enemy.isDead;
-
       if (!collides || !enemyAlive) return;
 
       const landedOnTop = this.character.speedY < 0 && this.character.y < enemy.y;
-
       if (landedOnTop && (enemy instanceof Chicken || enemy instanceof MutantChicken)) {
         enemy.die();
-        this.character.speedY = 10; // bounce back a bit after stomping
+        this.character.speedY = 10; // Pepe bounces back
       } else if (this.character.canBeHit()) {
         const damage = enemy.damage || 5;
         this.character.hit(damage);
@@ -85,7 +80,7 @@ class World {
       }
     });
 
-    // 🍾 Collect bottles and coins
+    // Collect bottles and coins
     this.level.backgroundObjects = this.level.backgroundObjects.filter((obj) => {
       if (obj instanceof Bottle && this.character.isColliding(obj)) {
         this.bottlesCollected++;
@@ -104,21 +99,17 @@ class World {
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.ctx.translate(this.camera_x, 0);
-
     this.addObjectsToMap(this.level.backgroundObjects);
     this.ctx.translate(-this.camera_x, 0);
-
     this.addToMap(this.healthBar);
     this.addToMap(this.bossBar);
     this.addToMap(this.bottleBar);
     this.addToMap(this.coinBar);
-
     this.ctx.translate(this.camera_x, 0);
     this.addObjectsToMap(this.level.clouds);
     this.addObjectsToMap(this.level.enemies);
     this.addObjectsToMap(this.throwableObjects);
     this.addToMap(this.character);
-
     this.ctx.translate(-this.camera_x, 0);
     requestAnimationFrame(() => this.draw());
   }
@@ -131,13 +122,11 @@ class World {
 
   addToMap(mo) {
     this.ctx.save();
-
     if (mo.otherDirection) {
       this.flipContextAndDraw(mo);
     } else {
       this.drawNormally(mo);
     }
-
     this.ctx.restore();
   }
 
