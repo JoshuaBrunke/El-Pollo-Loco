@@ -66,26 +66,36 @@ class Endboss extends MovableObject {
     this.startAttackLoop();
   }
 
-  startAnimationLoop() {
-    this.animationInterval = setInterval(() => {
-      if (this.isDead || this.isAttacking) return;
-
-      if (this.isHurt) {
-        this.playOneTimeAnimation(this.IMAGES_HURT, () => {
-          this.isHurt = false;
-        });
-      } else if (!this.isChasing && world.character.x > 2200) {
-        this.isChasing = true;
-      }
-
-      if (this.isChasing) {
-        this.walkTowardPepe();
-        this.playAnimation(this.IMAGES_WALKING);
+startAnimationLoop() {
+  this.animationInterval = setInterval(() => {
+    if (this.isCurrentlyDead) {
+      if (this.currentImage < this.IMAGES_DEAD.length) {
+        this.playAnimation(this.IMAGES_DEAD);
       } else {
-        this.playAnimation(this.IMAGES_ALERT);
+        this.img = this.imageCache[this.IMAGES_DEAD[this.IMAGES_DEAD.length - 1]];
       }
-    }, 150);
-  }
+      return;
+    }
+
+    if (this.isDead || this.isAttacking) return;
+
+    if (this.isHurt) {
+      this.playOneTimeAnimation(this.IMAGES_HURT, () => {
+        this.isHurt = false;
+      });
+    } else if (!this.isChasing && world.character.x > 2200) {
+      this.isChasing = true;
+    }
+
+    if (this.isChasing) {
+      this.walkTowardPepe();
+      this.playAnimation(this.IMAGES_WALKING);
+    } else {
+      this.playAnimation(this.IMAGES_ALERT);
+    }
+  }, 150);
+}
+
 
   startAttackLoop() {
     setInterval(() => {
@@ -145,19 +155,28 @@ class Endboss extends MovableObject {
     }, 100);
   }
 
-  hitByBottle() {
-    if (this.isDead) return;
+hitByBottle() {
+  if (this.isDead) return;
 
-    this.energy -= 10;
-    this.isHurt = true;
+  this.energy -= 10;
+  this.isHurt = true;
 
-    if (world?.bossBar) {
-      world.bossBar.setPercentage(this.energy);
-    }
-
-    if (this.energy <= 0) {
-      this.energy = 0;
-      this.isDead = true;
-    }
+  if (world?.bossBar) {
+    world.bossBar.setPercentage(this.energy);
   }
+
+  if (this.energy <= 0) {
+    this.energy = 0;
+    this.isDead = true;
+    this.playDeath(); // 👉 play death animation
+  }
+}
+
+playDeath() {
+  this.isCurrentlyDead = true;
+  this.currentImage = 0; // Start at the first death frame
+}
+
+
+
 }
