@@ -4,6 +4,7 @@ class Endboss extends MovableObject {
   height = 400;
   energy = 100;
   isDead = false;
+  isCurrentlyDead = false;
   isHurt = false;
   isCurrentlyHurt = false;
   isAttacking = false;
@@ -59,17 +60,22 @@ class Endboss extends MovableObject {
     this.loadImages(this.IMAGES_WALKING);
     this.loadImages(this.IMAGES_HURT);
     this.loadImages(this.IMAGES_DEAD);
-
     this.offset = { top: 63, bottom: 13, left: 8, right: 5 };
     this.x = 2500;
 
-    this.startAnimationLoop();
+    this.animate();
     this.startAttackLoop();
   }
 
-  startAnimationLoop() {
-    this.animationInterval = setInterval(() => {
-      if (this.isCurrentlyDead) {
+  animate() {
+    setInterval(() => {
+      if (!world) return;
+
+      if (this.isDead) {
+        if (!this.isCurrentlyDead) {
+          this.isCurrentlyDead = true;
+          this.currentImage = 0;
+        }
         if (this.currentImage < this.IMAGES_DEAD.length) {
           this.playAnimation(this.IMAGES_DEAD);
         } else {
@@ -78,22 +84,22 @@ class Endboss extends MovableObject {
         return;
       }
 
-      if (this.isDead || this.isAttacking) return;
-
       if (this.isHurt) {
         if (!this.isCurrentlyHurt) {
           this.isCurrentlyHurt = true;
           this.currentImage = 0;
+          setTimeout(() => {
+            this.isHurt = false;
+            this.isCurrentlyHurt = false;
+          }, 500);
         }
-        if (this.currentImage < this.IMAGES_HURT.length) {
-          this.playAnimation(this.IMAGES_HURT);
-        } else {
-          this.img = this.imageCache[this.IMAGES_HURT[this.IMAGES_HURT.length - 1]];
-          this.isHurt = false;
-          this.isCurrentlyHurt = false;
-        }
-        return; // Exit after hurt logic
-      } else if (!this.isChasing && world.character.x > 2200) {
+        this.playAnimation(this.IMAGES_HURT);
+        return;
+      }
+
+      if (this.isAttacking) return;
+
+      if (!this.isChasing && world.character.x > 2200) {
         this.isChasing = true;
       }
 
@@ -103,15 +109,7 @@ class Endboss extends MovableObject {
       } else {
         this.playAnimation(this.IMAGES_ALERT);
       }
-    }, 150);
-  }
-
-  startAttackLoop() {
-    setInterval(() => {
-      if (this.isChasing && !this.isDead && !this.isHurt && !this.isAttacking) {
-        this.lungeAttack();
-      }
-    }, 1000); // Every second
+    }, 100);
   }
 
   walkTowardPepe() {
@@ -120,53 +118,8 @@ class Endboss extends MovableObject {
     }
   }
 
-  lungeAttack() {
-    this.isAttacking = true;
-    const lungeDistance = 80;
-    const lungeSpeed = 10;
-    const steps = lungeDistance / lungeSpeed;
-    let currentStep = 0;
-
-    this.playOneTimeAnimation(this.IMAGES_ATTACK, () => {
-      this.isAttacking = false;
-    });
-
-    const lungeInterval = setInterval(() => {
-      this.x -= lungeSpeed;
-      currentStep++;
-
-      if (this.world?.character && this.isColliding(this.world.character)) {
-        this.world.character.hit(this.damage);
-        this.world.healthBar.setPercentage(this.world.character.energy);
-      }
-
-      if (currentStep >= steps || this.isDead) {
-        clearInterval(lungeInterval);
-      }
-    }, 50);
-  }
-
-  playOneTimeAnimation(images, onFinish = () => {}) {
-    let i = 0;
-    const frameInterval = setInterval(() => {
-      if (i < images.length) {
-        this.img = this.imageCache[images[i]];
-        i++;
-      } else {
-        clearInterval(frameInterval);
-        onFinish();
-
-        // Stay on last frame if dead
-        if (this.isDead) {
-          this.img = this.imageCache[images[images.length - 1]];
-        }
-      }
-    }, 100);
-  }
-
   hitByBottle() {
     if (this.isDead) return;
-
     this.energy -= 10;
     this.isHurt = true;
 
@@ -177,12 +130,40 @@ class Endboss extends MovableObject {
     if (this.energy <= 0) {
       this.energy = 0;
       this.isDead = true;
-      this.playDeath(); // 👉 play death animation
     }
   }
 
-  playDeath() {
-    this.isCurrentlyDead = true;
-    this.currentImage = 0; // Start at the first death frame
+  startAttackLoop() {
+    setInterval(() => {
+      if (this.isChasing && !this.isDead && !this.isHurt && !this.isAttacking) {
+        this.lungeAttack();
+      }
+    }, 1000);
+  }
+
+  lungeAttack() {
+    this.isAttacking = true;
+    const distance = 80;
+    const speed = 10;
+    const steps = distance / speed;
+    let currentStep = 0;
+
+    this.playAnimation(this.IMAGES_ATTACK); // playAnimation = looped; or swap if needed
+
+    const lunge = setInterval(() => {
+      this.x -= speed;
+      currentStep++;
+
+      if (this.world?.character && this.isColliding(this.world.character)) {
+        this.world.character.hit(this.damage);
+        this.world.healthBar.setPercentage(this.world.character.energy);
+      }
+
+      if (currentStep >= steps || this.isDead) {
+        clearInterval(lunge);
+        this.isAttacking = false;
+        this.currentImage = 0;
+      }
+    }, 50);
   }
 }
