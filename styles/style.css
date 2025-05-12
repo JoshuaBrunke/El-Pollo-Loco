@@ -6,18 +6,16 @@
 }
 
 .overlay {
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8); /* slightly darker for clarity */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8); /* slightly darker for clarity */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
 }
-
-
 
 @media (orientation: portrait) {
   #canvas {
@@ -37,8 +35,6 @@
     z-index: 2;
   }
 
-
-
   #overlay-portrait::before {
     content: "Please rotate your device";
     color: white;
@@ -47,8 +43,6 @@
     padding: 1rem;
   }
 }
-
-
 
 @media (max-width: 700px) {
   .hidemobile {

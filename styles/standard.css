@@ -35,7 +35,8 @@ h1,
 h2,
 h3 {
   font-family: "Kablammo", sans-serif;
-  text-shadow: 3px 3px 7px rgba(0, 0, 0, 0.2);
+  text-shadow: 3px 3px 7px rgba(160, 34, 10, 0.2);
+  color: #a0220a;
 }
 
 .logo {

@@ -27,8 +27,6 @@
   box-shadow: none;
 }
 
-
-
 .card {
   display: flex;
   flex-direction: column;
@@ -43,5 +41,3 @@
 .card:hover {
   cursor: pointer;
 }
-
-
