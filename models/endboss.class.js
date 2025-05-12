@@ -7,7 +7,7 @@ class Endboss extends MovableObject {
   isHurt = false;
   isAttacking = false;
   isChasing = false;
-  speed = 5.5;
+  speed = 7.5;
   damage = 20;
 
   IMAGES_ALERT = [
@@ -85,12 +85,12 @@ class Endboss extends MovableObject {
 
       if (this.isAttacking) return;
 
-      if (!this.isChasing && world.character.x > 2200) {
+      if (!this.isChasing && world.character.x > 1900) {
         this.isChasing = true;
       }
 
       if (this.isChasing) {
-        this.walkTowardPepe();
+        this.approach();
         this.playAnimation(this.IMAGES_WALKING);
       } else {
         this.playAnimation(this.IMAGES_ALERT);
@@ -98,7 +98,7 @@ class Endboss extends MovableObject {
     }, 100);
   }
 
-  walkTowardPepe() {
+  approach() {
     if (this.x > world.character.x + 50) {
       this.x -= this.speed;
     }
@@ -107,7 +107,7 @@ class Endboss extends MovableObject {
   hitByBottle() {
     if (this.isDead) return;
 
-    this.energy -= 10;
+    this.energy -= 20;
     this.isHurt = true;
     this.currentImage = 0; // restart hurt animation
 

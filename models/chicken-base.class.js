@@ -13,7 +13,7 @@ class ChickenBase extends MovableObject {
   IMAGES_WALKING = [];
   IMAGE_DEAD = "";
   damage = 0;
-  isDead = false; // 🆕 New flag
+  isDead = false; 
 
   constructor() {
     super();
@@ -33,10 +33,9 @@ class ChickenBase extends MovableObject {
    * Sets default attributes like position, speed, energy, and dead image.
    * @param {Object} options - Contains x, speed, energy, imageDead, damage.
    */
-setDefaults({ x, speed, energy = 5, imageDead, damage = 0 }) {
+setDefaults({ x, speed, imageDead, damage = 0 }) {
   this.x = x;
   this.speed = speed;
-  this.energy = energy;
   this.IMAGE_DEAD = imageDead;
   this.damage = damage;
 

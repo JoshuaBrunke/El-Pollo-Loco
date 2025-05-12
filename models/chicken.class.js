@@ -12,9 +12,8 @@ class Chicken extends ChickenBase {
     this.setDefaults({
       x: 700 + Math.random() * 1200, // 🆕 Start farther right to give Pepe some breathing room
       speed: 0.15 + Math.random() * 0.25,
-      energy: 5,
       imageDead: IMAGE_DEAD,
-      damage: 5,
+      damage: 10,
     });
     this.animate();
   }

@@ -23,9 +23,8 @@ class MutantChicken extends ChickenBase {
       this.setDefaults({
         x: 1200 + Math.random() * 800,
         speed: 0.25 + Math.random() * 0.3,
-        energy: 10,
         imageDead: IMAGE_DEAD,
-        damage: 10, // stronger damage
+        damage: 10, 
       });
       this.animate();
     }
