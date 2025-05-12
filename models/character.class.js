@@ -141,7 +141,7 @@ class Character extends MovableObject {
       } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
         this.playAnimation(this.IMAGES_WALKING);
       } else {
-        this.img = this.imageCache["./assets/img/2_character_pepe/2_walk/W-21.png"];
+        this.playAnimation(this.IMAGES_IDLE);
       }
     }, 100);
   }
