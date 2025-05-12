@@ -4,9 +4,7 @@ class Endboss extends MovableObject {
   height = 400;
   energy = 100;
   isDead = false;
-  isCurrentlyDead = false;
   isHurt = false;
-  isCurrentlyHurt = false;
   isAttacking = false;
   isChasing = false;
   speed = 5.5;
@@ -72,10 +70,6 @@ class Endboss extends MovableObject {
       if (!world) return;
 
       if (this.isDead) {
-        if (!this.isCurrentlyDead) {
-          this.isCurrentlyDead = true;
-          this.currentImage = 0;
-        }
         if (this.currentImage < this.IMAGES_DEAD.length) {
           this.playAnimation(this.IMAGES_DEAD);
         } else {
@@ -85,14 +79,6 @@ class Endboss extends MovableObject {
       }
 
       if (this.isHurt) {
-        if (!this.isCurrentlyHurt) {
-          this.isCurrentlyHurt = true;
-          this.currentImage = 0;
-          setTimeout(() => {
-            this.isHurt = false;
-            this.isCurrentlyHurt = false;
-          }, 500);
-        }
         this.playAnimation(this.IMAGES_HURT);
         return;
       }
@@ -120,16 +106,21 @@ class Endboss extends MovableObject {
 
   hitByBottle() {
     if (this.isDead) return;
+
     this.energy -= 10;
     this.isHurt = true;
+    this.currentImage = 0; // restart hurt animation
 
     if (world?.bossBar) {
       world.bossBar.setPercentage(this.energy);
     }
 
+    setTimeout(() => this.isHurt = false, 500); // short hurt delay
+
     if (this.energy <= 0) {
       this.energy = 0;
       this.isDead = true;
+      this.currentImage = 0; // reset for death animation
     }
   }
 
@@ -148,7 +139,7 @@ class Endboss extends MovableObject {
     const steps = distance / speed;
     let currentStep = 0;
 
-    this.playAnimation(this.IMAGES_ATTACK); // playAnimation = looped; or swap if needed
+    this.playAnimation(this.IMAGES_ATTACK);
 
     const lunge = setInterval(() => {
       this.x -= speed;
