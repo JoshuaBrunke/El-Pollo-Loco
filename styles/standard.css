@@ -39,13 +39,9 @@ h1,
 h2,
 h3 {
   font-family: "Kablammo", sans-serif;
-  text-shadow: 3px 3px 7px rgba(160, 34, 10, 0.2);
+  text-shadow: 2px 2px 8px rgba(252, 217, 97, 0.9);
   color: #a0220a;
-}
-
-.logo {
-  height: 50px;
-  width: 50px;
+  
 }
 
 h1 {
@@ -92,7 +88,7 @@ a:hover {
 }
 
 .dnone {
-  display: none !important;
+  display: none; 
 }
 
 #header {
