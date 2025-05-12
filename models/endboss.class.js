@@ -5,7 +5,10 @@ class Endboss extends MovableObject {
   energy = 100;
   isDead = false;
   isHurt = false;
-  currentAnimationInterval;
+  isAttacking = false;
+  isChasing = false;
+  speed = 5.5;
+  damage = 20;
 
   IMAGES_ALERT = [
     "./assets/img/4_enemie_boss_chicken/2_alert/G5.png",
@@ -48,11 +51,6 @@ class Endboss extends MovableObject {
     "./assets/img/4_enemie_boss_chicken/5_dead/G26.png",
   ];
 
-  damage = 20;
-
-  speed = 5.5;
-  isChasing = false;
-
   constructor() {
     super().loadImage(this.IMAGES_ALERT[0]);
     this.loadImages(this.IMAGES_ALERT);
@@ -64,38 +62,69 @@ class Endboss extends MovableObject {
     this.offset = { top: 63, bottom: 13, left: 8, right: 5 };
     this.x = 2500;
 
-    this.animate();
-
-    this.attackInterval = setInterval(() => this.maybeAttackPepe(), 1000);
+    this.startAnimationLoop();
+    this.startAttackLoop();
   }
 
-  animate() {
-    this.currentAnimationInterval = setInterval(() => {
-      if (this.isDead) {
-        this.playOneTimeAnimation(this.IMAGES_DEAD);
-      } else if (this.isHurt) {
+  startAnimationLoop() {
+    this.animationInterval = setInterval(() => {
+      if (this.isDead || this.isAttacking) return;
+
+      if (this.isHurt) {
         this.playOneTimeAnimation(this.IMAGES_HURT, () => {
           this.isHurt = false;
         });
-      } else {
-        if (!this.isChasing && world.character.x > 2200) {
-          this.isChasing = true;
-        }
+      } else if (!this.isChasing && world.character.x > 2200) {
+        this.isChasing = true;
+      }
 
-        if (this.isChasing) {
-          this.walkTowardPepe();
-          this.playAnimation(this.IMAGES_WALKING);
-        } else {
-          this.playAnimation(this.IMAGES_ALERT);
-        }
+      if (this.isChasing) {
+        this.walkTowardPepe();
+        this.playAnimation(this.IMAGES_WALKING);
+      } else {
+        this.playAnimation(this.IMAGES_ALERT);
       }
     }, 150);
+  }
+
+  startAttackLoop() {
+    setInterval(() => {
+      if (this.isChasing && !this.isDead && !this.isHurt && !this.isAttacking) {
+        this.lungeAttack();
+      }
+    }, 1000); // Every second
   }
 
   walkTowardPepe() {
     if (this.x > world.character.x + 50) {
       this.x -= this.speed;
     }
+  }
+
+  lungeAttack() {
+    this.isAttacking = true;
+    const lungeDistance = 80;
+    const lungeSpeed = 10;
+    const steps = lungeDistance / lungeSpeed;
+    let currentStep = 0;
+
+    this.playOneTimeAnimation(this.IMAGES_ATTACK, () => {
+      this.isAttacking = false;
+    });
+
+    const lungeInterval = setInterval(() => {
+      this.x -= lungeSpeed;
+      currentStep++;
+
+      if (this.world?.character && this.isColliding(this.world.character)) {
+        this.world.character.hit(this.damage);
+        this.world.healthBar.setPercentage(this.world.character.energy);
+      }
+
+      if (currentStep >= steps || this.isDead) {
+        clearInterval(lungeInterval);
+      }
+    }, 50);
   }
 
   playOneTimeAnimation(images, onFinish = () => {}) {
@@ -107,6 +136,11 @@ class Endboss extends MovableObject {
       } else {
         clearInterval(frameInterval);
         onFinish();
+
+        // Stay on last frame if dead
+        if (this.isDead) {
+          this.img = this.imageCache[images[images.length - 1]];
+        }
       }
     }, 100);
   }
@@ -125,42 +159,5 @@ class Endboss extends MovableObject {
       this.energy = 0;
       this.isDead = true;
     }
-  }
-
-  maybeAttackPepe() {
-    if (!this.isChasing || this.isDead || this.isHurt || this.isAttacking) return;
-
-    const shouldAttack = Math.random() < 0.5; // 50% chance to attack
-    if (!shouldAttack) return;
-
-    this.isAttacking = true;
-    let lungeDistance = 80;
-    let lungeSpeed = 10;
-
-    let steps = lungeDistance / lungeSpeed;
-    let currentStep = 0;
-
-    // Temporarily stop regular animation while lunging
-    clearInterval(this.currentAnimationInterval);
-
-    this.playOneTimeAnimation(this.IMAGES_ATTACK, () => {
-      this.isAttacking = false;
-      this.animate(); // Resume normal animation loop
-    });
-
-    let lungeInterval = setInterval(() => {
-      this.x -= lungeSpeed;
-      currentStep++;
-
-      // ✅ Check collision with Pepe
-      if (this.world?.character && this.isColliding(this.world.character)) {
-        this.world.character.hit(this.damage);
-        this.world.healthBar.setPercentage(this.world.character.energy);
-      }
-
-      if (currentStep >= steps || this.isDead) {
-        clearInterval(lungeInterval);
-      }
-    }, 50);
   }
 }
