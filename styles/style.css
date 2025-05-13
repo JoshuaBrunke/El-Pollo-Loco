@@ -59,14 +59,10 @@
     height: 20px;
     padding-top: 5px;
     padding-bottom: 5px;
-    padding-inline: 5px;
   }
 
   #footer {
     max-height: 20px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    padding-inline: 5px;
   }
 }
 
@@ -84,14 +80,10 @@
     height: 20px;
     padding-top: 5px;
     padding-bottom: 5px;
-    padding-inline: 5px;
   }
 
   #footer {
-    max-height: 20px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    padding-inline: 5px;
+    max-height: 10px;
   }
 }
 
@@ -116,12 +108,10 @@
     height: 10px;
     padding-top: 2.5px;
     padding-bottom: 2.5px;
-    padding-inline: 5px;
   }
 
   #footer {
     max-height: 5px;
-    padding-top: 2px;
   }
 }
 

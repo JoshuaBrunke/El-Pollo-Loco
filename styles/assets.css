@@ -29,34 +29,48 @@
 }
 
 #mobile-controls {
-  position: absolute;
-  bottom: 20px;
+  position: fixed; /* Use fixed to overlay over the whole screen */
+  top: 0;
+  left: 0;
   width: 100%;
-  display: flex;
-  justify-content: space-between;
-  padding: 0 20px;
-  z-index: 5;
+  height: 100%;
+  z-index: 10;
+  pointer-events: none; /* Let touches pass through unless on a button */
 }
 
-.left-buttons,
-.right-buttons {
+#mobile-controls .left-buttons,
+#mobile-controls .right-buttons {
+  position: absolute;
+  bottom: 20px;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  pointer-events: auto; /* Enable interaction */
+}
+
+#mobile-controls .left-buttons {
+  left: 20px;
+}
+
+#mobile-controls .right-buttons {
+  right: 20px;
 }
 
 #mobile-controls button {
-  padding: 10px;
-  font-size: 20px;
+  padding: 15px;
+  font-size: 24px;
   border-radius: 8px;
   border: none;
   background: #f0a24b;
   color: #001ea1;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  pointer-events: auto; /* Absolutely necessary on mobile */
 }
 
 #mobile-controls button:active {
   background: #fae352;
+  transform: scale(0.95);
 }
 
 .card {

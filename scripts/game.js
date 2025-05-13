@@ -35,19 +35,27 @@ function loadCanvas() {
   world = new World(canvas, keyboard);
 }
 
+
 function setupMobileControls() {
-  document.getElementById("left-btn").addEventListener("touchstart", () => keyboard.LEFT = true);
-  document.getElementById("left-btn").addEventListener("touchend", () => keyboard.LEFT = false);
+  const bindButton = (id, key) => {
+    const btn = document.getElementById(id);
+    btn.addEventListener("touchstart", (e) => {
+      e.preventDefault();
+      keyboard[key] = true;
+    }, { passive: false });
 
-  document.getElementById("right-btn").addEventListener("touchstart", () => keyboard.RIGHT = true);
-  document.getElementById("right-btn").addEventListener("touchend", () => keyboard.RIGHT = false);
+    btn.addEventListener("touchend", (e) => {
+      e.preventDefault();
+      keyboard[key] = false;
+    }, { passive: false });
+  };
 
-  document.getElementById("jump-btn").addEventListener("touchstart", () => keyboard.UP = true);
-  document.getElementById("jump-btn").addEventListener("touchend", () => keyboard.UP = false);
-
-  document.getElementById("throw-btn").addEventListener("touchstart", () => keyboard.SPACE = true);
-  document.getElementById("throw-btn").addEventListener("touchend", () => keyboard.SPACE = false);
+  bindButton("left-btn", "LEFT");
+  bindButton("right-btn", "RIGHT");
+  bindButton("jump-btn", "UP");
+  bindButton("throw-btn", "SPACE");
 }
+
 
 
 window.addEventListener("keydown", (e) => {
