@@ -18,14 +18,12 @@ function showStartScreen() {
   }
 }
 
-
 function startGame() {
   document.getElementById("overlay-start").classList.add("dnone");
   document.getElementById("canvas").classList.remove("dnone");
   loadCanvas();
-  setupMobileControls()
+  setupMobileControls();
 }
-
 
 function loadCanvas() {
   canvas = document.getElementById("canvas");
@@ -35,19 +33,26 @@ function loadCanvas() {
   world = new World(canvas, keyboard);
 }
 
-
 function setupMobileControls() {
   const bindButton = (id, key) => {
     const btn = document.getElementById(id);
-    btn.addEventListener("touchstart", (e) => {
-      e.preventDefault();
-      keyboard[key] = true;
-    }, { passive: false });
+    btn.addEventListener(
+      "touchstart",
+      (e) => {
+        e.preventDefault();
+        keyboard[key] = true;
+      },
+      { passive: false }
+    );
 
-    btn.addEventListener("touchend", (e) => {
-      e.preventDefault();
-      keyboard[key] = false;
-    }, { passive: false });
+    btn.addEventListener(
+      "touchend",
+      (e) => {
+        e.preventDefault();
+        keyboard[key] = false;
+      },
+      { passive: false }
+    );
   };
 
   bindButton("left-btn", "LEFT");
@@ -55,8 +60,6 @@ function setupMobileControls() {
   bindButton("jump-btn", "UP");
   bindButton("throw-btn", "SPACE");
 }
-
-
 
 window.addEventListener("keydown", (e) => {
   switch (e.key) {
@@ -127,17 +130,23 @@ function restartGame() {
 
   // Manually recreate a fresh level for the new world instance
   const freshEnemies = [
-    new Chicken(), new Chicken(), new Chicken(),
-    new Chicken(), new Chicken(), new Chicken(),
-    new MutantChicken(), new MutantChicken(),
-    new MutantChicken(), new MutantChicken(),
-    new Endboss()
+    new Chicken(),
+    new Chicken(),
+    new Chicken(),
+    new Chicken(),
+    new Chicken(),
+    new Chicken(),
+    new MutantChicken(),
+    new MutantChicken(),
+    new MutantChicken(),
+    new MutantChicken(),
+    new Endboss(),
   ];
 
-  const freshBottles = bottlePositions.map(x => new Bottle(x, bottleGroundY));
+  const freshBottles = bottlePositions.map((x) => new Bottle(x, bottleGroundY));
   const freshCoins = coinPositions.map(([x, y]) => new Coin(x, y));
 
-  const freshBackground = level1.backgroundObjects.filter(obj => obj instanceof BackgroundObject);
+  const freshBackground = level1.backgroundObjects.filter((obj) => obj instanceof BackgroundObject);
 
   // Create a fresh level (but still keep the tutorial's Level class)
   const freshLevel = new Level(freshEnemies, [new Cloud()], [...freshBackground, ...freshBottles, ...freshCoins]);
@@ -152,5 +161,3 @@ function restartGame() {
   world.setWorld(); // re-link character to this world
   setupMobileControls();
 }
-
-

@@ -15,7 +15,6 @@ class World {
   intervals = [];
   animationFrame;
 
-
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
@@ -29,14 +28,14 @@ class World {
     this.character.world = this;
   }
 
-run() {
-  const interval = setInterval(() => {
-    this.checkCollisions();
-    this.checkThrowObjects();
-    this.checkBottleHits();
-  }, 1000 / 60);
-  this.intervals.push(interval);
-}
+  run() {
+    const interval = setInterval(() => {
+      this.checkCollisions();
+      this.checkThrowObjects();
+      this.checkBottleHits();
+    }, 1000 / 60);
+    this.intervals.push(interval);
+  }
 
   checkBottleHits() {
     this.throwableObjects.forEach((bottle) => {
@@ -73,10 +72,14 @@ run() {
       const enemyAlive = !enemy.isDead;
       if (!collides || !enemyAlive) return;
 
-      const landedOnTop = this.character.speedY < 0 && this.character.y < enemy.y;
+      const isFalling = this.character.speedY < 0;
+      const aboveEnemy = this.character.y + this.character.height - this.character.offset.bottom < enemy.y + enemy.height * 0.5;
+
+      const landedOnTop = isFalling && aboveEnemy;
+
       if (landedOnTop && (enemy instanceof Chicken || enemy instanceof MutantChicken)) {
         enemy.die();
-        this.character.speedY = 10; // Pepe bounces back
+        this.character.speedY = 10;
       } else if (this.character.canBeHit()) {
         const damage = enemy.damage || 5;
         this.character.hit(damage);
@@ -103,31 +106,30 @@ run() {
     }
   }
 
-showGameOver() {
-  document.getElementById("overlay-gameover").classList.remove("dnone");
-  document.getElementById("canvas").classList.add("dnone");
-  document.getElementById("mobile-controls").classList.add("dnone");
-}
+  showGameOver() {
+    document.getElementById("overlay-gameover").classList.remove("dnone");
+    document.getElementById("canvas").classList.add("dnone");
+    document.getElementById("mobile-controls").classList.add("dnone");
+  }
 
+  draw() {
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.ctx.translate(this.camera_x, 0);
+    this.addObjectsToMap(this.level.backgroundObjects);
+    this.ctx.translate(-this.camera_x, 0);
+    this.addToMap(this.healthBar);
+    this.addToMap(this.bossBar);
+    this.addToMap(this.bottleBar);
+    this.addToMap(this.coinBar);
+    this.ctx.translate(this.camera_x, 0);
+    this.addObjectsToMap(this.level.clouds);
+    this.addObjectsToMap(this.level.enemies);
+    this.addObjectsToMap(this.throwableObjects);
+    this.addToMap(this.character);
+    this.ctx.translate(-this.camera_x, 0);
 
-draw() {
-  this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-  this.ctx.translate(this.camera_x, 0);
-  this.addObjectsToMap(this.level.backgroundObjects);
-  this.ctx.translate(-this.camera_x, 0);
-  this.addToMap(this.healthBar);
-  this.addToMap(this.bossBar);
-  this.addToMap(this.bottleBar);
-  this.addToMap(this.coinBar);
-  this.ctx.translate(this.camera_x, 0);
-  this.addObjectsToMap(this.level.clouds);
-  this.addObjectsToMap(this.level.enemies);
-  this.addObjectsToMap(this.throwableObjects);
-  this.addToMap(this.character);
-  this.ctx.translate(-this.camera_x, 0);
-
-  this.animationFrame = requestAnimationFrame(() => this.draw());
-}
+    this.animationFrame = requestAnimationFrame(() => this.draw());
+  }
 
   addObjectsToMap(objects) {
     objects.forEach((object) => {
@@ -159,8 +161,7 @@ draw() {
   }
 
   stop() {
-  this.intervals.forEach(clearInterval);
-  cancelAnimationFrame(this.animationFrame);
-}
-
+    this.intervals.forEach(clearInterval);
+    cancelAnimationFrame(this.animationFrame);
+  }
 }

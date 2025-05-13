@@ -15,7 +15,7 @@ body {
   font-family: "Raleway", sans-serif;
   gap: 10px;
   background-image: url(../assets/img/sitebackground.jpg);
-  background-size:cover;
+  background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
 }
@@ -41,14 +41,14 @@ body {
 }
 
 h1,
-h2{
+h2 {
   font-family: "Kablammo", sans-serif;
   text-shadow: 2px 2px 8px rgb(160, 34, 10, 0.5);
   color: #ffda3d;
 }
 
 h3 {
-font-family: "Orbitron", sans-serif;
+  font-family: "Orbitron", sans-serif;
   text-shadow: 2px 2px 8px rgb(160, 34, 10, 0.5);
   color: #ffda3d;
 }
@@ -98,7 +98,7 @@ a:hover {
 }
 
 .dnone {
-  display: none; 
+  display: none;
 }
 
 #header {
