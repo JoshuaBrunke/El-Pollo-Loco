@@ -42,12 +42,12 @@ class AudioHub {
 
   static stopAll() {
     AudioHub.allSounds.forEach((sound) => {
-      sound.pause(); // Pausiert jedes Audio in der Liste
+      sound.pause(); 
     });
-    document.getElementById("volume").value = 0.2; // Setzt den Sound-Slider wieder auf 0.2
+    document.getElementById("volume").value = 0.2; 
   }
 
   static stopOne(sound) {
-    sound.pause(); // Pausiert das übergebene Audio
+    sound.pause(); 
   }
 }
