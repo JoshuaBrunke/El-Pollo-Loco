@@ -170,7 +170,7 @@ function restartGame() {
   world.level = freshLevel; // overwrite default level1 with fresh version
   world.setWorld(); // re-link character to this world
   setupMobileControls();
-  playBGM(); // 🔁 Restart background music
+  playBGM(); 
 }
 
 function loadMuteState() {
