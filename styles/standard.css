@@ -41,12 +41,16 @@ body {
 }
 
 h1,
-h2,
-h3 {
+h2{
   font-family: "Kablammo", sans-serif;
-  text-shadow: 2px 2px 8px rgb(160, 34, 10, 0.9);
+  text-shadow: 2px 2px 8px rgb(160, 34, 10, 0.5);
   color: #ffda3d;
-  
+}
+
+h3 {
+font-family: "Orbitron", sans-serif;
+  text-shadow: 2px 2px 8px rgb(160, 34, 10, 0.5);
+  color: #ffda3d;
 }
 
 h1 {

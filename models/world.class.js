@@ -94,7 +94,17 @@ class World {
       }
       return true;
     });
+    if (this.character.isDead()) {
+      this.showGameOver();
+    }
   }
+
+showGameOver() {
+  document.getElementById("overlay-gameover").classList.remove("dnone");
+  document.getElementById("canvas").classList.add("dnone");
+  document.getElementById("mobile-controls").classList.add("dnone");
+}
+
 
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
