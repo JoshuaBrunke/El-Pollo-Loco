@@ -42,6 +42,11 @@
   }
 }
 
+@media (max-width: 1079px) {
+  .hidemobile {
+    display: none;
+  }
+
 @media (max-width: 700px) {
   .hidemobile {
     display: none;
@@ -49,6 +54,7 @@
 
   #canvas {
     max-width: 380px;
+    aspect-ratio: 3 / 2;
   }
 
   #header {
@@ -73,6 +79,7 @@
 
   #canvas {
     max-height: 300px;
+    aspect-ratio: 3 / 2;
   }
 
   #header {
@@ -90,7 +97,37 @@
   }
 }
 
-@media (min-width: 701px) {
+@media (min-width: 1080px) {
+  .hidedesktop {
+    display: none;
+  }
+}
+
+@media (max-height: 400px) {
+  .hidemobile {
+    display: none;
+  }
+
+  #canvas {
+    max-height: 250px;
+    height: auto;
+    aspect-ratio: 3 / 2;
+  }
+
+  #header {
+    height: 10px;
+    padding-top: 2.5px;
+    padding-bottom: 2.5px;
+    padding-inline: 5px;
+  }
+
+  #footer {
+    max-height: 5px;
+    padding-top: 2px;
+  }
+}
+
+@media (min-width: 1001px) {
   .hidedesktop {
     display: none;
   }
