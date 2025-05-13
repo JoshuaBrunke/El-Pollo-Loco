@@ -25,6 +25,11 @@ function startGame() {
   setupMobileControls();
 }
 
+function exitGame() {
+  location.reload();
+}
+
+
 function loadCanvas() {
   canvas = document.getElementById("canvas");
   canvas.width = 720;
