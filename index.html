@@ -38,9 +38,32 @@
   <body onload="init()">
     <header id="header">
       <h1>El Pollo Loco</h1>
+      <button id="mute-button" class="button">Mute</button>
+      <button id="unmute-button" class="button dnone">Unmute</button>
     </header>
     <div id="overlay-portrait" class="overlay dnone"></div>
-    <div id="overlay-start" class="overlay dnone"></div>
+    <div id="overlay-start" class="overlay dnone">
+      <div id="overlay-start-content">
+        <h2>El Pollo Loco</h2>
+        <button id="start-button" class="button">Start Game</button>
+        <div class="controls hidedesktop">
+          <h3>Controls</h3>
+          <p>Move: Arrow Left/Right</p>
+          <p>Jump: Arrow Up</p>
+          <p>Throw: Space</p>
+        </div>
+        <div class="controls hidemobile">
+          <h3>Controls</h3>
+          <p>Move: Arrow Left/Right</p>
+          <p>Jump: Arrow Up</p>
+          <p>Throw: Space</p>
+        </div>
+        <div class="link-box"
+          <a href="./imprint.html">Imprint</a>
+          <a href="./privacypolicy.html">Privacy Policy</a>
+        </div>
+      </div>
+    </div>
     <div id="overlay-gameover" class="overlay dnone"></div>
     <div id="overlay-victory" class="overlay dnone"></div>
     <section id="main">

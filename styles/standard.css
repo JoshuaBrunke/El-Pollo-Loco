@@ -106,7 +106,7 @@ a:hover {
 }
 
 #footer {
-  height: 50px;
+  max-height: 50px;
   padding-inline: 10px;
   padding-top: 10px;
   padding-bottom: 10px;
