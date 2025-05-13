@@ -118,13 +118,18 @@ class World {
     document.getElementById("mobile-controls").classList.add("dnone");
   }
 
-  showVictory() {
+showVictory() {
+  const scoreSpan = document.getElementById("victory-score");
+  if (scoreSpan) {
+    scoreSpan.textContent = this.coinsCollected; 
+  }
   document.getElementById("overlay-victory").classList.remove("dnone");
   document.getElementById("canvas").classList.add("dnone");
   document.getElementById("mobile-controls").classList.add("dnone");
   stopBGM(); 
   playVictorySound(); 
 }
+
 
 
   draw() {
