@@ -31,14 +31,27 @@ class AudioHub {
     AudioHub.WALKING,
   ];
 
-  static playOne(sound) {
-    setInterval(() => {
-      if (sound.readyState == 4) {
-        sound.volume = 0.2;
-        sound.play();
-      }
-    }, 200);
+static playOnce(sound, volume = 0.2) {
+  if (!isMuted) {
+    sound.volume = volume;
+    if (sound.readyState == 4) {
+      sound.currentTime = 0; 
+      sound.play();
+    }
   }
+}
+
+static playLoop(sound, volume = 0.2) {
+    if (!isMuted) {
+      sound.volume = volume;
+      sound.loop = true;
+      if (sound.readyState == 4) {
+        sound.currentTime = 0; 
+        sound.play();
+      } 
+    }
+  }
+
 
   static muteAll(muted) {
     this.allSounds.forEach((sound) => sound.muted = muted);

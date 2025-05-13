@@ -200,9 +200,7 @@ function setupMuteButton() {
 }
 
 function playBGM() {
-if (!isMuted) {
-  AudioHub.BGM.loop = true;
-  AudioHub.BGM.volume = 0.2;
-  AudioHub.BGM.play();
+  AudioHub.playLoop(AudioHub.BGM, 0.2);
 }
-}
+
+
