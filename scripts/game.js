@@ -28,7 +28,7 @@ function startGame() {
   document.getElementById("canvas").classList.remove("dnone");
   loadCanvas();
   setupMobileControls();
-  playBGM()
+  playBGM();
 }
 
 function exitGame() {
@@ -170,6 +170,7 @@ function restartGame() {
   world.level = freshLevel; // overwrite default level1 with fresh version
   world.setWorld(); // re-link character to this world
   setupMobileControls();
+  playBGM(); // 🔁 Restart background music
 }
 
 function loadMuteState() {
@@ -198,7 +199,3 @@ function toggleMute() {
 function setupMuteButton() {
   document.getElementById("mute-button").addEventListener("click", toggleMute);
 }
-
-
-
-
