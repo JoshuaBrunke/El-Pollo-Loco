@@ -104,25 +104,24 @@ class Endboss extends MovableObject {
     }
   }
 
-  hitByBottle() {
-    if (this.isDead) return;
+hitByBottle() {
+  if (this.isDead) return;
 
-    this.energy -= 20;
-    this.isHurt = true;
-    this.currentImage = 0; // restart hurt animation
+  this.energy -= 20;
+  this.isHurt = true;
+  this.currentImage = 0;
 
-    if (world?.bossBar) {
-      world.bossBar.setPercentage(this.energy);
-    }
-
-    setTimeout(() => this.isHurt = false, 500); // short hurt delay
-
-    if (this.energy <= 0) {
-      this.energy = 0;
-      this.isDead = true;
-      this.currentImage = 0; // reset for death animation
-    }
+  if (this.world?.bossBar) {
+    this.world.bossBar.setPercentage(this.energy);
   }
+
+  setTimeout(() => this.isHurt = false, 500);
+
+  if (this.energy <= 0) {
+    this.die();
+  }
+}
+
 
   startAttackLoop() {
     setInterval(() => {
@@ -157,4 +156,17 @@ class Endboss extends MovableObject {
       }
     }, 50);
   }
+
+  die() {
+  this.energy = 0;
+  this.isDead = true;
+  this.currentImage = 0;
+
+  if (this.world) {
+    setTimeout(() => {
+      this.world.showVictory(); // 🌟 trigger screen
+    }, 1200); // wait for death animation to play a bit
+  }
+}
+
 }

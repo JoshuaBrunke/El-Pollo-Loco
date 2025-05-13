@@ -26,6 +26,12 @@ class World {
 
   setWorld() {
     this.character.world = this;
+    this.level.enemies.forEach(enemy => {
+  if (enemy instanceof Endboss) {
+    enemy.world = this; 
+  }
+});
+
   }
 
   run() {
@@ -111,6 +117,15 @@ class World {
     document.getElementById("canvas").classList.add("dnone");
     document.getElementById("mobile-controls").classList.add("dnone");
   }
+
+  showVictory() {
+  document.getElementById("overlay-victory").classList.remove("dnone");
+  document.getElementById("canvas").classList.add("dnone");
+  document.getElementById("mobile-controls").classList.add("dnone");
+  stopBGM(); 
+  playVictorySound(); 
+}
+
 
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
