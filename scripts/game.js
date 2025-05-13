@@ -109,3 +109,22 @@ window.addEventListener("keyup", (e) => {
       break;
   }
 });
+
+function restartGame() {
+  document.getElementById("overlay-gameover").classList.add("dnone");
+  document.getElementById("overlay-victory").classList.add("dnone");
+  document.getElementById("canvas").classList.remove("dnone");
+
+  if (isMobile()) {
+    document.getElementById("mobile-controls").classList.remove("dnone");
+  }
+
+  if (world && typeof world.stop === "function") {
+    world.stop();
+  }
+
+  world = null;
+  loadCanvas();
+  setupMobileControls();
+}
+

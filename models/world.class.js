@@ -12,6 +12,9 @@ class World {
   bottlesCollected = 0;
   coinsCollected = 0;
   throwableObjects = [];
+  intervals = [];
+  animationFrame;
+
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -26,13 +29,14 @@ class World {
     this.character.world = this;
   }
 
-  run() {
-    setInterval(() => {
-      this.checkCollisions();
-      this.checkThrowObjects();
-      this.checkBottleHits();
-    }, 1000 / 60);
-  }
+run() {
+  const interval = setInterval(() => {
+    this.checkCollisions();
+    this.checkThrowObjects();
+    this.checkBottleHits();
+  }, 1000 / 60);
+  this.intervals.push(interval);
+}
 
   checkBottleHits() {
     this.throwableObjects.forEach((bottle) => {
@@ -106,23 +110,24 @@ showGameOver() {
 }
 
 
-  draw() {
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    this.ctx.translate(this.camera_x, 0);
-    this.addObjectsToMap(this.level.backgroundObjects);
-    this.ctx.translate(-this.camera_x, 0);
-    this.addToMap(this.healthBar);
-    this.addToMap(this.bossBar);
-    this.addToMap(this.bottleBar);
-    this.addToMap(this.coinBar);
-    this.ctx.translate(this.camera_x, 0);
-    this.addObjectsToMap(this.level.clouds);
-    this.addObjectsToMap(this.level.enemies);
-    this.addObjectsToMap(this.throwableObjects);
-    this.addToMap(this.character);
-    this.ctx.translate(-this.camera_x, 0);
-    requestAnimationFrame(() => this.draw());
-  }
+draw() {
+  this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+  this.ctx.translate(this.camera_x, 0);
+  this.addObjectsToMap(this.level.backgroundObjects);
+  this.ctx.translate(-this.camera_x, 0);
+  this.addToMap(this.healthBar);
+  this.addToMap(this.bossBar);
+  this.addToMap(this.bottleBar);
+  this.addToMap(this.coinBar);
+  this.ctx.translate(this.camera_x, 0);
+  this.addObjectsToMap(this.level.clouds);
+  this.addObjectsToMap(this.level.enemies);
+  this.addObjectsToMap(this.throwableObjects);
+  this.addToMap(this.character);
+  this.ctx.translate(-this.camera_x, 0);
+
+  this.animationFrame = requestAnimationFrame(() => this.draw());
+}
 
   addObjectsToMap(objects) {
     objects.forEach((object) => {
@@ -152,4 +157,10 @@ showGameOver() {
     mo.draw(this.ctx);
     mo.drawFrame(this.ctx);
   }
+
+  stop() {
+  this.intervals.forEach(clearInterval);
+  cancelAnimationFrame(this.animationFrame);
+}
+
 }
