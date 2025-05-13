@@ -20,7 +20,7 @@
     <script src="./models/health-bar.class.js"></script>
     <script src="./models/boss-bar.class.js"></script>
     <script src="./models/bottle-bar.class.js"></script>
-    <script src="./models/coin-bar.class.js"></script>    
+    <script src="./models/coin-bar.class.js"></script>
     <script src="./models/cloud.class.js"></script>
     <script src="./models/chicken-base.class.js"></script>
     <script src="./models/chicken.class.js"></script>
@@ -66,6 +66,17 @@
     <div id="overlay-gameover" class="overlay dnone"></div>
     <div id="overlay-victory" class="overlay dnone"></div>
     <section id="main">
+      <div id="mobile-controls" class="dnone">
+        <div class="left-buttons">
+          <button id="jump-btn">↑</button>
+          <button id="throw-btn">🍾</button>
+        </div>
+        <div class="right-buttons">
+          <button id="left-btn">←</button>
+          <button id="right-btn">→</button>
+        </div>
+      </div>
+
       <canvas id="canvas" class="dnone"></canvas>
     </section>
 

@@ -7,14 +7,23 @@ function init() {
   showStartScreen();
 }
 
+function isMobile() {
+  return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+}
+
 function showStartScreen() {
   document.getElementById("overlay-start").classList.remove("dnone");
+  if (isMobile()) {
+    document.getElementById("mobile-controls").classList.remove("dnone");
+  }
 }
+
 
 function startGame() {
   document.getElementById("overlay-start").classList.add("dnone");
   document.getElementById("canvas").classList.remove("dnone");
   loadCanvas();
+  setupMobileControls()
 }
 
 
@@ -25,6 +34,21 @@ function loadCanvas() {
   ctx = canvas.getContext("2d");
   world = new World(canvas, keyboard);
 }
+
+function setupMobileControls() {
+  document.getElementById("left-btn").addEventListener("touchstart", () => keyboard.LEFT = true);
+  document.getElementById("left-btn").addEventListener("touchend", () => keyboard.LEFT = false);
+
+  document.getElementById("right-btn").addEventListener("touchstart", () => keyboard.RIGHT = true);
+  document.getElementById("right-btn").addEventListener("touchend", () => keyboard.RIGHT = false);
+
+  document.getElementById("jump-btn").addEventListener("touchstart", () => keyboard.UP = true);
+  document.getElementById("jump-btn").addEventListener("touchend", () => keyboard.UP = false);
+
+  document.getElementById("throw-btn").addEventListener("touchstart", () => keyboard.SPACE = true);
+  document.getElementById("throw-btn").addEventListener("touchend", () => keyboard.SPACE = false);
+}
+
 
 window.addEventListener("keydown", (e) => {
   switch (e.key) {

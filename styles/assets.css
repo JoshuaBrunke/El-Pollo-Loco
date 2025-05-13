@@ -18,6 +18,7 @@
   box-shadow: 0 0 5px #fae352;
   border: inset 3px #fae352;
   color: #001ea1;
+  cursor: pointer;
 }
 
 .button:disabled {
@@ -25,6 +26,37 @@
   cursor: not-allowed;
   border: outset 3px #aaa;
   box-shadow: none;
+}
+
+#mobile-controls {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+  z-index: 5;
+}
+
+.left-buttons,
+.right-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#mobile-controls button {
+  padding: 10px;
+  font-size: 20px;
+  border-radius: 8px;
+  border: none;
+  background: #f0a24b;
+  color: #001ea1;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+#mobile-controls button:active {
+  background: #fae352;
 }
 
 .card {
