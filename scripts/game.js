@@ -4,8 +4,19 @@ let keyboard = new Keyboard();
 
 function init() {
   addAttributesToExternalLinks();
+  showStartScreen();
+}
+
+function showStartScreen() {
+  document.getElementById("overlay-start").classList.remove("dnone");
+}
+
+function startGame() {
+  document.getElementById("overlay-start").classList.add("dnone");
+  document.getElementById("canvas").classList.remove("dnone");
   loadCanvas();
 }
+
 
 function loadCanvas() {
   canvas = document.getElementById("canvas");

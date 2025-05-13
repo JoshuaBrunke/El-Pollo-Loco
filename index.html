@@ -44,7 +44,7 @@
     <div id="overlay-start" class="overlay dnone">
       <div id="overlay-start-content">
         <h2>El Pollo Loco</h2>
-        <button id="start-button" class="button">Start Game</button>
+        <button id="start-button" class="button" onclick="startGame()">Start Game</button>
         <div class="controls hidedesktop">
           <h3>Controls</h3>
           <p>Move: Arrow Left/Right</p>
@@ -57,7 +57,7 @@
           <p>Jump: Arrow Up</p>
           <p>Throw: Space</p>
         </div>
-        <div class="link-box"
+        <div class="link-box">
           <a href="./imprint.html">Imprint</a>
           <a href="./privacypolicy.html">Privacy Policy</a>
         </div>
@@ -66,7 +66,7 @@
     <div id="overlay-gameover" class="overlay dnone"></div>
     <div id="overlay-victory" class="overlay dnone"></div>
     <section id="main">
-      <canvas id="canvas"></canvas>
+      <canvas id="canvas" class="dnone"></canvas>
     </section>
 
     <footer id="footer"></footer>

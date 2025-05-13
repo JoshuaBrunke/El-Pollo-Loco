@@ -39,8 +39,8 @@ h1,
 h2,
 h3 {
   font-family: "Kablammo", sans-serif;
-  text-shadow: 2px 2px 8px rgba(252, 217, 97, 0.9);
-  color: #a0220a;
+  text-shadow: 2px 2px 8px rgb(160, 34, 10, 0.9);
+  color: #ffda3d;
   
 }
 
@@ -62,6 +62,7 @@ p {
 
 a {
   text-decoration: none;
+  color: white;
 }
 
 a:hover {
