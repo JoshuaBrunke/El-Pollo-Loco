@@ -1,18 +1,18 @@
 class AudioHub {
-  static BGM = new Audio("./assets/sounds/bgm.mp3");
-  static BOSS_ANGRY = new Audio("./assets/sounds/boss-angry.wav");
-  static BOSS_ATTACK = new Audio("./assets/sounds/boss-attack.wav");
-  static CHICKENS = new Audio("./assets/sounds/chickens.wav");
-  static DEFEAT = new Audio("./assets/sounds/defeat.mp3");
-  static GET_BOTTLE = new Audio("./assets/sounds/get-bottle.wav");
-  static GET_COIN = new Audio("./assets/sounds/get-coin.wav");
-  static HIT_WITH_BOTTLE = new Audio("./assets/sounds/hit-with-bottle.wav");
-  static JUMP_ATTACK = new Audio("./assets/sounds/jump-attack.wav");
-  static SHORT_ERROR = new Audio("./assets/sounds/short_error.wav");
-  static SLEEP = new Audio("./assets/sounds/sleep.wav");
-  static TAKE_DAMAGE = new Audio("./assets/sounds/take-damage.wav");
-  static VICTORY = new Audio("./assets/sounds/victory.wav");
-  static WALKING = new Audio("./assets/sounds/walking.wav");
+  static BGM = new Audio("./assets/audio/bgm.mp3");
+  static BOSS_ANGRY = new Audio("./assets/audio/boss-angry.wav");
+  static BOSS_ATTACK = new Audio("./assets/audio/boss-attack.wav");
+  static CHICKENS = new Audio("./assets/audio/chickens.wav");
+  static DEFEAT = new Audio("./assets/audio/defeat.mp3");
+  static GET_BOTTLE = new Audio("./assets/audio/get-bottle.wav");
+  static GET_COIN = new Audio("./assets/audio/get-coin.wav");
+  static HIT_WITH_BOTTLE = new Audio("./assets/audio/hit-with-bottle.wav");
+  static JUMP_ATTACK = new Audio("./assets/audio/jump-attack.wav");
+  static SHORT_ERROR = new Audio("./assets/audio/short_error.wav");
+  static SLEEP = new Audio("./assets/audio/sleep.wav");
+  static TAKE_DAMAGE = new Audio("./assets/audio/take-damage.wav");
+  static VICTORY = new Audio("./assets/audio/victory.wav");
+  static WALKING = new Audio("./assets/audio/walking.wav");
 
   static allSounds = [
     AudioHub.BGM,
@@ -40,11 +40,8 @@ class AudioHub {
     }, 200);
   }
 
-  static stopAll() {
-    AudioHub.allSounds.forEach((sound) => {
-      sound.pause(); 
-    });
-    document.getElementById("volume").value = 0.2; 
+  static muteAll(muted) {
+    this.allSounds.forEach((sound) => sound.muted = muted);
   }
 
   static stopOne(sound) {

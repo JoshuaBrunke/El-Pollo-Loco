@@ -7,6 +7,7 @@ function init() {
   addAttributesToExternalLinks();
   loadMuteState(); // 🔄 Read saved mute state
   updateMuteButton(); // 🖼️ Update UI label
+  AudioHub.muteAll(isMuted); // 🔇 Apply actual mute state to all sounds
   setupMuteButton(); // 🎧 Add event listener
   showStartScreen(); // 🎮 Launch start screen
 }
@@ -27,6 +28,7 @@ function startGame() {
   document.getElementById("canvas").classList.remove("dnone");
   loadCanvas();
   setupMobileControls();
+  playBGM()
 }
 
 function exitGame() {
@@ -190,11 +192,17 @@ function toggleMute() {
   isMuted = !isMuted;
   saveMuteState();
   updateMuteButton();
-
-  //   allSounds.forEach(sound => sound.muted = isMuted); // ✅ Apply mute
+  AudioHub.muteAll(isMuted);
 }
 
 function setupMuteButton() {
-  const muteBtn = document.getElementById("mute-button");
-  muteBtn.addEventListener("click", toggleMute);
+  document.getElementById("mute-button").addEventListener("click", toggleMute);
+}
+
+function playBGM() {
+if (!isMuted) {
+  AudioHub.BGM.loop = true;
+  AudioHub.BGM.volume = 0.2;
+  AudioHub.BGM.play();
+}
 }
