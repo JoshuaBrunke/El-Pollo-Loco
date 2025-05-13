@@ -42,10 +42,7 @@
   }
 }
 
-@media (max-width: 1079px) {
-  .hidemobile {
-    display: none;
-  }
+
 
 @media (max-width: 700px) {
   .hidemobile {
@@ -97,7 +94,7 @@
   }
 }
 
-@media (min-width: 1080px) {
+@media (min-width: 701px) {
   .hidedesktop {
     display: none;
   }
