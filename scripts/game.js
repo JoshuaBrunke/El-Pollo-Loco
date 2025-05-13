@@ -1,10 +1,14 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
+let isMuted = false;
 
 function init() {
   addAttributesToExternalLinks();
-  showStartScreen();
+  loadMuteState(); // 🔄 Read saved mute state
+  updateMuteButton(); // 🖼️ Update UI label
+  setupMuteButton(); // 🎧 Add event listener
+  showStartScreen(); // 🎮 Launch start screen
 }
 
 function isMobile() {
@@ -28,7 +32,6 @@ function startGame() {
 function exitGame() {
   location.reload();
 }
-
 
 function loadCanvas() {
   canvas = document.getElementById("canvas");
@@ -165,4 +168,33 @@ function restartGame() {
   world.level = freshLevel; // overwrite default level1 with fresh version
   world.setWorld(); // re-link character to this world
   setupMobileControls();
+}
+
+function loadMuteState() {
+  const savedMute = localStorage.getItem("isMuted");
+  if (savedMute !== null) {
+    isMuted = JSON.parse(savedMute);
+  }
+}
+
+function saveMuteState() {
+  localStorage.setItem("isMuted", JSON.stringify(isMuted));
+}
+
+function updateMuteButton() {
+  const muteBtn = document.getElementById("mute-button");
+  muteBtn.textContent = isMuted ? "Unmute" : "Mute";
+}
+
+function toggleMute() {
+  isMuted = !isMuted;
+  saveMuteState();
+  updateMuteButton();
+
+  //   allSounds.forEach(sound => sound.muted = isMuted); // ✅ Apply mute
+}
+
+function setupMuteButton() {
+  const muteBtn = document.getElementById("mute-button");
+  muteBtn.addEventListener("click", toggleMute);
 }
