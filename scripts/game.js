@@ -199,8 +199,6 @@ function setupMuteButton() {
   document.getElementById("mute-button").addEventListener("click", toggleMute);
 }
 
-function playBGM() {
-  AudioHub.playLoop(AudioHub.BGM, 0.2);
-}
+
 
 

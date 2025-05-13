@@ -31,33 +31,104 @@ class AudioHub {
     AudioHub.WALKING,
   ];
 
-static playOnce(sound, volume = 0.2) {
-  if (!isMuted) {
-    sound.volume = volume;
-    if (sound.readyState == 4) {
-      sound.currentTime = 0; 
-      sound.play();
+  static playOnce(sound, volume = 0.2) {
+    if (!isMuted) {
+      sound.volume = volume;
+      if (sound.readyState == 4) {
+        sound.currentTime = 0;
+        sound.play();
+      }
     }
   }
-}
 
-static playLoop(sound, volume = 0.2) {
+  static playLoop(sound, volume = 0.2) {
     if (!isMuted) {
       sound.volume = volume;
       sound.loop = true;
       if (sound.readyState == 4) {
-        sound.currentTime = 0; 
+        sound.currentTime = 0;
         sound.play();
-      } 
+      }
     }
   }
 
-
   static muteAll(muted) {
-    this.allSounds.forEach((sound) => sound.muted = muted);
+    this.allSounds.forEach((sound) => (sound.muted = muted));
   }
 
   static stopOne(sound) {
-    sound.pause(); 
+    sound.pause();
   }
+}
+
+function playBGM() {
+  AudioHub.playLoop(AudioHub.BGM, 0.2);
+}
+
+function stopBGM() {
+  AudioHub.stopOne(AudioHub.BGM);
+}
+
+function playGetCoinSound() {
+  AudioHub.playOnce(AudioHub.GET_COIN, 0.2);
+}
+
+function playGetBottleSound() {
+  AudioHub.playOnce(AudioHub.GET_BOTTLE, 0.2);
+}
+
+function playBottleHitSound() {
+  AudioHub.playOnce(AudioHub.HIT_WITH_BOTTLE, 0.2);
+}
+
+function playTakeDamageSound() {
+  AudioHub.playOnce(AudioHub.TAKE_DAMAGE, 0.2);
+}
+
+function playJumpAttackSound() {
+  AudioHub.playOnce(AudioHub.JUMP_ATTACK, 0.2);
+}
+
+function playSleepSound() {
+  AudioHub.playOnce(AudioHub.SLEEP, 0.2);
+}
+
+function stopSleepSound() {
+  AudioHub.stopOne(AudioHub.SLEEP);
+}
+
+function playVictorySound() {
+  AudioHub.playOnce(AudioHub.VICTORY, 0.2);
+}
+
+function playDefeatSound() {
+  AudioHub.playOnce(AudioHub.DEFEAT, 0.2);
+}
+
+function playBossAngrySound() {
+  AudioHub.playOnce(AudioHub.BOSS_ANGRY, 0.2);
+}
+
+function playBossAttackSound() {
+  AudioHub.playOnce(AudioHub.BOSS_ATTACK, 0.2);
+}
+
+function playChickenSound() {
+  AudioHub.playOnce(AudioHub.CHICKENS, 0.1);
+}
+
+function stopChickenSound() {
+  AudioHub.stopOne(AudioHub.CHICKENS);
+}
+
+function playErrorSound() {
+  AudioHub.playOnce(AudioHub.SHORT_ERROR, 0.2);
+}
+
+function playWalkingSound() {
+  AudioHub.playLoop(AudioHub.WALKING, 0.1);
+}
+
+function stopWalkingSound() {
+  AudioHub.stopOne(AudioHub.WALKING);
 }
