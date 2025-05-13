@@ -63,13 +63,26 @@
         </div>
       </div>
     </div>
-    <div id="overlay-gameover" class="overlay dnone"></div>
-    <div id="overlay-victory" class="overlay dnone"></div>
+    <div id="overlay-gameover" class="overlay dnone">
+      <p>GAVE OVER</p>
+      <div class="restart-buttons">
+        <button id="restart-button" class="button" onclick="restartGame()">Restart</button>
+        <button id="exit-button" class="button" onclick="exitGame()">Home</button>
+      </div>
+    </div>
+    <div id="overlay-victory" class="overlay dnone">
+      <p>VICTORY!</p>
+      <p>Score: </p>
+      <div class="restart-buttons">
+        <button id="restart-button" class="button" onclick="restartGame()">Restart</button>
+        <button id="exit-button" class="button" onclick="exitGame()">Home</button>
+      </div>
+    </div>
     <section id="main">
       <div id="mobile-controls" class="dnone">
         <div class="left-buttons">
           <button id="jump-btn">↑</button>
-          <button id="throw-btn">🍾</button>
+          <button id="throw-btn">💥</button>
         </div>
         <div class="right-buttons">
           <button id="left-btn">←</button>

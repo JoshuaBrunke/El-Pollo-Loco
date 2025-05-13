@@ -35,6 +35,11 @@ body {
   src: url(../assets/fonts/ExpletusSans-VariableFont_wght.ttf);
 }
 
+@font-face {
+  font-family: "Orbitron";
+  src: url(../assets/fonts/Orbitron-VariableFont_wght.ttf);
+}
+
 h1,
 h2,
 h3 {
