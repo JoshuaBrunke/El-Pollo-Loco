@@ -53,49 +53,52 @@ class Endboss extends MovableObject {
 
   constructor() {
     super().loadImage(this.IMAGES_ALERT[0]);
+    this.loadAllImages();
+    this.offset = { top: 63, bottom: 13, left: 10, right: 7 };
+    this.x = 2500;
+    this.animate();
+    this.startAttackLoop();
+  }
+
+  loadAllImages() {
     this.loadImages(this.IMAGES_ALERT);
     this.loadImages(this.IMAGES_ATTACK);
     this.loadImages(this.IMAGES_WALKING);
     this.loadImages(this.IMAGES_HURT);
     this.loadImages(this.IMAGES_DEAD);
-    this.offset = { top: 63, bottom: 13, left: 10, right: 7 };
-    this.x = 2500;
-
-    this.animate();
-    this.startAttackLoop();
   }
 
   animate() {
     setInterval(() => {
       if (!world) return;
-
-      if (this.isDead) {
-        if (this.currentImage < this.IMAGES_DEAD.length) {
-          this.playAnimation(this.IMAGES_DEAD);
-        } else {
-          this.img = this.imageCache[this.IMAGES_DEAD[this.IMAGES_DEAD.length - 1]];
-        }
-        return;
+      else if (this.isDead) {
+        return this.playDeath();
+      } else if (this.isHurt) {
+        return this.playAnimation(this.IMAGES_HURT);
+      } else if (this.isAttacking) {
+        return this.playAnimation(this.IMAGES_ATTACK);
       }
-
-      if (this.isHurt) {
-        this.playAnimation(this.IMAGES_HURT);
-        return;
-      }
-
-      if (this.isAttacking) return;
-
-      if (!this.isChasing && world.character.x > 1900) {
-        this.isChasing = true;
-      }
-
-      if (this.isChasing) {
-        this.approach();
-        this.playAnimation(this.IMAGES_WALKING);
-      } else {
-        this.playAnimation(this.IMAGES_ALERT);
-      }
+      this.activateChase();
+      this.playAnimation(this.isChasing ? this.IMAGES_WALKING : this.IMAGES_ALERT);
     }, 100);
+  }
+
+  playDeath() {
+    const frames = this.IMAGES_DEAD;
+    if (this.currentImage < frames.length) {
+      this.playAnimation(frames);
+    } else {
+      this.img = this.imageCache[frames[frames.length - 1]];
+    }
+  }
+
+  activateChase() {
+    if (!this.isChasing && world.character.x > 1900) {
+      this.isChasing = true;
+    }
+    if (this.isChasing) {
+      this.approach();
+    }
   }
 
   approach() {
@@ -104,31 +107,24 @@ class Endboss extends MovableObject {
     }
   }
 
-hitByBottle() {
-  if (this.isDead) return;
-
-  this.energy -= 20;
-  this.isHurt = true;
-  this.currentImage = 0;
-
-  if (this.world?.bossBar) {
-    this.world.bossBar.setPercentage(this.energy);
+  hitByBottle() {
+    if (this.isDead) return;
+    this.energy -= 20;
+    this.isHurt = true;
+    this.currentImage = 0;
+    this.world?.bossBar?.setPercentage(this.energy);
+    setTimeout(() => (this.isHurt = false), 500);
+    if (this.energy <= 0) this.die();
   }
-
-  setTimeout(() => this.isHurt = false, 500);
-
-  if (this.energy <= 0) {
-    this.die();
-  }
-}
-
 
   startAttackLoop() {
     setInterval(() => {
-      if (this.isChasing && !this.isDead && !this.isHurt && !this.isAttacking) {
-        this.lungeAttack();
-      }
+      if (this.canLunge()) this.lungeAttack();
     }, 1000);
+  }
+
+  canLunge() {
+    return this.isChasing && !this.isDead && !this.isHurt && !this.isAttacking;
   }
 
   lungeAttack() {
@@ -137,9 +133,6 @@ hitByBottle() {
     const speed = 10;
     const steps = distance / speed;
     let currentStep = 0;
-
-    this.playAnimation(this.IMAGES_ATTACK);
-
     const lunge = setInterval(() => {
       this.x -= speed;
       currentStep++;
@@ -157,16 +150,12 @@ hitByBottle() {
     }, 50);
   }
 
+
+  
   die() {
-  this.energy = 0;
-  this.isDead = true;
-  this.currentImage = 0;
-
-  if (this.world) {
-    setTimeout(() => {
-      this.world.showVictory(); // 🌟 trigger screen
-    }, 1200); // wait for death animation to play a bit
+    this.energy = 0;
+    this.isDead = true;
+    this.currentImage = 0;
+    setTimeout(() => this.world?.showVictory(), 1200);
   }
-}
-
 }
