@@ -2,6 +2,14 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 let isMuted = false;
+const KEY_RIGHT = "ArrowRight";
+const KEY_LEFT = "ArrowLeft";
+const KEY_UP = "ArrowUp";
+const KEY_DOWN = "ArrowDown";
+const KEY_SPACE = " ";
+const KEY_ENTER = "Enter";
+const KEY_ESCAPE = "Escape";
+
 
 function init() {
   setupLinks();
@@ -80,57 +88,21 @@ function setupMobileControls() {
   bindButton("throw-btn", "SPACE");
 }
 
-window.addEventListener("keydown", (e) => {
-  switch (e.key) {
-    case "ArrowRight":
-      keyboard.RIGHT = true;
-      break;
-    case "ArrowLeft":
-      keyboard.LEFT = true;
-      break;
-    case "ArrowUp":
-      keyboard.UP = true;
-      break;
-    case "ArrowDown":
-      keyboard.DOWN = true;
-      break;
-    case " ":
-      keyboard.SPACE = true;
-      break;
-    case "Enter":
-      keyboard.ENTER = true;
-      break;
-    case "Escape":
-      keyboard.ESCAPE = true;
-      break;
+function handleKeyChange(event, isPressed) {
+  switch (event.key) {
+    case KEY_RIGHT: keyboard.RIGHT = isPressed; break;
+    case KEY_LEFT: keyboard.LEFT = isPressed; break;
+    case KEY_UP: keyboard.UP = isPressed; break;
+    case KEY_DOWN: keyboard.DOWN = isPressed; break;
+    case KEY_SPACE: keyboard.SPACE = isPressed; break;
+    case KEY_ENTER: keyboard.ENTER = isPressed; break;
+    case KEY_ESCAPE: keyboard.ESCAPE = isPressed; break;
   }
-});
+}
 
-window.addEventListener("keyup", (e) => {
-  switch (e.key) {
-    case "ArrowRight":
-      keyboard.RIGHT = false;
-      break;
-    case "ArrowLeft":
-      keyboard.LEFT = false;
-      break;
-    case "ArrowUp":
-      keyboard.UP = false;
-      break;
-    case "ArrowDown":
-      keyboard.DOWN = false;
-      break;
-    case " ":
-      keyboard.SPACE = false;
-      break;
-    case "Enter":
-      keyboard.ENTER = false;
-      break;
-    case "Escape":
-      keyboard.ESCAPE = false;
-      break;
-  }
-});
+window.addEventListener("keydown", (e) => handleKeyChange(e, true));
+window.addEventListener("keyup", (e) => handleKeyChange(e, false));
+
 
 function restartGame() {
   hideOverlays();
