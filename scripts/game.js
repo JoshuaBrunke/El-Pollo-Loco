@@ -32,7 +32,6 @@ function showStartScreen() {
   }
 }
 
-
 function startGame() {
   document.getElementById("overlay-start").classList.add("dnone");
   document.getElementById("canvas").classList.remove("dnone");
@@ -134,20 +133,30 @@ window.addEventListener("keyup", (e) => {
 });
 
 function restartGame() {
+  hideOverlays();
+  resetWorld();
+  const level = createFreshLevel();
+  startNewWorld(level);
+}
+
+function hideOverlays() {
   document.getElementById("overlay-gameover").classList.add("dnone");
   document.getElementById("overlay-victory").classList.add("dnone");
   document.getElementById("canvas").classList.remove("dnone");
 
-  if (isMobile()) {
+  if (isMobileDevice()) {
     document.getElementById("mobile-controls").classList.remove("dnone");
   }
+}
 
+function resetWorld() {
   if (world && typeof world.stop === "function") {
     world.stop();
   }
-
   world = null;
+}
 
+function createFreshLevel() {
   const freshEnemies = [
     new Chicken(),
     new Chicken(),
@@ -164,17 +173,19 @@ function restartGame() {
 
   const freshBottles = bottlePositions.map((x) => new Bottle(x, bottleGroundY));
   const freshCoins = coinPositions.map(([x, y]) => new Coin(x, y));
-
   const freshBackground = level1.backgroundObjects.filter((obj) => obj instanceof BackgroundObject);
 
-  const freshLevel = new Level(freshEnemies, [new Cloud()], [...freshBackground, ...freshBottles, ...freshCoins]);
+  return new Level(freshEnemies, [new Cloud()], [...freshBackground, ...freshBottles, ...freshCoins]);
+}
 
+function startNewWorld(level) {
   canvas = document.getElementById("canvas");
   canvas.width = 720;
   canvas.height = 480;
   ctx = canvas.getContext("2d");
+
   world = new World(canvas, keyboard);
-  world.level = freshLevel;
+  world.level = level;
   world.setWorld();
   setupMobileControls();
   playBGM();
