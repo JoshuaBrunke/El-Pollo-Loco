@@ -134,24 +134,37 @@ class Endboss extends MovableObject {
     const steps = distance / speed;
     let currentStep = 0;
     const lunge = setInterval(() => {
-      this.x -= speed;
+      this.lungeForward(speed);
+      this.tryLungeDamage();
       currentStep++;
-
-      if (this.world?.character && this.isColliding(this.world.character)) {
-        this.world.character.hit(this.damage);
-        this.world.healthBar.setPercentage(this.world.character.energy);
-      }
-
-      if (currentStep >= steps || this.isDead) {
+      if (this.shouldStopLunge(currentStep, steps)) {
         clearInterval(lunge);
-        this.isAttacking = false;
-        this.currentImage = 0;
+        this.endLunge();
       }
     }, 50);
   }
 
+  lungeForward(speed) {
+    this.x -= speed;
+  }
 
-  
+  tryLungeDamage() {
+    const character = this.world?.character;
+    if (character && this.isColliding(character)) {
+      character.hit(this.damage);
+      this.world.healthBar.setPercentage(character.energy);
+    }
+  }
+
+  shouldStopLunge(currentStep, totalSteps) {
+    return currentStep >= totalSteps || this.isDead;
+  }
+
+  endLunge() {
+    this.isAttacking = false;
+    this.currentImage = 0;
+  }
+
   die() {
     this.energy = 0;
     this.isDead = true;
