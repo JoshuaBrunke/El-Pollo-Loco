@@ -8,41 +8,63 @@ class DrawableObject {
   height = 150;
 
   /**
-   * Loads an image into the img property.
-   * @param {string} path - The path to the image file.
+   * Loads a single image into the img property.
+   * @param {string} path - Path to the image file.
    */
   loadImage(path) {
     this.img = new Image();
     this.img.src = path;
   }
 
+  /**
+   * Loads multiple images into the image cache.
+   * @param {string[]} arr - List of image paths.
+   */
+  loadImages(arr) {
+    arr.forEach((path) => {
+      let img = new Image();
+      img.src = path;
+      this.imageCache[path] = img;
+    });
+  }
+
+  /**
+   * Draws the current image to the canvas.
+   * @param {CanvasRenderingContext2D} ctx - The canvas context.
+   */
   draw(ctx) {
     ctx.drawImage(this.img, 0, 0, this.width, this.height);
   }
 
+  /**
+   * Draws debug frames (bounding box and hitbox) if DEBUG_MODE is enabled.
+   * @param {CanvasRenderingContext2D} ctx - The canvas context.
+   */
   drawFrame(ctx) {
-    if (
-      !DEBUG_MODE ||
-      !DEBUG_MODE_HITBOXES ||
-      !(
-        this instanceof Character ||
-        this instanceof Endboss ||
-        this instanceof ChickenBase ||
-        this instanceof Bottle ||
-        this instanceof Coin
-      )
-    ) {
-      return;
-    }
+    if (!DEBUG_MODE || !this.shouldShowDebugFrame()) return;
 
-    // Draws the full image box
+    this.drawImageBorders(ctx);
+    this.drawOffsetBorders(ctx);
+  }
+
+  /**
+   * Determines whether this object type should show debug frames.
+   */
+  shouldShowDebugFrame() {
+    return (
+      this instanceof Character || this instanceof Endboss || this instanceof ChickenBase || this instanceof Bottle || this instanceof Coin
+    );
+  }
+
+  drawImageBorders(ctx) {
     ctx.beginPath();
     ctx.lineWidth = "1";
     ctx.strokeStyle = "blue";
     ctx.rect(0, 0, this.width, this.height);
     ctx.stroke();
+  }
 
-    // Draws the offset box
+  drawOffsetBorders(ctx) {
     ctx.beginPath();
     ctx.lineWidth = "2";
     ctx.strokeStyle = "red";
@@ -53,19 +75,5 @@ class DrawableObject {
       this.height - this.offset.top - this.offset.bottom
     );
     ctx.stroke();
-  }
-
-  /**
-   *
-   * @param {Array} arr - ["img/img1.png", "img/img2.png", "img/img3.png", ...]
-   * @description Loads multiple images into the imageCache array.
-   */
-
-  loadImages(arr) {
-    arr.forEach((path) => {
-      let img = new Image();
-      img.src = path;
-      this.imageCache[path] = img;
-    });
   }
 }
