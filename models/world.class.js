@@ -62,15 +62,15 @@ class World {
     bottle.hasHit = true;
   }
 
-cleanupHitBottles() {
-  this.throwableObjects.forEach((bottle) => {
-    if (bottle.hasHit && typeof bottle.clearIntervals === "function") {
-      bottle.clearIntervals();
-    }
-  });
+  cleanupHitBottles() {
+    this.throwableObjects.forEach((bottle) => {
+      if (bottle.hasHit && typeof bottle.clearIntervals === "function") {
+        bottle.clearIntervals();
+      }
+    });
 
-  this.throwableObjects = this.throwableObjects.filter((bottle) => !bottle.hasHit);
-}
+    this.throwableObjects = this.throwableObjects.filter((bottle) => !bottle.hasHit);
+  }
 
   checkThrowObjects() {
     if (this.keyboard.SPACE && this.bottlesCollected > 0) {
@@ -86,7 +86,7 @@ cleanupHitBottles() {
 
   checkCollisions() {
     this.handleEnemyCollisions();
-    this.collectPickups();
+    this.collectItems();
     this.checkGameOver();
   }
 
@@ -106,26 +106,38 @@ cleanupHitBottles() {
     });
   }
 
-didLandOnEnemy(enemy) {
-  const isFalling = this.character.speedY < 0;
-  const aboveEnemy = this.character.y + this.character.height - this.character.offset.bottom < enemy.y + enemy.height * 0.7;
-  return isFalling && aboveEnemy;
-}
+  didLandOnEnemy(enemy) {
+    const isFalling = this.character.speedY < 0;
+    const aboveEnemy = this.character.y + this.character.height - this.character.offset.bottom < enemy.y + enemy.height * 0.7;
+    return isFalling && aboveEnemy;
+  }
 
-  collectPickups() {
+  collectItems() {
     this.level.backgroundObjects = this.level.backgroundObjects.filter((obj) => {
-      if (obj instanceof Bottle && this.character.isColliding(obj)) {
-        this.bottlesCollected++;
-        this.bottleBar.setPercentage(this.bottlesCollected * 10);
-        return false;
-      }
-      if (obj instanceof Coin && this.character.isColliding(obj)) {
-        this.coinsCollected++;
-        this.coinBar.setPercentage(this.coinsCollected * 10);
-        return false;
-      }
+      if (this.getBottle(obj)) return false;
+      if (this.getCoin(obj)) return false;
       return true;
     });
+  }
+
+  getBottle(obj) {
+    if (!(obj instanceof Bottle)) return false;
+    if (!this.character.isColliding(obj)) return false;
+
+    this.bottlesCollected++;
+    playGetBottleSound();
+    this.bottleBar.setPercentage(this.bottlesCollected * 10);
+    return true;
+  }
+
+  getCoin(obj) {
+    if (!(obj instanceof Coin)) return false;
+    if (!this.character.isColliding(obj)) return false;
+
+    this.coinsCollected++;
+    playGetCoinSound();
+    this.coinBar.setPercentage(this.coinsCollected * 10);
+    return true;
   }
 
   checkGameOver() {
