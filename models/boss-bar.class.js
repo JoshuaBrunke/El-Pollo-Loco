@@ -1,6 +1,6 @@
 class BossBar extends StatusBar {
     constructor() {
-      super(400, 15, 200, 50); // Position + size
+      super(400, 15, 200, 50); 
       this.loadImages([
         "./assets/img/7_statusbars/2_statusbar_endboss/orange/orange0.png",
         "./assets/img/7_statusbars/2_statusbar_endboss/orange/orange20.png",
