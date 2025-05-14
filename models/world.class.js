@@ -55,9 +55,11 @@ class World {
   handleBottleHit(bottle, enemy) {
     if (bottle.hasHit || enemy.isDead || !bottle.isColliding(enemy)) return;
     if (enemy instanceof Chicken || enemy instanceof MutantChicken) {
+      playBottleHitSound();
       enemy.die();
     } else if (enemy instanceof Endboss) {
       enemy.hitByBottle();
+      playBottleHitSound();
     }
     bottle.hasHit = true;
   }
@@ -93,9 +95,9 @@ class World {
   handleEnemyCollisions() {
     this.level.enemies.forEach((enemy) => {
       if (!this.character.isColliding(enemy) || enemy.isDead) return;
-
       const landedOnTop = this.didLandOnEnemy(enemy);
       if (landedOnTop && (enemy instanceof Chicken || enemy instanceof MutantChicken)) {
+        playJumpAttackSound()
         enemy.die();
         this.character.speedY = 10;
       } else if (this.character.canBeHit()) {
@@ -123,7 +125,6 @@ class World {
   getBottle(obj) {
     if (!(obj instanceof Bottle)) return false;
     if (!this.character.isColliding(obj)) return false;
-
     this.bottlesCollected++;
     playGetBottleSound();
     this.bottleBar.setPercentage(this.bottlesCollected * 10);
@@ -133,7 +134,6 @@ class World {
   getCoin(obj) {
     if (!(obj instanceof Coin)) return false;
     if (!this.character.isColliding(obj)) return false;
-
     this.coinsCollected++;
     playGetCoinSound();
     this.coinBar.setPercentage(this.coinsCollected * 10);
@@ -146,11 +146,20 @@ class World {
     }
   }
 
-  showGameOver() {
+showGameOver() {
+  this.stop(); // 🔥 Stop all intervals + draw loop FIRST
+
+  setTimeout(() => {
     document.getElementById("overlay-gameover").classList.remove("dnone");
     document.getElementById("canvas").classList.add("dnone");
     document.getElementById("mobile-controls").classList.add("dnone");
-  }
+
+    stopBGM();
+    stopSleepSound();
+    playDefeatSound();
+  }, 100); // ⏳ Slight delay for smoother sound start
+}
+
 
   showVictory() {
     const scoreSpan = document.getElementById("victory-score");

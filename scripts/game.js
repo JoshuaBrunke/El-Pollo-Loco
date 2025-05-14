@@ -117,6 +117,7 @@ function hideOverlays() {
 }
 
 function resetWorld() {
+  stopDefeatSound();
   if (world && typeof world.stop === "function") {
     world.stop();
   }

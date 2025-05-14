@@ -3,7 +3,7 @@ class AudioHub {
   static BOSS_ANGRY = new Audio("./assets/audio/boss-angry.wav");
   static BOSS_ATTACK = new Audio("./assets/audio/boss-attack.wav");
   static CHICKENS = new Audio("./assets/audio/chickens.wav");
-  static DEFEAT = new Audio("./assets/audio/defeat.mp3");
+  static DEFEAT = new Audio("./assets/audio/8bit-game-over.wav");
   static GET_BOTTLE = new Audio("./assets/audio/getbottle.wav");
   static GET_COIN = new Audio("./assets/audio/getcoin.wav");
   static HIT_WITH_BOTTLE = new Audio("./assets/audio/hit-with-bottle.wav");
@@ -70,11 +70,11 @@ function stopBGM() {
 }
 
 function playGetCoinSound() {
-  AudioHub.playOnce(AudioHub.GET_COIN, 0.2);
+  AudioHub.playOnce(AudioHub.GET_COIN, 0.4);
 }
 
 function playGetBottleSound() {
-  AudioHub.playOnce(AudioHub.GET_BOTTLE, 0.2);
+  AudioHub.playOnce(AudioHub.GET_BOTTLE, 0.05);
 }
 
 function playBottleHitSound() {
@@ -86,7 +86,7 @@ function playTakeDamageSound() {
 }
 
 function playJumpAttackSound() {
-  AudioHub.playOnce(AudioHub.JUMP_ATTACK, 0.2);
+  AudioHub.playOnce(AudioHub.JUMP_ATTACK, 0.4);
 }
 
 function playSleepSound() {
@@ -102,7 +102,11 @@ function playVictorySound() {
 }
 
 function playDefeatSound() {
-  AudioHub.playOnce(AudioHub.DEFEAT, 0.2);
+  AudioHub.playOnce(AudioHub.DEFEAT, 0.1);
+}
+
+function stopDefeatSound() {
+  AudioHub.stopOne(AudioHub.DEFEAT);
 }
 
 function playBossAngrySound() {

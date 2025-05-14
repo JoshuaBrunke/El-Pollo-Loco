@@ -96,12 +96,9 @@ class Character extends MovableObject {
 
   handleMovement() {
     if (!this.world || this.isDead()) return;
-
     const k = this.world.keyboard;
     const input = k.UP || k.LEFT || k.RIGHT || k.DOWN || k.SPACE;
-
     if (input) this.resetIdleTimer();
-
     if (!this.isSleeping && k.UP && !this.isAboveGround()) this.jump(30);
     if (!this.isSleeping && k.RIGHT && this.x < this.world.level.level_end_x) {
       this.moveRight();
@@ -140,16 +137,18 @@ class Character extends MovableObject {
   }
 
   longIdle() {
-    return Date.now() - this.lastAction > 10000 && !this.isSleeping;
+    return Date.now() - this.lastAction > 15000 && !this.isSleeping;
   }
 
   sleep() {
     this.isSleeping = true;
     this.currentImage = 0;
+    playSleepSound();
   }
 
   resetIdleTimer() {
     this.lastAction = Date.now();
     this.isSleeping = false;
+    stopSleepSound();
   }
 }
