@@ -70,84 +70,86 @@ class Character extends MovableObject {
 
   constructor() {
     super().loadImage(this.IMAGES_WALKING[0]);
+    this.loadAllImages();
+    this.setHitboxOffsets();
+    this.applyGravity();
+    this.animate();
+  }
+
+  loadAllImages() {
     this.loadImages(this.IMAGES_WALKING);
     this.loadImages(this.IMAGES_JUMPING);
     this.loadImages(this.IMAGES_HURT);
     this.loadImages(this.IMAGES_DEAD);
     this.loadImages(this.IMAGES_IDLE);
     this.loadImages(this.IMAGES_SLEEP);
-    this.offset = {
-      top: 150,
-      bottom: 15,
-      left: 20,
-      right: 30,
-    };
+  }
 
-    this.applyGravity();
-    this.animate();
+  setHitboxOffsets() {
+    this.offset = { top: 150, bottom: 15, left: 20, right: 30 };
   }
 
   animate() {
-    // Movement logic
-    setInterval(() => {
-      if (!this.world || this.isDead()) return;
+    setInterval(() => this.handleMovement(), 1000 / 60);
+    setInterval(() => this.handleAnimation(), 100);
+  }
 
-      const keys = this.world.keyboard;
-      const userInput = keys.UP || keys.LEFT || keys.RIGHT || keys.DOWN || keys.SPACE;
+  handleMovement() {
+    if (!this.world || this.isDead()) return;
 
-      // Reset idle timer on input
-      if (userInput) {
-        this.lastAction = Date.now();
-        this.isSleeping = false;
-      }
+    const k = this.world.keyboard;
+    const input = k.UP || k.LEFT || k.RIGHT || k.DOWN || k.SPACE;
 
-      if (!this.isSleeping && keys.UP && !this.isAboveGround()) {
-        this.jump(30);
-      }
+    if (input) this.resetIdleTimer();
 
-      if (!this.isSleeping && keys.RIGHT && this.x < this.world.level.level_end_x) {
-        this.moveRight();
-        this.otherDirection = false;
-      } else if (!this.isSleeping && keys.LEFT && this.x > 0) {
-        this.moveLeft();
-        this.otherDirection = true;
-      }
+    if (!this.isSleeping && k.UP && !this.isAboveGround()) this.jump(30);
+    if (!this.isSleeping && k.RIGHT && this.x < this.world.level.level_end_x) {
+      this.moveRight();
+      this.otherDirection = false;
+    } else if (!this.isSleeping && k.LEFT && this.x > 0) {
+      this.moveLeft();
+      this.otherDirection = true;
+    }
 
-      this.world.camera_x = -this.x + 100;
-    }, 1000 / 60);
+    this.world.camera_x = -this.x + 100;
+  }
 
-    // Animation logic
-    setInterval(() => {
-      if (!this.world) return;
+  handleAnimation() {
+    if (!this.world) return;
 
-      const now = Date.now();
-      const idleFor = now - this.lastAction;
+    if (this.longIdle()) this.sleep();
 
-      if (idleFor > 10000 && !this.isSleeping) {
-        this.isSleeping = true;
-        this.currentImage = 0; // restart sleep animation
-      }
+    if (this.isDead()) this.animateDeath();
+    else if (this.isHurt()) this.playAnimation(this.IMAGES_HURT);
+    else if (this.isSleeping) this.playAnimation(this.IMAGES_SLEEP);
+    else if (this.isAboveGround()) this.playAnimation(this.IMAGES_JUMPING);
+    else if (this.isMoving()) this.playAnimation(this.IMAGES_WALKING);
+    else this.playAnimation(this.IMAGES_IDLE);
+  }
 
-      if (this.isDead()) {
-        if (this.currentImage < this.IMAGES_DEAD.length) {
-          this.playAnimation(this.IMAGES_DEAD);
-        } else {
-          this.img = this.imageCache[this.IMAGES_DEAD[this.IMAGES_DEAD.length - 1]];
-        }
-        return;
-      }
+  animateDeath() {
+    if (this.currentImage < this.IMAGES_DEAD.length) {
+      this.playAnimation(this.IMAGES_DEAD);
+    } else {
+      this.img = this.imageCache[this.IMAGES_DEAD.at(-1)];
+    }
+  }
 
-      if (this.isHurt()) {
-        this.playAnimation(this.IMAGES_HURT);
-      } else if (this.isSleeping) {
-        this.playAnimation(this.IMAGES_SLEEP);
-      } else if (this.isAboveGround()) {
-        this.playAnimation(this.IMAGES_JUMPING);
-      } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-        this.playAnimation(this.IMAGES_WALKING);
-      } else {
-        this.playAnimation(this.IMAGES_IDLE);
-      }
-    }, 100);
+  isMoving() {
+    return this.world.keyboard.RIGHT || this.world.keyboard.LEFT;
+  }
+
+  longIdle() {
+    return Date.now() - this.lastAction > 10000 && !this.isSleeping;
+  }
+
+  sleep() {
+    this.isSleeping = true;
+    this.currentImage = 0;
+  }
+
+  resetIdleTimer() {
+    this.lastAction = Date.now();
+    this.isSleeping = false;
   }
 }
