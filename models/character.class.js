@@ -137,10 +137,11 @@ class Character extends MovableObject {
   }
 
   longIdle() {
-    return Date.now() - this.lastAction > 15000 && !this.isSleeping;
+    return Date.now() - this.lastAction > 15000 && !this.isSleeping && !this.isDead();
   }
 
   sleep() {
+    if (this.isDead()) return;
     this.isSleeping = true;
     this.currentImage = 0;
     playSleepSound();
