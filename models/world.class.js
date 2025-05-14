@@ -181,17 +181,20 @@ class World {
     this.ctx.restore();
   }
 
-  flipContextAndDraw(mo) {
-    this.ctx.translate(mo.x + mo.width, mo.y);
-    this.ctx.scale(-1, 1);
+  drawObject(mo) {
     mo.draw(this.ctx);
     mo.drawFrame(this.ctx);
   }
 
   drawNormally(mo) {
     this.ctx.translate(mo.x, mo.y);
-    mo.draw(this.ctx);
-    mo.drawFrame(this.ctx);
+    this.drawObject(mo);
+  }
+
+  flipContextAndDraw(mo) {
+    this.ctx.translate(mo.x + mo.width, mo.y);
+    this.ctx.scale(-1, 1);
+    this.drawObject(mo);
   }
 
   stop() {
