@@ -4,8 +4,8 @@ class AudioHub {
   static BOSS_ATTACK = new Audio("./assets/audio/boss-attack.wav");
   static CHICKENS = new Audio("./assets/audio/chickens.wav");
   static DEFEAT = new Audio("./assets/audio/defeat.mp3");
-  static GET_BOTTLE = new Audio("./assets/audio/get-bottle.wav");
-  static GET_COIN = new Audio("./assets/audio/get-coin.wav");
+  static GET_BOTTLE = new Audio("./assets/audio/getbottle.wav");
+  static GET_COIN = new Audio("./assets/audio/getcoin.wav");
   static HIT_WITH_BOTTLE = new Audio("./assets/audio/hit-with-bottle.wav");
   static JUMP_ATTACK = new Audio("./assets/audio/jump-attack.wav");
   static SHORT_ERROR = new Audio("./assets/audio/short_error.wav");
