@@ -45,18 +45,25 @@ class World {
   checkBottleHits() {
     this.throwableObjects.forEach((bottle) => {
       this.level.enemies.forEach((enemy) => {
-        if (!enemy.isDead && !bottle.hasHit && bottle.isColliding(enemy)) {
-          if (enemy instanceof Chicken || enemy instanceof MutantChicken) {
-            enemy.die();
-          } else if (enemy instanceof Endboss) {
-            enemy.hitByBottle?.();
-          }
-          bottle.hasHit = true;
-        }
+        this.handleBottleHit(bottle, enemy);
       });
     });
-    // Remove bottles that have hit something
-    this.throwableObjects = this.throwableObjects.filter((b) => !b.hasHit);
+
+    this.cleanupHitBottles();
+  }
+
+  handleBottleHit(bottle, enemy) {
+    if (bottle.hasHit || enemy.isDead || !bottle.isColliding(enemy)) return;
+    if (enemy instanceof Chicken || enemy instanceof MutantChicken) {
+      enemy.die();
+    } else if (enemy instanceof Endboss) {
+      enemy.hitByBottle?.();
+    }
+    bottle.hasHit = true;
+  }
+
+  cleanupHitBottles() {
+    this.throwableObjects = this.throwableObjects.filter((bottle) => !bottle.hasHit);
   }
 
   checkThrowObjects() {
