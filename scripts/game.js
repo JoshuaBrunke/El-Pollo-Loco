@@ -4,24 +4,34 @@ let keyboard = new Keyboard();
 let isMuted = false;
 
 function init() {
-  addAttributesToExternalLinks();
-  loadMuteState(); // 🔄 Read saved mute state
-  updateMuteButton(); // 🖼️ Update UI label
-  AudioHub.muteAll(isMuted); // 🔇 Apply actual mute state to all sounds
-  setupMuteButton(); // 🎧 Add event listener
-  showStartScreen(); // 🎮 Launch start screen
+  setupLinks();
+  setupSound();
+  setupMuteButton();
+  showStartScreen();
 }
 
-function isMobile() {
+function setupLinks() {
+  addAttributesToExternalLinks();
+}
+
+function setupSound() {
+  loadMuteState();
+  updateMuteButton();
+  AudioHub.muteAll(isMuted);
+}
+
+function isMobileDevice() {
   return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 }
 
 function showStartScreen() {
   document.getElementById("overlay-start").classList.remove("dnone");
-  if (isMobile()) {
+
+  if (isMobileDevice()) {
     document.getElementById("mobile-controls").classList.remove("dnone");
   }
 }
+
 
 function startGame() {
   document.getElementById("overlay-start").classList.add("dnone");
@@ -138,7 +148,6 @@ function restartGame() {
 
   world = null;
 
-  // Manually recreate a fresh level for the new world instance
   const freshEnemies = [
     new Chicken(),
     new Chicken(),
@@ -158,19 +167,17 @@ function restartGame() {
 
   const freshBackground = level1.backgroundObjects.filter((obj) => obj instanceof BackgroundObject);
 
-  // Create a fresh level (but still keep the tutorial's Level class)
   const freshLevel = new Level(freshEnemies, [new Cloud()], [...freshBackground, ...freshBottles, ...freshCoins]);
 
-  // Use that fresh level
   canvas = document.getElementById("canvas");
   canvas.width = 720;
   canvas.height = 480;
   ctx = canvas.getContext("2d");
   world = new World(canvas, keyboard);
-  world.level = freshLevel; // overwrite default level1 with fresh version
-  world.setWorld(); // re-link character to this world
+  world.level = freshLevel;
+  world.setWorld();
   setupMobileControls();
-  playBGM(); 
+  playBGM();
 }
 
 function loadMuteState() {
