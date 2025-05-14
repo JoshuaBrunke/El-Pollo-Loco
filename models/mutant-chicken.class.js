@@ -13,7 +13,7 @@ class MutantChicken extends ChickenBase {
     };
 
     this.x = 1200 + Math.random() * 800;
-    this.speed = 1.45 + Math.random() * 0.3;
+    this.speed = 1.15 + Math.random() * 0.3;
     this.damage = 10;
 
     this.IMAGES_WALKING = [

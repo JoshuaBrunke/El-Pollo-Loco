@@ -100,11 +100,11 @@ class World {
     });
   }
 
-  didLandOnEnemy(enemy) {
-    const isFalling = this.character.speedY < 0;
-    const aboveEnemy = this.character.y + this.character.height - this.character.offset.bottom < enemy.y + enemy.height * 0.5;
-    return isFalling && aboveEnemy;
-  }
+didLandOnEnemy(enemy) {
+  const isFalling = this.character.speedY < 0;
+  const aboveEnemy = this.character.y + this.character.height - this.character.offset.bottom < enemy.y + enemy.height * 0.7;
+  return isFalling && aboveEnemy;
+}
 
   collectPickups() {
     this.level.backgroundObjects = this.level.backgroundObjects.filter((obj) => {
