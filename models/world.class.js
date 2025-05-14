@@ -57,7 +57,7 @@ class World {
     if (enemy instanceof Chicken || enemy instanceof MutantChicken) {
       enemy.die();
     } else if (enemy instanceof Endboss) {
-      enemy.hitByBottle?.();
+      enemy.hitByBottle();
     }
     bottle.hasHit = true;
   }
