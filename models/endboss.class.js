@@ -8,7 +8,7 @@ class Endboss extends MovableObject {
   isAttacking = false;
   isChasing = false;
   speed = 7.5;
-  damage = 30;
+  damage = 20;
 
   IMAGES_ALERT = [
     "./assets/img/4_enemie_boss_chicken/2_alert/G5.png",

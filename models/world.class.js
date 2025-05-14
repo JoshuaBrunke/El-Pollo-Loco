@@ -73,7 +73,7 @@ class World {
       let bottle = new ThrowableObject(this.character.x + offsetX, this.character.y + 100, direction);
       this.throwableObjects.push(bottle);
       this.bottlesCollected--;
-      this.bottleBar.setPercentage((this.bottlesCollected / 20) * 100);
+      this.bottleBar.setPercentage((this.bottlesCollected / 10) * 100);
       this.keyboard.SPACE = false;
     }
   }
@@ -110,7 +110,7 @@ class World {
     this.level.backgroundObjects = this.level.backgroundObjects.filter((obj) => {
       if (obj instanceof Bottle && this.character.isColliding(obj)) {
         this.bottlesCollected++;
-        this.bottleBar.setPercentage(this.bottlesCollected * 5);
+        this.bottleBar.setPercentage(this.bottlesCollected * 10);
         return false;
       }
       if (obj instanceof Coin && this.character.isColliding(obj)) {

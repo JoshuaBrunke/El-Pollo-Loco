@@ -4,7 +4,7 @@ class Chicken extends ChickenBase {
 
     this.x = 700 + Math.random() * 1200;
     this.speed = 0.15 + Math.random() * 0.25;
-    this.damage = 10;
+    this.damage = 5;
 
     this.IMAGES_WALKING = [
       "./assets/img/3_enemies_chicken/chicken_normal/1_walk/1_w.png",
