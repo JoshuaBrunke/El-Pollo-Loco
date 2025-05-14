@@ -46,7 +46,7 @@
   }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 1000px) {
   .hidemobile {
     display: none;
   }
@@ -62,9 +62,7 @@
     padding-bottom: 5px;
   }
 
-  #footer {
-    max-height: 20px;
-  }
+
 }
 
 @media (max-height: 500px) {
@@ -83,16 +81,9 @@
     padding-bottom: 5px;
   }
 
-  #footer {
-    max-height: 10px;
-  }
 }
 
-@media (min-width: 701px) {
-  .hidedesktop {
-    display: none;
-  }
-}
+
 
 @media (max-height: 400px) {
   .hidemobile {
@@ -111,9 +102,6 @@
     padding-bottom: 2.5px;
   }
 
-  #footer {
-    max-height: 5px;
-  }
 }
 
 @media (min-width: 1001px) {

@@ -119,14 +119,6 @@ a:hover {
   margin: 0;
 }
 
-#footer {
-  max-height: 50px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
 #main {
   flex-grow: 1;
   max-width: 1440px;
@@ -145,7 +137,6 @@ a:hover {
   background-color: rgba(0, 0, 0, 0.8);
   color: white;
 }
-
 
 .policy {
   text-align: left;
