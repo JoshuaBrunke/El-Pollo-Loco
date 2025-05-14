@@ -20,6 +20,11 @@ body {
   background-position: center;
 }
 
+.body-plain {
+  background-image: none;
+  background-color: black;
+}
+
 @font-face {
   font-family: "Kablammo";
   src: url(../assets/fonts/Kablammo-Regular-VariableFont_MORF.ttf);
@@ -139,4 +144,10 @@ a:hover {
 .main-dark {
   background-color: rgba(0, 0, 0, 0.8);
   color: white;
+}
+
+
+.policy {
+  text-align: left;
+  padding-inline: 5px;
 }
