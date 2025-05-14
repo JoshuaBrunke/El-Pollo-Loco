@@ -62,9 +62,15 @@ class World {
     bottle.hasHit = true;
   }
 
-  cleanupHitBottles() {
-    this.throwableObjects = this.throwableObjects.filter((bottle) => !bottle.hasHit);
-  }
+cleanupHitBottles() {
+  this.throwableObjects.forEach((bottle) => {
+    if (bottle.hasHit && typeof bottle.clearIntervals === "function") {
+      bottle.clearIntervals();
+    }
+  });
+
+  this.throwableObjects = this.throwableObjects.filter((bottle) => !bottle.hasHit);
+}
 
   checkThrowObjects() {
     if (this.keyboard.SPACE && this.bottlesCollected > 0) {
