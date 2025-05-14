@@ -10,7 +10,6 @@ const KEY_SPACE = " ";
 const KEY_ENTER = "Enter";
 const KEY_ESCAPE = "Escape";
 
-
 function init() {
   setupLinks();
   setupSound();
@@ -61,31 +60,24 @@ function loadCanvas() {
 }
 
 function setupMobileControls() {
-  const bindButton = (id, key) => {
-    const btn = document.getElementById(id);
-    btn.addEventListener(
-      "touchstart",
-      (e) => {
-        e.preventDefault();
-        keyboard[key] = true;
-      },
-      { passive: false }
-    );
+  bindMobileButton("left-btn", "LEFT");
+  bindMobileButton("right-btn", "RIGHT");
+  bindMobileButton("jump-btn", "UP");
+  bindMobileButton("throw-btn", "SPACE");
+}
 
-    btn.addEventListener(
-      "touchend",
-      (e) => {
-        e.preventDefault();
-        keyboard[key] = false;
-      },
-      { passive: false }
-    );
-  };
+function bindMobileButton(buttonId, keyName) {
+  const button = document.getElementById(buttonId);
 
-  bindButton("left-btn", "LEFT");
-  bindButton("right-btn", "RIGHT");
-  bindButton("jump-btn", "UP");
-  bindButton("throw-btn", "SPACE");
+  button.addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    keyboard[keyName] = true;
+  }, { passive: false });
+
+  button.addEventListener("touchend", (e) => {
+    e.preventDefault();
+    keyboard[keyName] = false;
+  }, { passive: false });
 }
 
 function handleKeyChange(event, isPressed) {
@@ -102,7 +94,6 @@ function handleKeyChange(event, isPressed) {
 
 window.addEventListener("keydown", (e) => handleKeyChange(e, true));
 window.addEventListener("keyup", (e) => handleKeyChange(e, false));
-
 
 function restartGame() {
   hideOverlays();
@@ -145,7 +136,6 @@ function startNewWorld(level) {
   canvas.width = 720;
   canvas.height = 480;
   ctx = canvas.getContext("2d");
-
   world = new World(canvas, keyboard);
   world.level = level;
   world.setWorld();
