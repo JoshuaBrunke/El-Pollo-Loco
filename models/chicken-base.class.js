@@ -25,7 +25,6 @@ class ChickenBase extends MovableObject {
         this.moveLeft();
       }
     }, 1000 / 60);
-
     this.animationInterval = setInterval(() => {
       if (!this.isDead) {
         this.playAnimation(this.IMAGES_WALKING);

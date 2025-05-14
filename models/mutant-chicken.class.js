@@ -1,7 +1,6 @@
 class MutantChicken extends ChickenBase {
   constructor() {
     super();
-
     this.y = 340;
     this.width = 90;
     this.height = 90;
@@ -25,11 +24,9 @@ class MutantChicken extends ChickenBase {
 
     this.loadImages(this.IMAGES_WALKING);
     this.loadImage(this.IMAGES_WALKING[0]);
-
     const img = new Image();
     img.src = this.IMAGE_DEAD;
     this.imageCache[this.IMAGE_DEAD] = img;
-
     this.animate();
   }
 }
