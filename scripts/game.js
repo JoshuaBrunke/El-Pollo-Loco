@@ -51,11 +51,15 @@ function exitGame() {
   location.reload();
 }
 
-function loadCanvas() {
+function setupCanvas() {
   canvas = document.getElementById("canvas");
   canvas.width = 720;
   canvas.height = 480;
   ctx = canvas.getContext("2d");
+}
+
+function loadCanvas() {
+  setupCanvas();
   world = new World(canvas, keyboard);
 }
 
@@ -132,10 +136,7 @@ function createFreshLevel() {
 }
 
 function startNewWorld(level) {
-  canvas = document.getElementById("canvas");
-  canvas.width = 720;
-  canvas.height = 480;
-  ctx = canvas.getContext("2d");
+  setupCanvas();
   world = new World(canvas, keyboard);
   world.level = level;
   world.setWorld();
