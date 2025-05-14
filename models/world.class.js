@@ -95,17 +95,29 @@ class World {
   handleEnemyCollisions() {
     this.level.enemies.forEach((enemy) => {
       if (!this.character.isColliding(enemy) || enemy.isDead) return;
+
       const landedOnTop = this.didLandOnEnemy(enemy);
       if (landedOnTop && (enemy instanceof Chicken || enemy instanceof MutantChicken)) {
-        playJumpAttackSound()
-        enemy.die();
-        this.character.speedY = 10;
-      } else if (this.character.canBeHit()) {
-        const damage = enemy.damage || 5;
-        this.character.hit(damage);
-        this.healthBar.setPercentage(this.character.energy);
+        this.jumpOnChicken(enemy);
+      } else {
+        this.takeDamage(enemy);
       }
     });
+  }
+
+  jumpOnChicken(enemy) {
+    playJumpAttackSound();
+    enemy.die();
+    this.character.speedY = 10;
+  }
+
+  takeDamage(enemy) {
+    if (!this.character.canBeHit()) return;
+
+    const damage = enemy.damage || 5;
+    this.character.hit(damage);
+    playTakeDamageSound();
+    this.healthBar.setPercentage(this.character.energy);
   }
 
   didLandOnEnemy(enemy) {
@@ -146,20 +158,19 @@ class World {
     }
   }
 
-showGameOver() {
-  this.stop(); // 🔥 Stop all intervals + draw loop FIRST
+  showGameOver() {
+    this.stop(); // 🔥 Stop all intervals + draw loop FIRST
 
-  setTimeout(() => {
-    document.getElementById("overlay-gameover").classList.remove("dnone");
-    document.getElementById("canvas").classList.add("dnone");
-    document.getElementById("mobile-controls").classList.add("dnone");
+    setTimeout(() => {
+      document.getElementById("overlay-gameover").classList.remove("dnone");
+      document.getElementById("canvas").classList.add("dnone");
+      document.getElementById("mobile-controls").classList.add("dnone");
 
-    stopBGM();
-    stopSleepSound();
-    playDefeatSound();
-  }, 100); // ⏳ Slight delay for smoother sound start
-}
-
+      stopBGM();
+      stopSleepSound();
+      playDefeatSound();
+    }, 100); // ⏳ Slight delay for smoother sound start
+  }
 
   showVictory() {
     const scoreSpan = document.getElementById("victory-score");
