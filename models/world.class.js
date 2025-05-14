@@ -26,12 +26,11 @@ class World {
 
   setWorld() {
     this.character.world = this;
-    this.level.enemies.forEach(enemy => {
-  if (enemy instanceof Endboss) {
-    enemy.world = this; 
-  }
-});
-
+    this.level.enemies.forEach((enemy) => {
+      if (enemy instanceof Endboss) {
+        enemy.world = this;
+      }
+    });
   }
 
   run() {
@@ -73,16 +72,16 @@ class World {
   }
 
   checkCollisions() {
+    this.handleEnemyCollisions();
+    this.collectPickups();
+    this.checkGameOver();
+  }
+
+  handleEnemyCollisions() {
     this.level.enemies.forEach((enemy) => {
-      const collides = this.character.isColliding(enemy);
-      const enemyAlive = !enemy.isDead;
-      if (!collides || !enemyAlive) return;
+      if (!this.character.isColliding(enemy) || enemy.isDead) return;
 
-      const isFalling = this.character.speedY < 0;
-      const aboveEnemy = this.character.y + this.character.height - this.character.offset.bottom < enemy.y + enemy.height * 0.5;
-
-      const landedOnTop = isFalling && aboveEnemy;
-
+      const landedOnTop = this.didLandOnEnemy(enemy);
       if (landedOnTop && (enemy instanceof Chicken || enemy instanceof MutantChicken)) {
         enemy.die();
         this.character.speedY = 10;
@@ -92,8 +91,15 @@ class World {
         this.healthBar.setPercentage(this.character.energy);
       }
     });
+  }
 
-    // Collect bottles and coins
+  didLandOnEnemy(enemy) {
+    const isFalling = this.character.speedY < 0;
+    const aboveEnemy = this.character.y + this.character.height - this.character.offset.bottom < enemy.y + enemy.height * 0.5;
+    return isFalling && aboveEnemy;
+  }
+
+  collectPickups() {
     this.level.backgroundObjects = this.level.backgroundObjects.filter((obj) => {
       if (obj instanceof Bottle && this.character.isColliding(obj)) {
         this.bottlesCollected++;
@@ -107,6 +113,9 @@ class World {
       }
       return true;
     });
+  }
+
+  checkGameOver() {
     if (this.character.isDead()) {
       this.showGameOver();
     }
@@ -118,19 +127,17 @@ class World {
     document.getElementById("mobile-controls").classList.add("dnone");
   }
 
-showVictory() {
-  const scoreSpan = document.getElementById("victory-score");
-  if (scoreSpan) {
-    scoreSpan.textContent = this.coinsCollected; 
+  showVictory() {
+    const scoreSpan = document.getElementById("victory-score");
+    if (scoreSpan) {
+      scoreSpan.textContent = this.coinsCollected;
+    }
+    document.getElementById("overlay-victory").classList.remove("dnone");
+    document.getElementById("canvas").classList.add("dnone");
+    document.getElementById("mobile-controls").classList.add("dnone");
+    stopBGM();
+    playVictorySound();
   }
-  document.getElementById("overlay-victory").classList.remove("dnone");
-  document.getElementById("canvas").classList.add("dnone");
-  document.getElementById("mobile-controls").classList.add("dnone");
-  stopBGM(); 
-  playVictorySound(); 
-}
-
-
 
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
