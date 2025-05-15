@@ -1,3 +1,7 @@
+/**
+ * Status bar for the player character's health.
+ * Starts full, is depleted when taking damage.
+ */
 class HealthBar extends StatusBar {
   constructor() {
     super(15, 15, 200, 50); 
