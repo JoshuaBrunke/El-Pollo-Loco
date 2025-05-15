@@ -1,3 +1,7 @@
+/**
+ * Status bar for collectable and throwable bottles.
+ * Starts empty, fills up when collecting bottles, is depleted when throwing them.
+ */
 class BottleBar extends StatusBar {
   constructor() {
     super(15, 60, 200, 50, 0); 
