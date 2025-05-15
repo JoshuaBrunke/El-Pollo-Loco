@@ -1,6 +1,7 @@
 /**
  * @class Character
  * Character class representing the player character in the game.
+ * Handles movement, animation, sound, sleep states, and reactions to player input.
  */
 class Character extends MovableObject {
   y = 80;
@@ -73,6 +74,9 @@ class Character extends MovableObject {
     "./assets/img/2_character_pepe/1_idle/long_idle/I-20.png",
   ];
 
+  /**
+   * Initialises the character with images, gravity, hitbox, and animation.
+   */
   constructor() {
     super().loadImage(this.IMAGES_WALKING[0]);
     this.loadAllImages();
@@ -81,6 +85,9 @@ class Character extends MovableObject {
     this.animate();
   }
 
+  /**
+   * Loads all animations for different character states into the image cache.
+   */
   loadAllImages() {
     this.loadImages(this.IMAGES_WALKING);
     this.loadImages(this.IMAGES_JUMPING);
@@ -90,15 +97,24 @@ class Character extends MovableObject {
     this.loadImages(this.IMAGES_SLEEP);
   }
 
+  /**
+   * Sets the collision hitbox offsets.
+   */
   setHitboxOffsets() {
     this.offset = { top: 150, bottom: 15, left: 20, right: 30 };
   }
 
+  /**
+   * Starts the animation loops for movement and sprite switching.
+   */
   animate() {
     setInterval(() => this.handleMovement(), 1000 / 60);
     setInterval(() => this.handleAnimation(), 100);
   }
 
+  /**
+   * Updates character positioning and movement based on player input.
+   */
   handleMovement() {
     if (!this.world || this.isDead()) return;
     const k = this.world.keyboard;
@@ -112,10 +128,12 @@ class Character extends MovableObject {
       this.moveLeft();
       this.otherDirection = true;
     }
-
     this.world.camera_x = -this.x + 100;
   }
 
+  /**
+   * Plays the appropriate animation based on the character's state.
+   */
   handleAnimation() {
     if (!this.world) return;
 
@@ -130,6 +148,9 @@ class Character extends MovableObject {
     this.handleWalkingSound();
   }
 
+  /**
+   * Starts or stops walking sound based on movement state.
+   */
   handleWalkingSound() {
     const shouldPlay =
       !this.isDead() && !this.isSleeping && !this.isHurt() && !this.isAboveGround() && this.isMoving() && !this.world?.gameEnded;
@@ -143,6 +164,9 @@ class Character extends MovableObject {
     }
   }
 
+  /**
+   * Handles death animation and locks last frame.
+   */
   animateDeath() {
     if (this.currentImage < this.IMAGES_DEAD.length) {
       this.playAnimation(this.IMAGES_DEAD);
@@ -151,14 +175,25 @@ class Character extends MovableObject {
     }
   }
 
+  /**
+   * Checks if the character is currently moving left or right.
+   * @returns {boolean} True if movement keys are pressed.
+   */
   isMoving() {
     return this.world.keyboard.RIGHT || this.world.keyboard.LEFT;
   }
 
+  /**
+   * Checks if the character has been idle long enough to enter sleep state.
+   * @returns {boolean} True if idle for longer than 15 seconds.
+   */
   longIdle() {
     return !this.world?.gameEnded && Date.now() - this.lastAction > 15000 && !this.isSleeping && !this.isDead();
   }
 
+  /**
+   * Transitions the character into the sleeping state and plays sleep sound.
+   */
   sleep() {
     if (this.isDead() || this.world?.gameEnded) return;
     this.isSleeping = true;
@@ -166,6 +201,9 @@ class Character extends MovableObject {
     playSleepSound();
   }
 
+  /**
+   * Resets the idle timer and wakes the character up.
+   */
   resetIdleTimer() {
     this.lastAction = Date.now();
     this.isSleeping = false;
