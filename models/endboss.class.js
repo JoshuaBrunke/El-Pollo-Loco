@@ -1,3 +1,7 @@
+/**
+ * @class Endboss
+ * Endboss class representing the final boss in the game.
+ */
 class Endboss extends MovableObject {
   y = 55;
   width = 250;
@@ -52,6 +56,9 @@ class Endboss extends MovableObject {
     "./assets/img/4_enemie_boss_chicken/5_dead/G26.png",
   ];
 
+  /**
+   * Initialises the Endboss.
+   */
   constructor() {
     super().loadImage(this.IMAGES_ALERT[0]);
     this.loadAllImages();
@@ -61,6 +68,9 @@ class Endboss extends MovableObject {
     this.startAttackLoop();
   }
 
+  /**
+   * Loads all images for the Endboss.
+   */
   loadAllImages() {
     this.loadImages(this.IMAGES_ALERT);
     this.loadImages(this.IMAGES_ATTACK);
@@ -69,6 +79,9 @@ class Endboss extends MovableObject {
     this.loadImages(this.IMAGES_DEAD);
   }
 
+  /**
+   * Animates the Endboss by cycling through its images based on its state.
+   */
   animate() {
     setInterval(() => {
       if (!world) return;
@@ -84,6 +97,9 @@ class Endboss extends MovableObject {
     }, 100);
   }
 
+  /**
+   * Plays the death animation of the Endboss.
+   */
   playDeath() {
     const frames = this.IMAGES_DEAD;
     if (this.currentImage < frames.length) {
@@ -93,6 +109,9 @@ class Endboss extends MovableObject {
     }
   }
 
+  /**
+   * Activates the chase mode of the Endboss at the player character's approach.
+   */
   activateChase() {
     if (!this.isChasing && world.character.x > 1900) {
       this.isChasing = true;
@@ -107,12 +126,18 @@ class Endboss extends MovableObject {
     }
   }
 
+  /**
+   * Moves the Endboss towards the player character.
+   */
   approach() {
     if (this.x > world.character.x + 50) {
       this.x -= this.speed;
     }
   }
 
+  /**
+   * Handles the Endboss being hit by a bottle.
+   */
   hitByBottle() {
     if (this.isDead) return;
     this.energy -= 20;
@@ -124,20 +149,34 @@ class Endboss extends MovableObject {
     if (this.energy <= 0) this.die();
   }
 
+  /**
+   * Starts the attack loop for the Endboss.
+   */
   startAttackLoop() {
     this.attackInterval = setInterval(() => {
       if (this.canLunge()) this.lungeAttack();
     }, 1000);
   }
 
+  /**
+   * Stops the attack loop for the Endboss.
+   */
   stopAttackLoop() {
     clearInterval(this.attackInterval);
   }
 
+  /**
+   * Checks if the Endboss can perform a lunge attack.
+   * 
+   * @returns {boolean} - True if the Endboss can lunge, false otherwise.
+   */
   canLunge() {
     return !this.world?.gameEnded && this.isChasing && !this.isDead && !this.isHurt && !this.isAttacking;
   }
 
+  /**
+   * Performs a lunge attack towards the player character.
+   */
   lungeAttack() {
     this.isAttacking = true;
     playBossAttackSound();
@@ -156,10 +195,19 @@ class Endboss extends MovableObject {
     }, 50);
   }
 
+  /**
+   * Propels the Endboss forward towards the player character during a lunge attack.
+   * 
+   * @param {*} speed 
+   */
   lungeForward(speed) {
     this.x -= speed;
   }
 
+  /**
+   * Checks if the Endboss is colliding with the player character during a lunge attack.
+   * If so, applies damage to the character.
+   */
   tryLungeDamage() {
     const character = this.world?.character;
     if (character && this.isColliding(character)) {
@@ -168,15 +216,28 @@ class Endboss extends MovableObject {
     }
   }
 
+  /**
+   * Checks if the lunge attack should stop.
+   * 
+   * @param {*} currentStep 
+   * @param {*} totalSteps 
+   * @returns 
+   */
   shouldStopLunge(currentStep, totalSteps) {
     return currentStep >= totalSteps || this.isDead;
   }
 
+  /**
+   * Ends the lunge attack and resets the state.
+   */
   endLunge() {
     this.isAttacking = false;
     this.currentImage = 0;
   }
 
+  /**
+   * Handles the Endboss's death.
+   */
   die() {
     this.energy = 0;
     this.isDead = true;
