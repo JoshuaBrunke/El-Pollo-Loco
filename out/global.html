@@ -142,7 +142,79 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scripts_debug.js.html">scripts/debug.js</a>, <a href="scripts_debug.js.html#line2">line 2</a>
+        <a href="scripts_debug.js.html">scripts/debug.js</a>, <a href="scripts_debug.js.html#line4">line 4</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="level1"><span class="type-signature">(constant) </span>level1<span class="type-signature"> :<a href="Level.html">Level</a></span></h4>
+
+
+
+
+<div class="description">
+    The first level of the game.Contains enemies, clouds, background objects, bottles, and coins.This constant is passed into the World constructor to initialise the level.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type"><a href="Level.html">Level</a></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="levels_level1.js.html">levels/level1.js</a>, <a href="levels_level1.js.html#line16">line 16</a>
     </li></ul></dd>
     
 
@@ -258,6 +330,986 @@
     
 
     
+    <h4 class="name" id="bindMobileButton"><span class="type-signature"></span>bindMobileButton<span class="signature">(buttonId, keyName)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Binds touch events to a mobile control button for input simulation.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>buttonId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The ID of the button element (e.g. "left-btn").</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>keyName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The name of the keyboard input to simulate (e.g. "LEFT", "SPACE").</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="scripts_game.js.html">scripts/game.js</a>, <a href="scripts_game.js.html#line116">line 116</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="createFreshLevel"><span class="type-signature"></span>createFreshLevel<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Level.html">Level</a>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Creates a fresh level for a restart.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="scripts_game.js.html">scripts/game.js</a>, <a href="scripts_game.js.html#line192">line 192</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    - A new Level object with fresh enemies, bottles, coins, and background objects.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Level.html">Level</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="exitGame"><span class="type-signature"></span>exitGame<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Exits the game by reloading the page.This function is called when the user clicks the exit button.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="scripts_game.js.html">scripts/game.js</a>, <a href="scripts_game.js.html#line78">line 78</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="handleKeyChange"><span class="type-signature"></span>handleKeyChange<span class="signature">(event, isPressed)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Updates the keyboard state when a key is pressed or released.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>event</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">KeyboardEvent</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The keyboard event object.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>isPressed</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Whether the key is being pressed (true) or released (false).</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="scripts_game.js.html">scripts/game.js</a>, <a href="scripts_game.js.html#line136">line 136</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="hideOverlays"><span class="type-signature"></span>hideOverlays<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Hides the game over and victory overlays.Shows the game canvas and, if on a mobile device, the mobile controls.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="scripts_game.js.html">scripts/game.js</a>, <a href="scripts_game.js.html#line166">line 166</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="init"><span class="type-signature"></span>init<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Initialises the game by setting up external links, sound settings and the mute button and showing the start screen overlay.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="scripts_game.js.html">scripts/game.js</a>, <a href="scripts_game.js.html#line17">line 17</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="isMobileDevice"><span class="type-signature"></span>isMobileDevice<span class="signature">()</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Detects if the user is on a mobile device.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="scripts_game.js.html">scripts/game.js</a>, <a href="scripts_game.js.html#line44">line 44</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    True if the user is on a mobile device, false otherwise.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="loadCanvas"><span class="type-signature"></span>loadCanvas<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Loads the canvas and initializes the game world.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="scripts_game.js.html">scripts/game.js</a>, <a href="scripts_game.js.html#line95">line 95</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="loadMuteState"><span class="type-signature"></span>loadMuteState<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Loads the saved mute state from local storage.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="scripts_game.js.html">scripts/game.js</a>, <a href="scripts_game.js.html#line222">line 222</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id="playBGM"><span class="type-signature"></span>playBGM<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
@@ -310,7 +1362,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_audio-hub.class.js.html">models/audio-hub.class.js</a>, <a href="models_audio-hub.class.js.html#line91">line 91</a>
+        <a href="models_audio-hub.class.js.html">models/audio-hub.class.js</a>, <a href="models_audio-hub.class.js.html#line93">line 93</a>
     </li></ul></dd>
     
 
@@ -398,7 +1450,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_audio-hub.class.js.html">models/audio-hub.class.js</a>, <a href="models_audio-hub.class.js.html#line175">line 175</a>
+        <a href="models_audio-hub.class.js.html">models/audio-hub.class.js</a>, <a href="models_audio-hub.class.js.html#line177">line 177</a>
     </li></ul></dd>
     
 
@@ -486,7 +1538,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_audio-hub.class.js.html">models/audio-hub.class.js</a>, <a href="models_audio-hub.class.js.html#line182">line 182</a>
+        <a href="models_audio-hub.class.js.html">models/audio-hub.class.js</a>, <a href="models_audio-hub.class.js.html#line184">line 184</a>
     </li></ul></dd>
     
 
@@ -574,7 +1626,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_audio-hub.class.js.html">models/audio-hub.class.js</a>, <a href="models_audio-hub.class.js.html#line119">line 119</a>
+        <a href="models_audio-hub.class.js.html">models/audio-hub.class.js</a>, <a href="models_audio-hub.class.js.html#line121">line 121</a>
     </li></ul></dd>
     
 
@@ -662,7 +1714,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_audio-hub.class.js.html">models/audio-hub.class.js</a>, <a href="models_audio-hub.class.js.html#line161">line 161</a>
+        <a href="models_audio-hub.class.js.html">models/audio-hub.class.js</a>, <a href="models_audio-hub.class.js.html#line163">line 163</a>
     </li></ul></dd>
     
 
@@ -750,7 +1802,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_audio-hub.class.js.html">models/audio-hub.class.js</a>, <a href="models_audio-hub.class.js.html#line112">line 112</a>
+        <a href="models_audio-hub.class.js.html">models/audio-hub.class.js</a>, <a href="models_audio-hub.class.js.html#line114">line 114</a>
     </li></ul></dd>
     
 
@@ -838,7 +1890,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_audio-hub.class.js.html">models/audio-hub.class.js</a>, <a href="models_audio-hub.class.js.html#line105">line 105</a>
+        <a href="models_audio-hub.class.js.html">models/audio-hub.class.js</a>, <a href="models_audio-hub.class.js.html#line107">line 107</a>
     </li></ul></dd>
     
 
@@ -926,7 +1978,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_audio-hub.class.js.html">models/audio-hub.class.js</a>, <a href="models_audio-hub.class.js.html#line133">line 133</a>
+        <a href="models_audio-hub.class.js.html">models/audio-hub.class.js</a>, <a href="models_audio-hub.class.js.html#line135">line 135</a>
     </li></ul></dd>
     
 
@@ -1014,7 +2066,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_audio-hub.class.js.html">models/audio-hub.class.js</a>, <a href="models_audio-hub.class.js.html#line140">line 140</a>
+        <a href="models_audio-hub.class.js.html">models/audio-hub.class.js</a>, <a href="models_audio-hub.class.js.html#line142">line 142</a>
     </li></ul></dd>
     
 
@@ -1102,7 +2154,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_audio-hub.class.js.html">models/audio-hub.class.js</a>, <a href="models_audio-hub.class.js.html#line126">line 126</a>
+        <a href="models_audio-hub.class.js.html">models/audio-hub.class.js</a>, <a href="models_audio-hub.class.js.html#line128">line 128</a>
     </li></ul></dd>
     
 
@@ -1190,7 +2242,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_audio-hub.class.js.html">models/audio-hub.class.js</a>, <a href="models_audio-hub.class.js.html#line154">line 154</a>
+        <a href="models_audio-hub.class.js.html">models/audio-hub.class.js</a>, <a href="models_audio-hub.class.js.html#line156">line 156</a>
     </li></ul></dd>
     
 
@@ -1278,7 +2330,1024 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_audio-hub.class.js.html">models/audio-hub.class.js</a>, <a href="models_audio-hub.class.js.html#line189">line 189</a>
+        <a href="models_audio-hub.class.js.html">models/audio-hub.class.js</a>, <a href="models_audio-hub.class.js.html#line191">line 191</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="resetWorld"><span class="type-signature"></span>resetWorld<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Resets the world by stopping any ongoing sounds and clearing the world object.If the world has a stop method, it calls that method to stop the world.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="scripts_game.js.html">scripts/game.js</a>, <a href="scripts_game.js.html#line180">line 180</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="restartGame"><span class="type-signature"></span>restartGame<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Restarts the game by resetting the world and starting with a fresh level.Hides the game over and victory overlays.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="scripts_game.js.html">scripts/game.js</a>, <a href="scripts_game.js.html#line155">line 155</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="saveMuteState"><span class="type-signature"></span>saveMuteState<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Saves the current mute state to local storage.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="scripts_game.js.html">scripts/game.js</a>, <a href="scripts_game.js.html#line232">line 232</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="setupCanvas"><span class="type-signature"></span>setupCanvas<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Sets up the canvas element for the game with width and height in 2D.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="scripts_game.js.html">scripts/game.js</a>, <a href="scripts_game.js.html#line85">line 85</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="setupLinks"><span class="type-signature"></span>setupLinks<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Helper function; adds properties to external links on the website.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="scripts_game.js.html">scripts/game.js</a>, <a href="scripts_game.js.html#line27">line 27</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="setupMobileControls"><span class="type-signature"></span>setupMobileControls<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Sets up the mobile controls for the game.Binds touch events to the buttons for left, right, jump, and throw actions.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="scripts_game.js.html">scripts/game.js</a>, <a href="scripts_game.js.html#line104">line 104</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="setupMuteButton"><span class="type-signature"></span>setupMuteButton<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Sets up the mute button to toggle the mute state when clicked.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="scripts_game.js.html">scripts/game.js</a>, <a href="scripts_game.js.html#line259">line 259</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="setupSound"><span class="type-signature"></span>setupSound<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Sets up the sound.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="scripts_game.js.html">scripts/game.js</a>, <a href="scripts_game.js.html#line34">line 34</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="showStartScreen"><span class="type-signature"></span>showStartScreen<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Shows the start screen overlay.If the user is on a mobile device, it also shows the mobile controls.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="scripts_game.js.html">scripts/game.js</a>, <a href="scripts_game.js.html#line52">line 52</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="startGame"><span class="type-signature"></span>startGame<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Hides the start screen overlay and shows the game canvas.Sets up the game world and mobile controls.Plays the background music.This function is called when the user clicks the start button.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="scripts_game.js.html">scripts/game.js</a>, <a href="scripts_game.js.html#line66">line 66</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="startNewWorld"><span class="type-signature"></span>startNewWorld<span class="signature">(level)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Starts a new game world with the provided level.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>level</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Level.html">Level</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The level object containing enemies, clouds, and background elements.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="scripts_game.js.html">scripts/game.js</a>, <a href="scripts_game.js.html#line209">line 209</a>
     </li></ul></dd>
     
 
@@ -1366,7 +3435,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_audio-hub.class.js.html">models/audio-hub.class.js</a>, <a href="models_audio-hub.class.js.html#line98">line 98</a>
+        <a href="models_audio-hub.class.js.html">models/audio-hub.class.js</a>, <a href="models_audio-hub.class.js.html#line100">line 100</a>
     </li></ul></dd>
     
 
@@ -1454,7 +3523,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_audio-hub.class.js.html">models/audio-hub.class.js</a>, <a href="models_audio-hub.class.js.html#line168">line 168</a>
+        <a href="models_audio-hub.class.js.html">models/audio-hub.class.js</a>, <a href="models_audio-hub.class.js.html#line170">line 170</a>
     </li></ul></dd>
     
 
@@ -1542,7 +3611,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_audio-hub.class.js.html">models/audio-hub.class.js</a>, <a href="models_audio-hub.class.js.html#line147">line 147</a>
+        <a href="models_audio-hub.class.js.html">models/audio-hub.class.js</a>, <a href="models_audio-hub.class.js.html#line149">line 149</a>
     </li></ul></dd>
     
 
@@ -1630,7 +3699,183 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_audio-hub.class.js.html">models/audio-hub.class.js</a>, <a href="models_audio-hub.class.js.html#line196">line 196</a>
+        <a href="models_audio-hub.class.js.html">models/audio-hub.class.js</a>, <a href="models_audio-hub.class.js.html#line198">line 198</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="toggleMute"><span class="type-signature"></span>toggleMute<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Toggles the mute state of the game.If the game is currently muted, it unmutes it and vice versa.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="scripts_game.js.html">scripts/game.js</a>, <a href="scripts_game.js.html#line249">line 249</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="updateMuteButton"><span class="type-signature"></span>updateMuteButton<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Updates the mute button text based on the current mute state.If muted, it shows "Unmute", otherwise it shows "Mute".
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="scripts_game.js.html">scripts/game.js</a>, <a href="scripts_game.js.html#line240">line 240</a>
     </li></ul></dd>
     
 
@@ -1676,13 +3921,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#DEBUG_MODE">DEBUG_MODE</a></li><li><a href="global.html#addAttributesToExternalLinks">addAttributesToExternalLinks</a></li><li><a href="global.html#playBGM">playBGM</a></li><li><a href="global.html#playBossAngrySound">playBossAngrySound</a></li><li><a href="global.html#playBossAttackSound">playBossAttackSound</a></li><li><a href="global.html#playBottleHitSound">playBottleHitSound</a></li><li><a href="global.html#playDefeatSound">playDefeatSound</a></li><li><a href="global.html#playGetBottleSound">playGetBottleSound</a></li><li><a href="global.html#playGetCoinSound">playGetCoinSound</a></li><li><a href="global.html#playJumpAttackSound">playJumpAttackSound</a></li><li><a href="global.html#playSleepSound">playSleepSound</a></li><li><a href="global.html#playTakeDamageSound">playTakeDamageSound</a></li><li><a href="global.html#playVictorySound">playVictorySound</a></li><li><a href="global.html#playWalkingSound">playWalkingSound</a></li><li><a href="global.html#stopBGM">stopBGM</a></li><li><a href="global.html#stopDefeatSound">stopDefeatSound</a></li><li><a href="global.html#stopSleepSound">stopSleepSound</a></li><li><a href="global.html#stopWalkingSound">stopWalkingSound</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="BackgroundObject.html">BackgroundObject</a></li><li><a href="BossBar.html">BossBar</a></li><li><a href="Bottle.html">Bottle</a></li><li><a href="BottleBar.html">BottleBar</a></li><li><a href="Character.html">Character</a></li><li><a href="Chicken.html">Chicken</a></li><li><a href="ChickenBase.html">ChickenBase</a></li><li><a href="Cloud.html">Cloud</a></li><li><a href="Coin.html">Coin</a></li><li><a href="CoinBar.html">CoinBar</a></li><li><a href="DrawableObject.html">DrawableObject</a></li><li><a href="Endboss.html">Endboss</a></li><li><a href="HealthBar.html">HealthBar</a></li><li><a href="Keyboard.html">Keyboard</a></li><li><a href="Level.html">Level</a></li><li><a href="MovableObject.html">MovableObject</a></li><li><a href="MutantChicken.html">MutantChicken</a></li><li><a href="StatusBar.html">StatusBar</a></li><li><a href="ThrowableObject.html">ThrowableObject</a></li><li><a href="World.html">World</a></li></ul><h3>Global</h3><ul><li><a href="global.html#DEBUG_MODE">DEBUG_MODE</a></li><li><a href="global.html#addAttributesToExternalLinks">addAttributesToExternalLinks</a></li><li><a href="global.html#bindMobileButton">bindMobileButton</a></li><li><a href="global.html#createFreshLevel">createFreshLevel</a></li><li><a href="global.html#exitGame">exitGame</a></li><li><a href="global.html#handleKeyChange">handleKeyChange</a></li><li><a href="global.html#hideOverlays">hideOverlays</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#isMobileDevice">isMobileDevice</a></li><li><a href="global.html#level1">level1</a></li><li><a href="global.html#loadCanvas">loadCanvas</a></li><li><a href="global.html#loadMuteState">loadMuteState</a></li><li><a href="global.html#playBGM">playBGM</a></li><li><a href="global.html#playBossAngrySound">playBossAngrySound</a></li><li><a href="global.html#playBossAttackSound">playBossAttackSound</a></li><li><a href="global.html#playBottleHitSound">playBottleHitSound</a></li><li><a href="global.html#playDefeatSound">playDefeatSound</a></li><li><a href="global.html#playGetBottleSound">playGetBottleSound</a></li><li><a href="global.html#playGetCoinSound">playGetCoinSound</a></li><li><a href="global.html#playJumpAttackSound">playJumpAttackSound</a></li><li><a href="global.html#playSleepSound">playSleepSound</a></li><li><a href="global.html#playTakeDamageSound">playTakeDamageSound</a></li><li><a href="global.html#playVictorySound">playVictorySound</a></li><li><a href="global.html#playWalkingSound">playWalkingSound</a></li><li><a href="global.html#resetWorld">resetWorld</a></li><li><a href="global.html#restartGame">restartGame</a></li><li><a href="global.html#saveMuteState">saveMuteState</a></li><li><a href="global.html#setupCanvas">setupCanvas</a></li><li><a href="global.html#setupLinks">setupLinks</a></li><li><a href="global.html#setupMobileControls">setupMobileControls</a></li><li><a href="global.html#setupMuteButton">setupMuteButton</a></li><li><a href="global.html#setupSound">setupSound</a></li><li><a href="global.html#showStartScreen">showStartScreen</a></li><li><a href="global.html#startGame">startGame</a></li><li><a href="global.html#startNewWorld">startNewWorld</a></li><li><a href="global.html#stopBGM">stopBGM</a></li><li><a href="global.html#stopDefeatSound">stopDefeatSound</a></li><li><a href="global.html#stopSleepSound">stopSleepSound</a></li><li><a href="global.html#stopWalkingSound">stopWalkingSound</a></li><li><a href="global.html#toggleMute">toggleMute</a></li><li><a href="global.html#updateMuteButton">updateMuteButton</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Thu May 15 2025 10:16:32 GMT+0200 (Mitteleuropäische Sommerzeit)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Thu May 15 2025 19:46:57 GMT+0200 (Mitteleuropäische Sommerzeit)
 </footer>
 
 <script> prettyPrint(); </script>
