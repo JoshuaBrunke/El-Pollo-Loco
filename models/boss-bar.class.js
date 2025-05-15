@@ -1,3 +1,7 @@
+/**
+ * Status bar for the endboss's health.
+ * Starts full, is depleted when taking damage.
+ */
 class BossBar extends StatusBar {
     constructor() {
       super(400, 15, 200, 50); 
