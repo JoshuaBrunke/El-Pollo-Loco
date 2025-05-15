@@ -162,6 +162,7 @@ class World {
   showGameOver() {
     this.gameEnded = true;
     this.stop();
+    this.level.enemies.forEach(e => e instanceof Endboss && e.stopAttackLoop());
 
     setTimeout(() => {
       document.getElementById("overlay-gameover").classList.remove("dnone");
@@ -176,6 +177,7 @@ class World {
 
   showVictory() {
     this.gameEnded = true;
+    this.level.enemies.forEach(e => e instanceof Endboss && e.stopAttackLoop());
     const scoreSpan = document.getElementById("victory-score");
     if (scoreSpan) {
       scoreSpan.textContent = this.coinsCollected;

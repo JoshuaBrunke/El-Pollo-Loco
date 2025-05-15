@@ -19,14 +19,13 @@
     box-shadow: 0 0 5px #fae352;
     border: inset 3px #fae352;
     color: #001ea1;
-    cursor: pointer;
   }
 }
 
 .button:active {
   background-color: #fae352;
   border: inset 3px #fae352;
-  transform: scale(0.97);
+  transform: scale(0.95);
 }
 
 .button:disabled {

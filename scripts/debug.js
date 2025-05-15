@@ -1,2 +1,4 @@
-/** Enables visual hitbox debugging */
+/** 
+ * Enables visual hitbox debugging 
+ */
 const DEBUG_MODE = false;

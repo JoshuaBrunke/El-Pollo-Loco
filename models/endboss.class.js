@@ -93,19 +93,19 @@ class Endboss extends MovableObject {
     }
   }
 
-activateChase() {
-  if (!this.isChasing && world.character.x > 1900) {
-    this.isChasing = true;
+  activateChase() {
+    if (!this.isChasing && world.character.x > 1900) {
+      this.isChasing = true;
 
-    if (!this.hasPlayedAngrySound) {
-      playBossAngrySound();
-      this.hasPlayedAngrySound = true;
+      if (!this.hasPlayedAngrySound) {
+        playBossAngrySound();
+        this.hasPlayedAngrySound = true;
+      }
+    }
+    if (this.isChasing) {
+      this.approach();
     }
   }
-  if (this.isChasing) {
-    this.approach();
-  }
-}
 
   approach() {
     if (this.x > world.character.x + 50) {
@@ -125,13 +125,17 @@ activateChase() {
   }
 
   startAttackLoop() {
-    setInterval(() => {
+    this.attackInterval = setInterval(() => {
       if (this.canLunge()) this.lungeAttack();
     }, 1000);
   }
 
+  stopAttackLoop() {
+    clearInterval(this.attackInterval);
+  }
+
   canLunge() {
-    return this.isChasing && !this.isDead && !this.isHurt && !this.isAttacking;
+    return !this.world?.gameEnded && this.isChasing && !this.isDead && !this.isHurt && !this.isAttacking;
   }
 
   lungeAttack() {
