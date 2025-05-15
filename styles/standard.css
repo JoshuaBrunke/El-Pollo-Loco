@@ -36,11 +36,6 @@ body {
 }
 
 @font-face {
-  font-family: "Expletus Sans";
-  src: url(../assets/fonts/ExpletusSans-VariableFont_wght.ttf);
-}
-
-@font-face {
   font-family: "Orbitron";
   src: url(../assets/fonts/Orbitron-VariableFont_wght.ttf);
 }
