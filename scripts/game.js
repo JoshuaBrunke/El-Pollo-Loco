@@ -111,7 +111,7 @@ function setupMobileControls() {
 /**
  * Binds touch events to a mobile control button for input simulation.
  * @param {string} buttonId - The ID of the button element (e.g. "left-btn").
- * @param {string} keyName - The name of the keyboard input to simulate (e.g. '"LEFT", "SPACE").
+ * @param {string} keyName - The name of the keyboard input to simulate (e.g. "LEFT", "SPACE").
  */
 function bindMobileButton(buttonId, keyName) {
   const button = document.getElementById(buttonId);
