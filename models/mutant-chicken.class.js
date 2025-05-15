@@ -1,4 +1,14 @@
+/**
+ * @class MutantChicken
+ * Represents a mutant chicken enemy in the game.
+ * It extends the ChickenBase class and handles the specific behavior and properties of a mutant chicken.
+ * This is a stronger and faster but still basic enemy type.
+ */
 class MutantChicken extends ChickenBase {
+  /**
+   * Creates a new MutantChicken object.
+   * The mutant chicken starts at a random x position and has a random speed.
+   */
   constructor() {
     super();
     this.y = 340;
@@ -10,7 +20,6 @@ class MutantChicken extends ChickenBase {
       left: 9,
       right: 9,
     };
-
     this.x = 1200 + Math.random() * 800;
     this.speed = 0.75 + Math.random() * 0.3;
     this.damage = 10;

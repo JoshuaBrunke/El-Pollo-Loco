@@ -1,7 +1,16 @@
+/**
+ * @class Chicken 
+ * Represents a chicken enemy in the game.
+ * It extends the ChickenBase class and handles the specific behavior and properties of a chicken.
+ * This is the normal and weakest enemy type.
+ */
 class Chicken extends ChickenBase {
+  /**
+   * Creates a new Chicken object.
+   * The chicken starts at a random x position and has a random speed.
+   */
   constructor() {
     super();
-
     this.x = 700 + Math.random() * 1200;
     this.speed = 0.15 + Math.random() * 0.25;
     this.damage = 5;
@@ -15,11 +24,9 @@ class Chicken extends ChickenBase {
 
     this.loadImages(this.IMAGES_WALKING);
     this.loadImage(this.IMAGES_WALKING[0]);
-
     const img = new Image();
     img.src = this.IMAGE_DEAD;
     this.imageCache[this.IMAGE_DEAD] = img;
-
     this.animate();
   }
 }
