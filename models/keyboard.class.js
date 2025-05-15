@@ -1,4 +1,5 @@
 /**
+ * @class Keyboard
  * Keyboard class to handle keyboard input.
  * It tracks the state of various keys (left, right, up, down, space, enter, escape).
  */

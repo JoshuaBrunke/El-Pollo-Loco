@@ -1,4 +1,5 @@
 /**
+ * @class HealthBar
  * Status bar for the player character's health.
  * Starts full, is depleted when taking damage.
  */

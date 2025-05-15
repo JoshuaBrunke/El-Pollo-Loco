@@ -1,4 +1,5 @@
 /**
+ * @class StatusBar
  * The base class for all status bars.
  * Represents percentages in visual form via images of bars that change based on the percentage.
  */

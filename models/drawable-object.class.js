@@ -1,4 +1,5 @@
 /**
+ * @class DrawableObject
  * DrawableObject class that handles image loading and drawing on a canvas.
  * It also manages the drawing of debug frames for certain object types.
  */

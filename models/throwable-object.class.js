@@ -1,6 +1,7 @@
 const IMAGE_PLAIN = "./assets/img/6_salsa_bottle/salsa_bottle.png";
 
 /**
+ * @class ThrowableObject
  * Class representing a throwable object in the game.
  * This object can be thrown by the player character, spins in the air, and moves in the set direction.
  */

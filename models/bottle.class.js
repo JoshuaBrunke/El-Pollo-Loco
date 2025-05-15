@@ -1,4 +1,5 @@
 /**
+ * @class Bottle
  * Class for the collectable bottle object in the game.
  * Bottles appear on the ground and can be collected to be thrown later.
  * A random image and matching hitbox offset are applied on creation.

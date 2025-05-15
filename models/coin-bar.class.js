@@ -1,5 +1,6 @@
 /**
- * Status bar for collectable coins.
+* @class CoinBar
+* Status bar for collectable coins.
  * Starts empty, fills up when collecting coins.
  */
 class CoinBar extends StatusBar {

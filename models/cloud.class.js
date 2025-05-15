@@ -1,4 +1,5 @@
 /**
+ * @class Cloud
  * Class for the cloud object in the game.
  * Clouds are background elements that move horizontally across the screen.
  */

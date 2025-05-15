@@ -1,4 +1,5 @@
 /**
+ * @class BossBar
  * Status bar for the endboss's health.
  * Starts full, is depleted when taking damage.
  */

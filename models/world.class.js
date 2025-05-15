@@ -1,4 +1,5 @@
 /**
+ * @class World
  * Class representing the main game world.
  * Manages all game state, rendering, collisions, sound, and UI interactions.
  */

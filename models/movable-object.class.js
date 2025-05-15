@@ -1,6 +1,7 @@
 const GROUND_LEVEL = 140;
 
 /**
+ * @class MovableObject
  * Base class for all movable game objects.
  * Inherits from DrawableObject and adds physics, collision detection, and health logic.
  */

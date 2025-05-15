@@ -1,4 +1,5 @@
 /**
+ * @class BottleBar
  * Status bar for collectable and throwable bottles.
  * Starts empty, fills up when collecting bottles, is depleted when throwing them.
  */

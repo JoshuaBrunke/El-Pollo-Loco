@@ -1,4 +1,5 @@
 /**
+ * @class BackgroundObject
  * Class for background scenery in the level (e.g. layers of sky, terrain).
  * These objects scroll with the camera and provide visual depth.
  */

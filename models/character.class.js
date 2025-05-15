@@ -1,3 +1,7 @@
+/**
+ * @class Character
+ * Character class representing the player character in the game.
+ */
 class Character extends MovableObject {
   y = 80;
   width = 100;

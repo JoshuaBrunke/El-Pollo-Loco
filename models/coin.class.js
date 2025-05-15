@@ -1,4 +1,5 @@
 /**
+ * @class Coin
  * Class for the collectable coin object in the game.
  * Coins appear in the air and can be collected by jumping.
  * The collected coins are counted for the coin score shown if the player wins the game.
