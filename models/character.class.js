@@ -5,6 +5,7 @@ class Character extends MovableObject {
   speed = 10;
   lastAction = Date.now();
   isSleeping = false;
+  isWalkingSoundPlaying = false;
 
   IMAGES_WALKING = [
     "./assets/img/2_character_pepe/2_walk/W-21.png",
@@ -122,6 +123,19 @@ class Character extends MovableObject {
     else if (this.isAboveGround()) this.playAnimation(this.IMAGES_JUMPING);
     else if (this.isMoving()) this.playAnimation(this.IMAGES_WALKING);
     else this.playAnimation(this.IMAGES_IDLE);
+    this.handleWalkingSound();
+  }
+
+  handleWalkingSound() {
+    const shouldPlay = !this.isDead() && !this.isSleeping && !this.isHurt() && !this.isAboveGround() && this.isMoving();
+
+    if (shouldPlay && !this.isWalkingSoundPlaying) {
+      playWalkingSound();
+      this.isWalkingSoundPlaying = true;
+    } else if (!shouldPlay && this.isWalkingSoundPlaying) {
+      stopWalkingSound();
+      this.isWalkingSoundPlaying = false;
+    }
   }
 
   animateDeath() {

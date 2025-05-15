@@ -130,7 +130,7 @@ function playErrorSound() {
 }
 
 function playWalkingSound() {
-  AudioHub.playLoop(AudioHub.WALKING, 0.1);
+  AudioHub.playLoop(AudioHub.WALKING, 0.7);
 }
 
 function stopWalkingSound() {
