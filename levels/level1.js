@@ -5,6 +5,14 @@ const coinPositions = [
   [213, 200], [452, 160], [680, 180], [950, 140], [1103, 170], [1302, 190], [1520, 150], [1710, 180], [1850, 160], [2006, 150]
 ];
 const coins = coinPositions.map(([x, y]) => new Coin(x, y));
+
+/**
+ * The first level of the game.
+ * Contains enemies, clouds, background objects, bottles, and coins.
+ * This constant is passed into the World constructor to initialise the level.
+ * 
+ * @type {Level}
+ */
 const level1 = new Level(
   [
     new Chicken(), new Chicken(), new Chicken(), new Chicken(), new Chicken(), new Chicken(),
@@ -42,7 +50,7 @@ const level1 = new Level(
     new BackgroundObject("./assets/img/5_background/layers/2_second_layer/1.png", 719 * 4),
     new BackgroundObject("./assets/img/5_background/layers/1_first_layer/1.png", 719 * 4),
 
-    ...bottles, // Spread the bottle objects into the background objects array
-    ...coins, // Spread the coin objects into the background objects array
+    ...bottles,
+    ...coins, 
   ]
 );
