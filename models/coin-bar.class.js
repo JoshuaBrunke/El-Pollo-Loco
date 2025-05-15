@@ -1,3 +1,7 @@
+/**
+ * Status bar for collectable coins.
+ * Starts empty, fills up when collecting coins.
+ */
 class CoinBar extends StatusBar {
     constructor() {
       super(15, 105, 200, 50, 0); 
