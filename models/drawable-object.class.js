@@ -1,3 +1,7 @@
+/**
+ * DrawableObject class that handles image loading and drawing on a canvas.
+ * It also manages the drawing of debug frames for certain object types.
+ */
 class DrawableObject {
   img;
   imageCache = {};
@@ -29,7 +33,7 @@ class DrawableObject {
   }
 
   /**
-   * Draws the current image to the canvas.
+   * Draws the current image on the canvas.
    * @param {CanvasRenderingContext2D} ctx - The canvas context.
    */
   draw(ctx) {
@@ -42,13 +46,13 @@ class DrawableObject {
    */
   drawFrame(ctx) {
     if (!DEBUG_MODE || !this.shouldShowDebugFrame()) return;
-
     this.drawImageBorders(ctx);
     this.drawOffsetBorders(ctx);
   }
 
   /**
-   * Determines whether this object type should show debug frames.
+   * Determines whether a specific object type should show debug frames.
+   *  * @returns {boolean} True if debug frames should be shown.
    */
   shouldShowDebugFrame() {
     return (
@@ -56,6 +60,11 @@ class DrawableObject {
     );
   }
 
+  /**
+   * Draws the image borders for debugging.
+   *
+   * @param {strCanvasRenderingContext2Ding} ctx
+   */
   drawImageBorders(ctx) {
     ctx.beginPath();
     ctx.lineWidth = "1";
@@ -64,6 +73,11 @@ class DrawableObject {
     ctx.stroke();
   }
 
+  /**
+   * Draws the offset borders for debugging.
+   *
+   * @param {CanvasRenderingContext2D} ctx
+   */
   drawOffsetBorders(ctx) {
     ctx.beginPath();
     ctx.lineWidth = "2";
