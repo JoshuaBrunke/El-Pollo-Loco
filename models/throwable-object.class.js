@@ -1,5 +1,9 @@
 const IMAGE_PLAIN = "./assets/img/6_salsa_bottle/salsa_bottle.png";
 
+/**
+ * Class representing a throwable object in the game.
+ * This object can be thrown by the player character, spins in the air, and moves in the set direction.
+ */
 class ThrowableObject extends MovableObject {
   IMAGES_ROTATION = [
     "./assets/img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png",
@@ -12,6 +16,14 @@ class ThrowableObject extends MovableObject {
   height = 60;
   hasHit = false;
 
+  /**
+   * Creates a new throwable bottle object at a specific position and direction.
+   * Loads rotation images and begins the throw animation immediately.
+   * 
+   * @param {number} x - The horizontal position where the bottle is created.
+   * @param {number} y - The vertical position where the bottle is created.
+   * @param {number} [direction=1] - Direction the bottle moves in: 1 (right) or -1 (left).
+   */
   constructor(x, y, direction = 1) {
     super();
     this.loadImages(this.IMAGES_ROTATION);
@@ -22,6 +34,10 @@ class ThrowableObject extends MovableObject {
     this.throw();
   }
 
+  /**
+   * Launches the bottle by giving it horizontal and vertical velocity.
+   * Starts animation for movement and rotation.
+   */
   throw() {
     this.speedX = 14 * this.direction;
     this.speedY = 20;
@@ -36,6 +52,10 @@ class ThrowableObject extends MovableObject {
     }, 100);
   }
 
+  /**
+   * Stops all motion and animation of the thrown bottle.
+   * Used when a bottle hits something or leaves the screen.
+   */
   clearIntervals() {
     clearInterval(this.flyInterval);
     clearInterval(this.spinInterval);
