@@ -162,9 +162,9 @@ class World {
   }
 
   /**
-   * Checks whether the character landed on top of an enemy.
+   * Checks whether the character has landed on top of an enemy.
    * @param {MovableObject} enemy - The enemy to compare against.
-   * @returns {boolean} True if the character landed on top.
+   * @returns {boolean} True if the character has landed on top.
    */
   didLandOnEnemy(enemy) {
     const isFalling = this.character.speedY < 0;
@@ -240,7 +240,7 @@ class World {
   }
 
   /**
-   * Displays the victory screen and shows the player's score.
+   * Displays the victory screen and shows the player's coin score.
    */
   showVictory() {
     this.gameEnded = true;
