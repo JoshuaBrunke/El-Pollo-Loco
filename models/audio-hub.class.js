@@ -7,7 +7,6 @@ class AudioHub {
   static GET_COIN = new Audio("./assets/audio/getcoin.wav");
   static HIT_WITH_BOTTLE = new Audio("./assets/audio/hit-with-bottle.wav");
   static JUMP_ATTACK = new Audio("./assets/audio/jump-attack.wav");
-  static SHORT_ERROR = new Audio("./assets/audio/short_error.wav");
   static SLEEP = new Audio("./assets/audio/sleep.wav");
   static TAKE_DAMAGE = new Audio("./assets/audio/take-damage.wav");
   static VICTORY = new Audio("./assets/audio/victory.wav");
@@ -22,7 +21,6 @@ class AudioHub {
     AudioHub.GET_COIN,
     AudioHub.HIT_WITH_BOTTLE,
     AudioHub.JUMP_ATTACK,
-    AudioHub.SHORT_ERROR,
     AudioHub.SLEEP,
     AudioHub.TAKE_DAMAGE,
     AudioHub.VICTORY,
@@ -108,15 +106,11 @@ function stopDefeatSound() {
 }
 
 function playBossAngrySound() {
-  AudioHub.playOnce(AudioHub.BOSS_ANGRY, 0.2);
+  AudioHub.playOnce(AudioHub.BOSS_ANGRY, 0.1);
 }
 
 function playBossAttackSound() {
-  AudioHub.playOnce(AudioHub.BOSS_ATTACK, 0.2);
-}
-
-function playErrorSound() {
-  AudioHub.playOnce(AudioHub.SHORT_ERROR, 0.2);
+  AudioHub.playOnce(AudioHub.BOSS_ATTACK, 0.3);
 }
 
 function playWalkingSound() {

@@ -127,7 +127,8 @@ class Character extends MovableObject {
   }
 
   handleWalkingSound() {
-    const shouldPlay = !this.isDead() && !this.isSleeping && !this.isHurt() && !this.isAboveGround() && this.isMoving();
+    const shouldPlay =
+      !this.isDead() && !this.isSleeping && !this.isHurt() && !this.isAboveGround() && this.isMoving() && !this.world?.gameEnded;
 
     if (shouldPlay && !this.isWalkingSoundPlaying) {
       playWalkingSound();
@@ -151,11 +152,11 @@ class Character extends MovableObject {
   }
 
   longIdle() {
-    return Date.now() - this.lastAction > 15000 && !this.isSleeping && !this.isDead();
+    return !this.world?.gameEnded && Date.now() - this.lastAction > 15000 && !this.isSleeping && !this.isDead();
   }
 
   sleep() {
-    if (this.isDead()) return;
+    if (this.isDead() || this.world?.gameEnded) return;
     this.isSleeping = true;
     this.currentImage = 0;
     playSleepSound();

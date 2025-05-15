@@ -14,6 +14,7 @@ class World {
   throwableObjects = [];
   intervals = [];
   animationFrame;
+  gameEnded = false;
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -112,7 +113,7 @@ class World {
   }
 
   takeDamage(enemy) {
-    if (!this.character.canBeHit()) return;
+    if (this.gameEnded || !this.character.canBeHit()) return;
 
     const damage = enemy.damage || 5;
     this.character.hit(damage);
@@ -159,7 +160,8 @@ class World {
   }
 
   showGameOver() {
-    this.stop(); // 🔥 Stop all intervals + draw loop FIRST
+    this.gameEnded = true;
+    this.stop();
 
     setTimeout(() => {
       document.getElementById("overlay-gameover").classList.remove("dnone");
@@ -173,6 +175,7 @@ class World {
   }
 
   showVictory() {
+    this.gameEnded = true;
     const scoreSpan = document.getElementById("victory-score");
     if (scoreSpan) {
       scoreSpan.textContent = this.coinsCollected;
@@ -181,6 +184,7 @@ class World {
     document.getElementById("canvas").classList.add("dnone");
     document.getElementById("mobile-controls").classList.add("dnone");
     stopBGM();
+    stopSleepSound();
     playVictorySound();
   }
 

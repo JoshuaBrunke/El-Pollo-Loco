@@ -141,6 +141,7 @@ function startNewWorld(level) {
   world = new World(canvas, keyboard);
   world.level = level;
   world.setWorld();
+  world.gameEnded = false;
   setupMobileControls();
   playBGM();
 }

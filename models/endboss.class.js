@@ -9,6 +9,7 @@ class Endboss extends MovableObject {
   isChasing = false;
   speed = 7.5;
   damage = 20;
+  hasPlayedAngrySound = false;
 
   IMAGES_ALERT = [
     "./assets/img/4_enemie_boss_chicken/2_alert/G5.png",
@@ -92,14 +93,19 @@ class Endboss extends MovableObject {
     }
   }
 
-  activateChase() {
-    if (!this.isChasing && world.character.x > 1900) {
-      this.isChasing = true;
-    }
-    if (this.isChasing) {
-      this.approach();
+activateChase() {
+  if (!this.isChasing && world.character.x > 1900) {
+    this.isChasing = true;
+
+    if (!this.hasPlayedAngrySound) {
+      playBossAngrySound();
+      this.hasPlayedAngrySound = true;
     }
   }
+  if (this.isChasing) {
+    this.approach();
+  }
+}
 
   approach() {
     if (this.x > world.character.x + 50) {
@@ -113,7 +119,8 @@ class Endboss extends MovableObject {
     this.isHurt = true;
     this.currentImage = 0;
     this.world?.bossBar?.setPercentage(this.energy);
-    setTimeout(() => (this.isHurt = false), 500);
+    playBossAngrySound();
+    setTimeout(() => (this.isHurt = false), 900);
     if (this.energy <= 0) this.die();
   }
 
@@ -129,6 +136,7 @@ class Endboss extends MovableObject {
 
   lungeAttack() {
     this.isAttacking = true;
+    playBossAttackSound();
     const distance = 80;
     const speed = 10;
     const steps = distance / speed;
