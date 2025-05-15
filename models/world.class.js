@@ -1,6 +1,6 @@
 /**
- * Class for the game world.
- * It manages the game state, including the character, level, and various UI elements.
+ * Class representing the main game world.
+ * Manages all game state, rendering, collisions, sound, and UI interactions.
  */
 class World {
   character = new Character();
@@ -21,9 +21,9 @@ class World {
   gameEnded = false;
 
   /**
-   * 
-   * @param {*} canvas 
-   * @param {*} keyboard 
+   * Creates a new game world.
+   * @param {HTMLCanvasElement} canvas - The canvas element to draw on.
+   * @param {Keyboard} keyboard - The keyboard input manager.
    */
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -35,8 +35,7 @@ class World {
   }
 
   /**
-   * Sets the world for the character and enemies.
-   * This method assigns the current world instance to the character and all enemies.
+   * Sets the world reference for the character and the endboss.
    */
   setWorld() {
     this.character.world = this;
@@ -48,8 +47,7 @@ class World {
   }
 
   /**
-   * Runs the game loop at a specified interval.
-   * It checks for collisions, throwable objects, and bottle hits.
+   * Starts the main game logic loop for collision detection and throwing.
    */
   run() {
     const interval = setInterval(() => {
@@ -61,9 +59,8 @@ class World {
   }
 
   /**
-   * Checks for bottle hits on enemies.
-   * If a bottle hits an enemy, it marks the bottle as hit, handles the enemy's response, 
-   * and cleans up the bottles that have hit an enemy.
+   * Checks for collisions between bottles and enemies.
+   * Removes bottles that have hit.
    */
   checkBottleHits() {
     this.throwableObjects.forEach((bottle) => {
@@ -75,14 +72,9 @@ class World {
   }
 
   /**
-   * Handles the logic for when a bottle hits an enemy.
-   * It doesn't do anything if the bottle has already hit, if the enemy is already dead, and if the bottle is not colliding with the enemy.
-   * If the enemy is a Chicken or MutantChicken, it plays a sound and marks the enemy as dead.
-   * If the enemy is an Endboss, it plays a sound and calls the enemy's hitByBottle method.
-   * The bottle is then marked as having hit an enemy.
-   * @param {*} bottle 
-   * @param {*} enemy 
-   * @returns 
+   * Handles the logic when a bottle hits an enemy.
+   * @param {ThrowableObject} bottle - The thrown bottle.
+   * @param {MovableObject} enemy - The enemy being checked.
    */
   handleBottleHit(bottle, enemy) {
     if (bottle.hasHit || enemy.isDead || !bottle.isColliding(enemy)) return;
@@ -97,8 +89,7 @@ class World {
   }
 
   /**
-   * Cleans up the bottles that have hit an enemy.
-   * It clears any intervals associated with the bottles and removes them from the throwableObjects array.
+   * Removes all bottles that have hit enemies from the game world.
    */
   cleanupHitBottles() {
     this.throwableObjects.forEach((bottle) => {
@@ -110,9 +101,7 @@ class World {
   }
 
   /**
-   * Checks if the space key is pressed and if the character holds any collected bottles.
-   * If so, it creates a new ThrowableObject and adds it to the throwableObjects array.
-   * It also updates the bottlesCollected count and the bottleBar percentage.
+   * Checks for SPACE input and throws a bottle if available.
    */
   checkThrowObjects() {
     if (this.keyboard.SPACE && this.bottlesCollected > 0) {
@@ -127,7 +116,7 @@ class World {
   }
 
   /**
-   * Checks for collisions between the character and enemies and items respectively, and checks the game over state.
+   * Checks for enemy collisions, item pickups, and death.
    */
   checkCollisions() {
     this.handleEnemyCollisions();
@@ -136,16 +125,11 @@ class World {
   }
 
   /**
-   * Handles collisions between the character and enemies.
-   * If the character is colliding with an enemy that is not yet dead, 
-   * it checks if the enemy is a Chicken or MutantChicken and if the character has landed on top of it.
-   * If so, it plays a sound and marks the enemy as dead.
-   * If not, it checks if the character can take damage and applies damage to the character according to the enemy's damage value.
+   * Handles collisions between character and enemies.
    */
   handleEnemyCollisions() {
     this.level.enemies.forEach((enemy) => {
       if (!this.character.isColliding(enemy) || enemy.isDead) return;
-
       const landedOnTop = this.didLandOnEnemy(enemy);
       if (landedOnTop && (enemy instanceof Chicken || enemy instanceof MutantChicken)) {
         this.jumpOnChicken(enemy);
@@ -156,9 +140,8 @@ class World {
   }
 
   /**
-   * Handles the logic for jumping on a Chicken or MutantChicken enemy.
-   * It plays a sound, marks the enemy as dead, and sets the character's vertical speed.
-   * @param {string} enemy 
+   * Character defeats enemy by jumping on it.
+   * @param {Chicken|MutantChicken} enemy - The enemy being jumped on.
    */
   jumpOnChicken(enemy) {
     playJumpAttackSound();
@@ -167,12 +150,8 @@ class World {
   }
 
   /**
-   * Handles the player character taking damage from an enemy. 
-   * If the game has not ended yet and if the character can be hit, 
-   * it applies damage to the character, plays a sound and sets the health bar percentage.
-   * 
-   * @param {string} enemy 
-   * @returns 
+   * Applies damage to the character.
+   * @param {MovableObject} enemy - The enemy causing the damage.
    */
   takeDamage(enemy) {
     if (this.gameEnded || !this.character.canBeHit()) return;
@@ -183,10 +162,9 @@ class World {
   }
 
   /**
-   * Checks if the character has landed on an enemy.
-   * 
-   * @param {*} enemy 
-   * @returns 
+   * Checks whether the character landed on top of an enemy.
+   * @param {MovableObject} enemy - The enemy to compare against.
+   * @returns {boolean} True if the character landed on top.
    */
   didLandOnEnemy(enemy) {
     const isFalling = this.character.speedY < 0;
@@ -195,10 +173,7 @@ class World {
   }
 
   /**
-   * Checks for items (bottles and coins) in the level.
-   * If the character collides with a bottle, it collects it and updates the bottlesCollected count.
-   * If the character collides with a coin, it collects it and updates the coinsCollected count.
-   * It also updates the respective UI elements (bottleBar and coinBar).
+   * Collects all bottle and coin items.
    */
   collectItems() {
     this.level.backgroundObjects = this.level.backgroundObjects.filter((obj) => {
@@ -209,11 +184,9 @@ class World {
   }
 
   /**
-   * Collects a bottle if the character is colliding with it.
-   * If the bottle is collected, it plays a sound and updates the bottlesCollected count.
-   * 
-   * @param {*} obj 
-   * @returns 
+   * Collects a bottle if colliding with the character.
+   * @param {MovableObject} obj - Object to check.
+   * @returns {boolean} True if collected.
    */
   getBottle(obj) {
     if (!(obj instanceof Bottle)) return false;
@@ -225,11 +198,9 @@ class World {
   }
 
   /**
-   * Collects a coin if the character is colliding with it.
-   * If the coin is collected, it plays a sound and updates the coinsCollected count.
-   * 
-   * @param {*} obj 
-   * @returns 
+   * Collects a coin if colliding with the character.
+   * @param {MovableObject} obj - Object to check.
+   * @returns {boolean} True if collected.
    */
   getCoin(obj) {
     if (!(obj instanceof Coin)) return false;
@@ -241,8 +212,7 @@ class World {
   }
 
   /**
-   * Checks if the game is over.
-   * If the character is dead, it shows the game over screen.
+   * Checks if the player has lost the game.
    */
   checkGameOver() {
     if (this.character.isDead()) {
@@ -251,13 +221,12 @@ class World {
   }
 
   /**
-   * Displays the game over screen.
-   * It stops the game, removes the canvas and mobile controls, and plays the defeat sound.
+   * Displays the game over screen and stops all activity.
    */
   showGameOver() {
     this.gameEnded = true;
     this.stop();
-    this.level.enemies.forEach(e => e instanceof Endboss && e.stopAttackLoop());
+    this.level.enemies.forEach((e) => e instanceof Endboss && e.stopAttackLoop());
 
     setTimeout(() => {
       document.getElementById("overlay-gameover").classList.remove("dnone");
@@ -267,16 +236,15 @@ class World {
       stopBGM();
       stopSleepSound();
       playDefeatSound();
-    }, 100); 
+    }, 100);
   }
 
   /**
-   * Displays the victory screen.
-   * It stops the game, removes the canvas and mobile controls, and plays the victory sound.
+   * Displays the victory screen and shows the player's score.
    */
   showVictory() {
     this.gameEnded = true;
-    this.level.enemies.forEach(e => e instanceof Endboss && e.stopAttackLoop());
+    this.level.enemies.forEach((e) => e instanceof Endboss && e.stopAttackLoop());
     const scoreSpan = document.getElementById("victory-score");
     if (scoreSpan) {
       scoreSpan.textContent = this.coinsCollected;
@@ -290,8 +258,7 @@ class World {
   }
 
   /**
-   * Draws the game world on the canvas.
-   * It clears the canvas, translates the context for the camera position, and draws all objects in the world.
+   * Draws all visible objects and UI to the canvas.
    */
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -312,9 +279,8 @@ class World {
   }
 
   /**
-   * Adds all objects to the map.
-   * 
-   * @param {*} objects 
+   * Adds multiple objects to the map.
+   * @param {DrawableObject[]} objects - The objects to draw.
    */
   addObjectsToMap(objects) {
     objects.forEach((object) => {
@@ -323,9 +289,8 @@ class World {
   }
 
   /**
-   * Adds a single object to the map.
-   * 
-   * @param {*} mo 
+   * Draws an individual object on the canvas.
+   * @param {DrawableObject} mo - The object to draw.
    */
   addToMap(mo) {
     this.ctx.save();
@@ -338,19 +303,8 @@ class World {
   }
 
   /**
-   * Draws the object on the canvas.
-   * 
-   * @param {*} mo 
-   */
-  drawObject(mo) {
-    mo.draw(this.ctx);
-    mo.drawFrame(this.ctx);
-  }
-
-  /**
-   * Draws the object on the canvas in its default direction.
-   * 
-   * @param {*} mo 
+   * Draws the object in default facing direction.
+   * @param {DrawableObject} mo
    */
   drawNormally(mo) {
     this.ctx.translate(mo.x, mo.y);
@@ -358,9 +312,8 @@ class World {
   }
 
   /**
-   * Flips the context and draws the object on the canvas to show it as facing in the opposite direction.
-   * 
-   * @param {*} mo 
+   * Flips the canvas horizontally before drawing the object.
+   * @param {DrawableObject} mo
    */
   flipContextAndDraw(mo) {
     this.ctx.translate(mo.x + mo.width, mo.y);
@@ -369,7 +322,16 @@ class World {
   }
 
   /**
-   * Stops the game and clears all intervals and animation frames.
+   * Calls the object's draw methods.
+   * @param {DrawableObject} mo
+   */
+  drawObject(mo) {
+    mo.draw(this.ctx);
+    mo.drawFrame(this.ctx);
+  }
+
+  /**
+   * Stops the game loop and animation.
    */
   stop() {
     this.intervals.forEach(clearInterval);
