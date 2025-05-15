@@ -1,6 +1,7 @@
 /**
  * @class Endboss
- * Endboss class representing the final boss in the game.
+ * Represents the final boss in the game.
+ * Handles its own animations, movement, lunge attack logic, and reactions to damage.
  */
 class Endboss extends MovableObject {
   y = 55;
@@ -58,6 +59,7 @@ class Endboss extends MovableObject {
 
   /**
    * Initialises the Endboss.
+   * Loads all images, sets hitbox offsets, and starts animations and attack logic.
    */
   constructor() {
     super().loadImage(this.IMAGES_ALERT[0]);
@@ -69,7 +71,7 @@ class Endboss extends MovableObject {
   }
 
   /**
-   * Loads all images for the Endboss.
+   * Loads all animation frames for the different states into the image cache.
    */
   loadAllImages() {
     this.loadImages(this.IMAGES_ALERT);
@@ -80,7 +82,8 @@ class Endboss extends MovableObject {
   }
 
   /**
-   * Animates the Endboss by cycling through its images based on its state.
+   * Handles animation states for the Endboss.
+   * Switches between death, hurt, attack, walking, and idle animations.
    */
   animate() {
     setInterval(() => {
@@ -98,7 +101,7 @@ class Endboss extends MovableObject {
   }
 
   /**
-   * Plays the death animation of the Endboss.
+   * Plays the death animation of the Endboss and holds the last frame.
    */
   playDeath() {
     const frames = this.IMAGES_DEAD;
@@ -110,12 +113,12 @@ class Endboss extends MovableObject {
   }
 
   /**
-   * Activates the chase mode of the Endboss at the player character's approach.
+   * At the player character's approach, starts chasing them. 
+   * Plays the angry sound once at the start of the chase.
    */
   activateChase() {
     if (!this.isChasing && world.character.x > 1900) {
       this.isChasing = true;
-
       if (!this.hasPlayedAngrySound) {
         playBossAngrySound();
         this.hasPlayedAngrySound = true;
@@ -137,6 +140,7 @@ class Endboss extends MovableObject {
 
   /**
    * Handles the Endboss being hit by a bottle.
+   * Plays hurt animation, plays angry sound, and reduces energy.
    */
   hitByBottle() {
     if (this.isDead) return;
@@ -150,7 +154,7 @@ class Endboss extends MovableObject {
   }
 
   /**
-   * Starts the attack loop for the Endboss.
+   * Starts the recurring attack check and lunge attack loop for the Endboss.
    */
   startAttackLoop() {
     this.attackInterval = setInterval(() => {
@@ -168,7 +172,7 @@ class Endboss extends MovableObject {
   /**
    * Checks if the Endboss can perform a lunge attack.
    * 
-   * @returns {boolean} - True if the Endboss can lunge, false otherwise.
+   * @returns {boolean} - True if the Endboss can lunge.
    */
   canLunge() {
     return !this.world?.gameEnded && this.isChasing && !this.isDead && !this.isHurt && !this.isAttacking;
@@ -176,6 +180,7 @@ class Endboss extends MovableObject {
 
   /**
    * Performs a lunge attack towards the player character.
+   * Moves forward in steps and checks for collision damage.
    */
   lungeAttack() {
     this.isAttacking = true;
@@ -198,7 +203,7 @@ class Endboss extends MovableObject {
   /**
    * Propels the Endboss forward towards the player character during a lunge attack.
    * 
-   * @param {*} speed 
+   * @param {number} speed - The horizontal speed to move.
    */
   lungeForward(speed) {
     this.x -= speed;
@@ -206,7 +211,7 @@ class Endboss extends MovableObject {
 
   /**
    * Checks if the Endboss is colliding with the player character during a lunge attack.
-   * If so, applies damage to the character.
+   * If so, attempts to apply damage to the character.
    */
   tryLungeDamage() {
     const character = this.world?.character;
@@ -217,11 +222,10 @@ class Endboss extends MovableObject {
   }
 
   /**
-   * Checks if the lunge attack should stop.
-   * 
-   * @param {*} currentStep 
-   * @param {*} totalSteps 
-   * @returns 
+   * Determines whether the lunge should end.
+   * @param {number} currentStep - How many steps have already been taken.
+   * @param {number} totalSteps - The maximum number of steps.
+   * @returns {boolean} True if the lunge should stop.
    */
   shouldStopLunge(currentStep, totalSteps) {
     return currentStep >= totalSteps || this.isDead;
@@ -236,7 +240,8 @@ class Endboss extends MovableObject {
   }
 
   /**
-   * Handles the Endboss's death.
+   * Handles the death sequence of the Endboss.
+   * Sets energy to zero, triggers the victory screen after a short delay.
    */
   die() {
     this.energy = 0;
