@@ -63,7 +63,7 @@ class DrawableObject {
   /**
    * Draws the image borders for debugging.
    *
-   * @param {strCanvasRenderingContext2Ding} ctx
+   * @param {CanvasRenderingContext2Ding} ctx
    */
   drawImageBorders(ctx) {
     ctx.beginPath();

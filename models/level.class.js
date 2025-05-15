@@ -1,3 +1,6 @@
+/**
+ * Level class for constructing game levels.
+ */
 class Level {
     enemies;
     clouds;
