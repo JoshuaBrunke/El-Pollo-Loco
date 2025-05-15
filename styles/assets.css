@@ -14,11 +14,19 @@
   font-family: "Orbitron", sans-serif;
 }
 
-.button:hover {
-  box-shadow: 0 0 5px #fae352;
+@media (hover: hover) and (pointer: fine) {
+  .button:hover {
+    box-shadow: 0 0 5px #fae352;
+    border: inset 3px #fae352;
+    color: #001ea1;
+    cursor: pointer;
+  }
+}
+
+.button:active {
+  background-color: #fae352;
   border: inset 3px #fae352;
-  color: #001ea1;
-  cursor: pointer;
+  transform: scale(0.97);
 }
 
 .button:disabled {
@@ -71,19 +79,4 @@
 #mobile-controls button:active {
   background: #fae352;
   transform: scale(0.95);
-}
-
-.card {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border-radius: 5px;
-  gap: 10px;
-  padding: 5px;
-  text-shadow: 3px 3px 7px rgba(0, 0, 0, 0.9);
-}
-
-.card:hover {
-  cursor: pointer;
 }
