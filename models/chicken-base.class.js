@@ -1,7 +1,7 @@
 /**
  * @class ChickenBase
  * Represents a base class for chicken enemies in the game. These are the basic enemies that can be jumped on.
- * It handles the animation, movement, and death of the chicken.
+ * Handles shared movement, animation, and death logic.
  */
 class ChickenBase extends MovableObject {
   IMAGES_WALKING = [];
@@ -26,8 +26,7 @@ class ChickenBase extends MovableObject {
   }
 
   /**
-   * Loads the images for the chicken's walking animation and the dead image.
-   * The images are loaded into the image cache for later use.
+   * Starts the animation and movement loops for the chicken.
    */
   animate() {
     this.moveInterval = setInterval(() => {
@@ -43,7 +42,7 @@ class ChickenBase extends MovableObject {
   }
 
   /**
-   * Handles the chicken's death sequence.
+   * Kills the chicken and swaps its image to the dead sprite.
    */
   die() {
     this.isDead = true;
