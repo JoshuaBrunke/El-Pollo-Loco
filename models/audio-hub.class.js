@@ -45,7 +45,6 @@ class AudioHub {
       if (sound.readyState === 4) {
         sound.currentTime = 0;
         sound.play().catch(() => {});
-        sound.play();
       }
     }
   }
@@ -63,7 +62,6 @@ class AudioHub {
       if (sound.readyState === 4) {
         sound.currentTime = 0;
         sound.play().catch(() => {});
-        sound.play();
       }
     }
   }
@@ -83,7 +81,9 @@ class AudioHub {
    * @param {HTMLAudioElement} sound - The sound to stop.
    */
   static stopOne(sound) {
-    sound.pause();
+    try {
+      sound.pause();
+    } catch (_) {}
   }
 }
 
