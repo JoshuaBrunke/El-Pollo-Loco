@@ -2,7 +2,6 @@ class AudioHub {
   static BGM = new Audio("./assets/audio/bgm.mp3");
   static BOSS_ANGRY = new Audio("./assets/audio/boss-angry.wav");
   static BOSS_ATTACK = new Audio("./assets/audio/boss-attack.wav");
-  static CHICKENS = new Audio("./assets/audio/chickens.wav");
   static DEFEAT = new Audio("./assets/audio/8bit-game-over.wav");
   static GET_BOTTLE = new Audio("./assets/audio/getbottle.wav");
   static GET_COIN = new Audio("./assets/audio/getcoin.wav");
@@ -18,7 +17,6 @@ class AudioHub {
     AudioHub.BGM,
     AudioHub.BOSS_ANGRY,
     AudioHub.BOSS_ATTACK,
-    AudioHub.CHICKENS,
     AudioHub.DEFEAT,
     AudioHub.GET_BOTTLE,
     AudioHub.GET_COIN,
@@ -115,14 +113,6 @@ function playBossAngrySound() {
 
 function playBossAttackSound() {
   AudioHub.playOnce(AudioHub.BOSS_ATTACK, 0.2);
-}
-
-function playChickenSound() {
-  AudioHub.playOnce(AudioHub.CHICKENS, 0.1);
-}
-
-function stopChickenSound() {
-  AudioHub.stopOne(AudioHub.CHICKENS);
 }
 
 function playErrorSound() {
