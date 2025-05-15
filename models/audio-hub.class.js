@@ -44,6 +44,7 @@ class AudioHub {
       sound.volume = volume;
       if (sound.readyState === 4) {
         sound.currentTime = 0;
+        sound.play().catch(() => {});
         sound.play();
       }
     }
@@ -61,6 +62,7 @@ class AudioHub {
       sound.loop = true;
       if (sound.readyState === 4) {
         sound.currentTime = 0;
+        sound.play().catch(() => {});
         sound.play();
       }
     }
