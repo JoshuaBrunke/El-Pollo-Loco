@@ -4,22 +4,22 @@
  */
 class Level {
   /**
-   * @type {MovableObject[]} All enemy objects in the level.
+   * @type {MovableObject[]} 
    */
   enemies;
 
   /**
-   * @type {Cloud[]} All cloud objects in the level.
+   * @type {Cloud[]} 
    */
   clouds;
 
   /**
-   * @type {BackgroundObject[]} All background elements for the level.
+   * @type {BackgroundObject[]} 
    */
   backgroundObjects;
 
   /**
-   * @type {number} X-coordinate where the level ends.
+   * @type {number} 
    */
   level_end_x = 2600;
 
