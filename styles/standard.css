@@ -23,6 +23,7 @@ body {
 .body-plain {
   background-image: none;
   background-color: black;
+  padding-inline: 5rem;
 }
 
 @font-face {
