@@ -19,7 +19,7 @@ class MutantChicken extends ChickenBase {
       left: 9,
       right: 9,
     };
-    this.x = 1200 + Math.random() * 800;
+    this.x = 1400 + Math.random() * 1000;
     this.speed = 0.75 + Math.random() * 0.3;
     this.damage = 10;
 
