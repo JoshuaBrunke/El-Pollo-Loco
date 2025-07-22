@@ -281,17 +281,15 @@ class World {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.ctx.translate(this.camera_x, 0);
     this.addObjectsToMap(this.level.backgroundObjects);
-    this.ctx.translate(-this.camera_x, 0);
-    this.addToMap(this.healthBar);
-    this.addToMap(this.bossBar);
-    this.addToMap(this.bottleBar);
-    this.addToMap(this.coinBar);
-    this.ctx.translate(this.camera_x, 0);
     this.addObjectsToMap(this.level.clouds);
     this.addObjectsToMap(this.level.enemies);
     this.addObjectsToMap(this.throwableObjects);
     this.addToMap(this.character);
     this.ctx.translate(-this.camera_x, 0);
+    this.addToMap(this.healthBar);
+    this.addToMap(this.bossBar);
+    this.addToMap(this.bottleBar);
+    this.addToMap(this.coinBar);
     this.animationFrame = requestAnimationFrame(() => this.draw());
   }
 
