@@ -217,6 +217,7 @@ class Endboss extends MovableObject {
     const character = this.world?.character;
     if (character && this.isColliding(character)) {
       character.hit(this.damage);
+      character.resetIdleTimer();
       this.world.healthBar.setPercentage(character.energy);
     }
   }

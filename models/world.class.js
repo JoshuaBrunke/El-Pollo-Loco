@@ -158,6 +158,7 @@ class World {
     if (this.gameEnded || !this.character.canBeHit()) return;
     const damage = enemy.damage || 5;
     this.character.hit(damage);
+    this.character.resetIdleTimer();
     playTakeDamageSound();
     this.healthBar.setPercentage(this.character.energy);
   }

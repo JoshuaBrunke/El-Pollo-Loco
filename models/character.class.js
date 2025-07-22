@@ -140,7 +140,6 @@ class Character extends MovableObject {
 
     if (this.longIdle()) this.sleep();
 
-    // Reset jump animation when landing
     this.resetJumpAnimation();
 
     if (this.isDead()) this.animateDeath();
@@ -220,7 +219,7 @@ class Character extends MovableObject {
    */
   jump(speed) {
     super.jump();
-    if (speed) this.speedY = speed; // Use provided speed if given
+    if (speed) this.speedY = speed;
     this.jumpAnimationComplete = false;
     this.jumpAnimationFrame = 0;
   }
@@ -230,20 +229,17 @@ class Character extends MovableObject {
    */
   playJumpAnimationOnce() {
     if (this.jumpAnimationComplete) {
-      // Hold the last frame when animation is complete
       this.img = this.imageCache[this.IMAGES_JUMPING[this.IMAGES_JUMPING.length - 1]];
       return;
     }
 
-    // Calculate which frame to show based on time
     if (!this.jumpAnimationFrame) this.jumpAnimationFrame = 0;
     
     const frameIndex = Math.floor(this.jumpAnimationFrame);
     if (frameIndex < this.IMAGES_JUMPING.length) {
       this.img = this.imageCache[this.IMAGES_JUMPING[frameIndex]];
-      this.jumpAnimationFrame += 0.8; // Control animation speed
+      this.jumpAnimationFrame += 0.8;
     } else {
-      // Animation finished, hold the last frame
       this.jumpAnimationComplete = true;
       this.img = this.imageCache[this.IMAGES_JUMPING[this.IMAGES_JUMPING.length - 1]];
     }

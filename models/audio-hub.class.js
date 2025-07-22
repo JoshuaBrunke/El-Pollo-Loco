@@ -93,7 +93,6 @@ class AudioHub {
 function playBGM() {
   AudioHub.playLoop(AudioHub.BGM, 0.2);
   
-  // Ensure BGM continues playing by checking periodically
   if (!AudioHub.BGM.bgmInterval) {
     AudioHub.BGM.bgmInterval = setInterval(() => {
       if (AudioHub.BGM.paused && !isMuted && AudioHub.BGM.readyState === 4) {
@@ -109,7 +108,6 @@ function playBGM() {
 function stopBGM() {
   AudioHub.stopOne(AudioHub.BGM);
   
-  // Clear the BGM monitoring interval
   if (AudioHub.BGM.bgmInterval) {
     clearInterval(AudioHub.BGM.bgmInterval);
     AudioHub.BGM.bgmInterval = null;
