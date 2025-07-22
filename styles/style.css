@@ -167,4 +167,19 @@
   .plain-text {
     gap: 12px;
   }
+
+  #start-button {
+    padding: 6px 11px;
+    font-size: 1.1em;
+    transform: scale(1.1);
+    margin: 10px 0;
+  }
+
+  #start-button:hover {
+    box-shadow: 0 0 6px #fae352;
+  }
+
+  #start-button:active {
+    transform: scale(1.05);
+  }
 }
