@@ -72,11 +72,12 @@ p {
 
 a {
   text-decoration: none;
-  color: white;
+  color: #fdea96;
 }
 
 a:hover {
   cursor: pointer;
+  color: #ffda3d;
 }
 
 .external-link::after {
