@@ -13,7 +13,7 @@ class Endboss extends MovableObject {
   isAttacking = false;
   isChasing = false;
   speed = 7.5;
-  damage = 20;
+  damage = 40;
   hasPlayedAngrySound = false;
 
   IMAGES_ALERT = [
