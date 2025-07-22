@@ -12,7 +12,7 @@ class Endboss extends MovableObject {
   isHurt = false;
   isAttacking = false;
   isChasing = false;
-  speed = 7.5;
+  speed = 6;
   damage = 40;
   hasPlayedAngrySound = false;
 
@@ -130,11 +130,13 @@ class Endboss extends MovableObject {
   }
 
   /**
-   * Moves the Endboss towards the player character.
+   * Moves the Endboss towards the player character and continues past them.
    */
   approach() {
     if (this.x > world.character.x + 50) {
       this.x -= this.speed;
+    } else if (this.x > 0) {
+      this.x -= this.speed * 0.5;
     }
   }
 

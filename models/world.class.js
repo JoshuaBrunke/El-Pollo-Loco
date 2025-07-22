@@ -220,6 +220,21 @@ class World {
     if (this.character.isDead()) {
       this.showGameOver();
     }
+    if (this.checkBossReachedLeft()) {
+      this.showGameOver();
+    }
+  }
+
+  /**
+   * Checks if the boss has reached the very left of the level.
+   * @returns {boolean} True if the boss is at or past the left edge.
+   */
+  checkBossReachedLeft() {
+    const boss = this.level.enemies.find(enemy => enemy instanceof Endboss);
+    if (boss && boss.isChasing && !boss.isDead) {
+      return boss.x <= 0;
+    }
+    return false;
   }
 
   /**
