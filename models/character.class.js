@@ -11,6 +11,7 @@ class Character extends MovableObject {
   lastAction = Date.now();
   isSleeping = false;
   isWalkingSoundPlaying = false;
+  jumpAnimationComplete = false;
 
   IMAGES_WALKING = [
     "./assets/img/2_character_pepe/2_walk/W-21.png",
@@ -139,10 +140,13 @@ class Character extends MovableObject {
 
     if (this.longIdle()) this.sleep();
 
+    // Reset jump animation when landing
+    this.resetJumpAnimation();
+
     if (this.isDead()) this.animateDeath();
     else if (this.isHurt()) this.playAnimation(this.IMAGES_HURT);
     else if (this.isSleeping) this.playAnimation(this.IMAGES_SLEEP);
-    else if (this.isAboveGround()) this.playAnimation(this.IMAGES_JUMPING);
+    else if (this.isAboveGround()) this.playJumpAnimationOnce();
     else if (this.isMoving()) this.playAnimation(this.IMAGES_WALKING);
     else this.playAnimation(this.IMAGES_IDLE);
     this.handleWalkingSound();
@@ -208,5 +212,50 @@ class Character extends MovableObject {
     this.lastAction = Date.now();
     this.isSleeping = false;
     stopSleepSound();
+  }
+
+  /**
+   * Override the jump method to reset jump animation when jumping.
+   * @param {number} speed - The jump speed/power.
+   */
+  jump(speed) {
+    super.jump();
+    if (speed) this.speedY = speed; // Use provided speed if given
+    this.jumpAnimationComplete = false;
+    this.jumpAnimationFrame = 0;
+  }
+
+  /**
+   * Plays the jump animation only once instead of looping.
+   */
+  playJumpAnimationOnce() {
+    if (this.jumpAnimationComplete) {
+      // Hold the last frame when animation is complete
+      this.img = this.imageCache[this.IMAGES_JUMPING[this.IMAGES_JUMPING.length - 1]];
+      return;
+    }
+
+    // Calculate which frame to show based on time
+    if (!this.jumpAnimationFrame) this.jumpAnimationFrame = 0;
+    
+    const frameIndex = Math.floor(this.jumpAnimationFrame);
+    if (frameIndex < this.IMAGES_JUMPING.length) {
+      this.img = this.imageCache[this.IMAGES_JUMPING[frameIndex]];
+      this.jumpAnimationFrame += 0.8; // Control animation speed
+    } else {
+      // Animation finished, hold the last frame
+      this.jumpAnimationComplete = true;
+      this.img = this.imageCache[this.IMAGES_JUMPING[this.IMAGES_JUMPING.length - 1]];
+    }
+  }
+
+  /**
+   * Reset jump animation when landing.
+   */
+  resetJumpAnimation() {
+    if (this.jumpAnimationComplete && !this.isAboveGround()) {
+      this.jumpAnimationComplete = false;
+      this.jumpAnimationFrame = 0;
+    }
   }
 }
