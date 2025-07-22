@@ -35,6 +35,16 @@
   box-shadow: none;
 }
 
+.button:focus {
+  outline: none;
+  border: outset 3px #fae352;
+}
+
+.button:focus:hover {
+  outline: none;
+  border: inset 3px #fae352;
+}
+
 #mobile-controls {
   position: fixed; 
   top: 0;

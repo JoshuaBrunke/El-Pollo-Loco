@@ -117,7 +117,7 @@ class Endboss extends MovableObject {
    * Plays the angry sound once at the start of the chase.
    */
   activateChase() {
-    if (!this.isChasing && world.character.x > 1900) {
+    if (!this.isChasing && world.character.x > 1600) {
       this.isChasing = true;
       if (!this.hasPlayedAngrySound) {
         playBossAngrySound();
@@ -185,8 +185,8 @@ class Endboss extends MovableObject {
   lungeAttack() {
     this.isAttacking = true;
     playBossAttackSound();
-    const distance = 80;
-    const speed = 10;
+    const distance = 140;
+    const speed = 16;
     const steps = distance / speed;
     let currentStep = 0;
     const lunge = setInterval(() => {
@@ -197,7 +197,7 @@ class Endboss extends MovableObject {
         clearInterval(lunge);
         this.endLunge();
       }
-    }, 50);
+    }, 40);
   }
 
   /**
