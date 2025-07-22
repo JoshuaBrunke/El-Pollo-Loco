@@ -4,6 +4,9 @@
  * Starts full, is depleted when taking damage.
  */
 class HealthBar extends StatusBar {
+  /**
+   * Creates a new health bar.
+   */
   constructor() {
     super(15, 15, 200, 50); 
     this.loadImages([

@@ -4,6 +4,9 @@
  * Starts full, is depleted when taking damage.
  */
 class BossBar extends StatusBar {
+    /**
+     * Creates a new boss health bar.
+     */
     constructor() {
       super(400, 15, 200, 50); 
       this.loadImages([

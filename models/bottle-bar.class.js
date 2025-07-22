@@ -4,6 +4,9 @@
  * Starts empty, fills up when collecting bottles, is depleted when throwing them.
  */
 class BottleBar extends StatusBar {
+  /**
+   * Creates a new bottle bar.
+   */
   constructor() {
     super(15, 60, 200, 50, 0); 
     this.loadImages([

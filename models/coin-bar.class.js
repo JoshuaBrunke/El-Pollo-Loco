@@ -4,6 +4,9 @@
  * Starts empty, fills up when collecting coins.
  */
 class CoinBar extends StatusBar {
+    /**
+     * Creates a new coin bar.
+     */
     constructor() {
       super(15, 105, 200, 50, 0); 
       this.loadImages([
