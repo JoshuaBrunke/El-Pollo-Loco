@@ -56,11 +56,11 @@ class AudioHub {
    * @param {number} [volume=0.2] - Volume level between 0 and 1.
    */
   static playLoop(sound, volume = 0.2) {
-    if (!isMuted) {
-      sound.volume = volume;
-      sound.loop = true;
-      if (sound.readyState === 4) {
-        sound.currentTime = 0;
+    sound.volume = volume;
+    sound.loop = true;
+    if (sound.readyState === 4) {
+      sound.currentTime = 0;
+      if (!isMuted) {
         sound.play().catch(() => {});
       }
     }

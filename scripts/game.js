@@ -251,6 +251,10 @@ function toggleMute() {
   saveMuteState();
   updateMuteButton();
   AudioHub.muteAll(isMuted);
+  
+  if (!isMuted && world && !world.gameEnded) {
+    playBGM();
+  }
 }
 
 /**
