@@ -10,7 +10,7 @@ class Chicken extends ChickenBase {
    */
   constructor() {
     super();
-    this.x = 1000 + Math.random() * 1400;
+    this.x = 850 + Math.random() * 1300;
     this.speed = 0.15 + Math.random() * 0.25;
     this.damage = 10;
 
