@@ -1,6 +1,6 @@
 /**
-* @class Level 
-* Level class for a game level including enemies, clouds, background objects, and the level's endpoint.
+ * @class Level 
+ * Level class for a game level including enemies, clouds, background objects, and the level's endpoint.
  */
 class Level {
   /**

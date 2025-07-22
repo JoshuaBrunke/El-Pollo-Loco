@@ -306,7 +306,7 @@ class World {
 
   /**
    * Draws the object in default facing direction.
-   * @param {DrawableObject} mo
+   * @param {DrawableObject} mo - The object to draw normally.
    */
   drawNormally(mo) {
     this.ctx.translate(mo.x, mo.y);
@@ -315,7 +315,7 @@ class World {
 
   /**
    * Flips the canvas horizontally before drawing the object.
-   * @param {DrawableObject} mo
+   * @param {DrawableObject} mo - The object to draw flipped.
    */
   flipContextAndDraw(mo) {
     this.ctx.translate(mo.x + mo.width, mo.y);
@@ -325,7 +325,7 @@ class World {
 
   /**
    * Calls the object's draw methods.
-   * @param {DrawableObject} mo
+   * @param {DrawableObject} mo - The object to draw.
    */
   drawObject(mo) {
     mo.draw(this.ctx);

@@ -55,7 +55,7 @@ class DrawableObject {
 
   /**
    * Determines whether a specific object type should show debug frames.
-   *  * @returns {boolean} True if debug frames should be shown.
+   * @returns {boolean} True if debug frames should be shown.
    */
   shouldShowDebugFrame() {
     return (
@@ -66,7 +66,7 @@ class DrawableObject {
   /**
    * Draws the image borders for debugging.
    *
-   * @param {CanvasRenderingContext2D} ctx
+   * @param {CanvasRenderingContext2D} ctx - The canvas context for drawing.
    */
   drawImageBorders(ctx) {
     ctx.beginPath();
@@ -79,7 +79,7 @@ class DrawableObject {
   /**
    * Draws the offset borders for debugging.
    *
-   * @param {CanvasRenderingContext2D} ctx
+   * @param {CanvasRenderingContext2D} ctx - The canvas context for drawing.
    */
   drawOffsetBorders(ctx) {
     ctx.beginPath();
