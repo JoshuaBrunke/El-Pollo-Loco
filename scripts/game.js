@@ -190,15 +190,7 @@ function resetWorld() {
  * @returns {Level} - A new Level object with fresh enemies, bottles, coins, and background objects.
  */
 function createFreshLevel() {
-  const freshEnemies = [
-    new Chicken(), new Chicken(), new Chicken(), new Chicken(), new Chicken(), new Chicken(),
-    new MutantChicken(), new MutantChicken(), new MutantChicken(), new MutantChicken(),
-    new Endboss()
-  ];
-  const freshBottles = bottlePositions.map((x) => new Bottle(x, bottleGroundY));
-  const freshCoins = coinPositions.map(([x, y]) => new Coin(x, y));
-  const freshBackground = level1.backgroundObjects.filter((obj) => obj instanceof BackgroundObject);
-  return new Level(freshEnemies, [new Cloud()], [...freshBackground, ...freshBottles, ...freshCoins]);
+  return createLevel1();
 }
 
 /**

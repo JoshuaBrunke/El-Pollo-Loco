@@ -5,7 +5,7 @@
  */
 class World {
   character = new Character();
-  level = level1;
+  level = createLevel1();
   canvas;
   ctx;
   keyboard;
