@@ -18,6 +18,7 @@ function init() {
   setupLinks();
   setupSound();
   setupMuteButton();
+  preloadBackgroundImages();
   showStartScreen();
 }
 
@@ -55,6 +56,26 @@ function showStartScreen() {
   if (isMobileDevice()) {
     document.getElementById("mobile-controls").classList.remove("dnone");
   }
+}
+
+/**
+ * Preloads background images to ensure smooth rendering when the game starts.
+ */
+function preloadBackgroundImages() {
+  const backgroundPaths = [
+    "./assets/img/5_background/layers/air.png",
+    "./assets/img/5_background/layers/3_third_layer/1.png",
+    "./assets/img/5_background/layers/3_third_layer/2.png",
+    "./assets/img/5_background/layers/2_second_layer/1.png",
+    "./assets/img/5_background/layers/2_second_layer/2.png",
+    "./assets/img/5_background/layers/1_first_layer/1.png",
+    "./assets/img/5_background/layers/1_first_layer/2.png"
+  ];
+
+  backgroundPaths.forEach(path => {
+    const img = new Image();
+    img.src = path;
+  });
 }
 
 /**
